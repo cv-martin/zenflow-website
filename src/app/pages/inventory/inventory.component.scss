@@ -256,13 +256,316 @@
       overflow: hidden;
       .dash-search-mock { background: #f1f5f9; border-radius: 12px; padding: 1rem; color: #94a3b8; font-weight: 600; font-size: 0.9rem; margin-bottom: 2rem; }
       .main-stat .val { font-size: clamp(2rem, 10vw, 4rem); font-weight: 950; color: #1e293b; }
+      
+      &.analyzing { opacity: 0.85; pointer-events: none; }
     }
   }
 }
 
 /* -------------------------------------------------------------------------- */
-/*                          4. Outcome                                        */
+/*                          5. AI Demo Intelligence Dash                      */
 /* -------------------------------------------------------------------------- */
+
+.ai-search-container {
+  margin-bottom: 2rem;
+  position: relative;
+  z-index: 100;
+
+  .search-input-wrapper {
+    background: #f1f5f9; border-radius: 12px; padding: 0.75rem 1rem; display: flex; align-items: center; gap: 0.75rem;
+    border: 2px solid transparent; transition: all 0.3s ease;
+    &.focused { background: white; border-color: var(--primary-color); box-shadow: 0 10px 30px rgba(99, 102, 241, 0.1); }
+    .ai-stars { font-size: 1rem; }
+    input { background: none; border: none; outline: none; width: 100%; font-weight: 600; color: #1e293b; font-size: 0.9rem; &::placeholder { color: #94a3b8; } }
+  }
+
+  .ai-suggestions {
+    position: absolute; top: calc(100% + 8px); left: 0; right: 0; background: white; border-radius: 14px; padding: 0.5rem;
+    box-shadow: 0 20px 50px rgba(15, 23, 42, 0.15); border: 1px solid #f1f5f9; animation: modalSlideUp 0.3s ease;
+    
+    .suggestion-item {
+      padding: 0.75rem 1rem; border-radius: 8px; font-size: 0.85rem; font-weight: 700; color: #475569; cursor: pointer; display: flex; align-items: center; gap: 0.75rem; transition: all 0.2s ease;
+      &:hover { background: #f8fafc; color: var(--primary-color); transform: translateX(4px); }
+      .icon { font-size: 1rem; }
+    }
+  }
+}
+
+/* -------------------------------------------------------------------------- */
+/*                         V5: NETWORK COMMAND CENTER                         */
+/* -------------------------------------------------------------------------- */
+
+.command-center-visual {
+  margin: 4rem auto;
+  max-width: 900px;
+  background: #0f172a;
+  border-radius: 40px;
+  padding: 4rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 40px 100px -20px rgba(0, 0, 0, 0.4);
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 50% 50%, rgba(99, 102, 241, 0.1), transparent);
+    pointer-events: none;
+  }
+
+  .network-matrix {
+    position: relative;
+    height: 450px;
+    
+    .network-node {
+      position: absolute;
+      background: rgba(30, 41, 59, 0.8);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 1rem;
+      border-radius: 16px;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+      z-index: 10;
+
+      .location-ping {
+        width: 8px; height: 8px; background: #6366f1; border-radius: 50%; margin-bottom: 0.75rem;
+        box-shadow: 0 0 15px #6366f1;
+        &::after { content: ''; position: absolute; width: 100%; height: 100%; top: 0; left: 0; border: 1px solid #6366f1; border-radius: 50%; animation: ping 2s infinite; }
+      }
+
+      .node-label { font-size: 0.65rem; font-weight: 900; color: white; letter-spacing: 0.1em; margin-bottom: 0.5rem; }
+      .node-telemetry {
+        display: flex; flex-direction: column; gap: 4px;
+        span { font-size: 0.6rem; font-weight: 700; color: #94a3b8; }
+        .warning { color: #f59e0b; }
+      }
+
+      &.bom { top: 60%; left: 15%; }
+      &.del { top: 20%; left: 50%; transform: translateX(-50%); }
+      &.blr { top: 70%; left: 75%; }
+
+      &.active-node {
+        border-color: #10b981;
+        background: rgba(6, 78, 59, 0.4);
+        transform: scale(1.1);
+        .location-ping { background: #10b981; box-shadow: 0 0 20px #10b981; }
+      }
+    }
+
+    .global-floating-stats {
+      position: absolute; top: 10%; right: 5%; padding: 1.5rem; border-radius: 20px;
+      display: flex; flex-direction: column; gap: 1rem;
+      .g-stat {
+        .l { display: block; font-size: 0.55rem; font-weight: 900; color: #64748b; margin-bottom: 4px; }
+        .v { font-size: 1.25rem; font-weight: 950; color: white; }
+        .v.green { color: #10b981; }
+      }
+    }
+
+    .network-paths {
+      position: absolute; inset: 0; width: 100%; height: 100%;
+      path {
+        stroke-width: 2;
+        transition: all 0.5s ease;
+        &.flowing {
+          stroke: #6366f1;
+          stroke-width: 3;
+          stroke-dasharray: 10;
+          animation: pathFlow 10s linear infinite;
+        }
+      }
+    }
+  }
+}
+
+.command-preview {
+  background: #0f172a !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+  
+  .ai-search-container {
+    .search-input-wrapper { background: #1e293b; input { color: white; } }
+  }
+  
+  .dash-main-stat {
+    label { color: #64748b; }
+    .val { color: white !important; }
+  }
+}
+
+.network-sonar {
+  width: 60px; height: 60px; border-radius: 50%; border: 2px solid #6366f1; margin: 0 auto 1.5rem; position: relative;
+  .sonar-wave {
+    position: absolute; inset: 0; border: 2px solid #6366f1; border-radius: 50%;
+    animation: sonar 2s ease-out infinite;
+  }
+}
+
+.redistribution-modal {
+  .redistribution-visual {
+    background: #0f172a; border-radius: 20px; padding: 2rem;
+    .location-flow {
+      display: flex; align-items: center; justify-content: space-between; margin-bottom: 2rem;
+      .l-box {
+        background: #1e293b; padding: 1rem; border-radius: 12px; text-align: center;
+        span { display: block; font-weight: 900; color: white; }
+        small { font-size: 0.6rem; color: #64748b; font-weight: 700; }
+      }
+      .flow-arrow { font-size: 1.5rem; color: #6366f1; animation: flowMove 1s infinite; }
+    }
+    .impact-stats {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;
+      .i-stat {
+        background: rgba(16, 185, 129, 0.1); padding: 1rem; border-radius: 12px; border: 1px solid rgba(16, 185, 129, 0.2);
+        span { display: block; font-size: 0.6rem; font-weight: 900; color: #10b981; margin-bottom: 4px; }
+        strong { font-size: 1rem; font-weight: 950; color: white; }
+      }
+    }
+  }
+}
+
+@keyframes ping { 0% { transform: scale(1); opacity: 1; } 100% { transform: scale(3); opacity: 0; } }
+@keyframes pathFlow { from { stroke-dashoffset: 200; } to { stroke-dashoffset: 0; } }
+@keyframes sonar { 0% { transform: scale(0.8); opacity: 1; } 100% { transform: scale(2.5); opacity: 0; } }
+@keyframes flowMove { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(10px); } }
+
+.dash-main-stat {
+  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  margin-bottom: 2rem;
+  position: relative;
+
+  label { font-size: 0.75rem; font-weight: 800; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.08em; display: block; margin-bottom: 0.25rem; }
+  .stat-row { 
+    display: flex; align-items: baseline; gap: 0.75rem; 
+    .val { 
+      font-size: clamp(2.2rem, 4vw, 3rem); font-weight: 950; color: #0f172a; transition: all 0.4s ease;
+      &.flash-green { animation: activeValueBloom 0.8s cubic-bezier(0.16, 1, 0.3, 1); color: #059669; }
+    }
+    .trend { font-size: 0.9rem; font-weight: 800; color: #059669; }
+  }
+
+  &.active-ai {
+    background: #f8fafc; padding: 1rem 1.25rem; border-radius: 16px; margin-bottom: 1.5rem; display: flex; align-items: center; justify-content: space-between; border: 1px solid #f1f5f9;
+    label { margin: 0; font-size: 0.65rem; color: #94a3b8; }
+    .stat-row { gap: 0.5rem; .val { font-size: 1.15rem; &.flash-green { color: #059669; animation: none; } } .trend { font-size: 0.75rem; color: #059669; } }
+    .live-indicator-wrapper { display: flex; align-items: center; gap: 6px; font-size: 0.6rem; font-weight: 950; color: #059669; letter-spacing: 0.05em; .live-dot { width: 6px; height: 6px; background: #059669; border-radius: 50%; animation: livePulse 1s infinite; } }
+    .live-tether { position: absolute; bottom: -15px; left: 50%; transform: translateX(-50%); width: 2px; height: 15px; background: linear-gradient(to bottom, #f1f5f9, var(--primary-color)); opacity: 0.4; animation: tetherGlow 2s infinite; }
+  }
+}
+
+.ai-thinking-state {
+  padding: 3rem 0; text-align: center;
+  .brain-loader { 
+    width: 40px; height: 40px; background: var(--primary-color); border-radius: 50%; margin: 0 auto 1.5rem; position: relative;
+    .pulse { position: absolute; width: 100%; height: 100%; background: var(--primary-color); border-radius: 50%; opacity: 0.4; animation: thinkingPulse 1.5s infinite; }
+  }
+  p { font-size: 0.9rem; font-weight: 800; color: #64748b; letter-spacing: 0.05em; }
+}
+
+.ai-insight-card {
+  background: white; border-radius: 20px; padding: 1.5rem; border: 1px solid #f1f5f9; box-shadow: 0 20px 50px -10px rgba(15, 23, 42, 0.1); 
+  position: relative; overflow: hidden; animation: modalSlideUp 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+
+  &.forecast { border-left: 4px solid #6366f1; .tag { background: #6366f1; color: white; } }
+  &.alert { border-left: 4px solid #f59e0b; .tag { background: #f59e0b; color: white; } }
+  &.analysis { border-left: 4px solid #10b981; .tag { background: #10b981; color: white; } }
+
+  .insight-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; .tag { font-size: 0.6rem; font-weight: 900; padding: 4px 8px; border-radius: 4px; letter-spacing: 0.1em; } .close-card { background: none; border: none; font-size: 1.25rem; color: #94a3b8; cursor: pointer; } }
+  h3 { font-size: 1.25rem; font-weight: 900; color: #0f172a; margin-bottom: 0.75rem; }
+  p { font-size: 0.9rem; color: #475569; line-height: 1.5; margin-bottom: 1.5rem; }
+  .action-btn-pill { background: #f1f5f9; border: none; padding: 0.75rem 1.25rem; border-radius: 99px; font-weight: 800; font-size: 0.8rem; color: #1e293b; cursor: pointer; transition: all 0.2s ease; &:hover { background: #e2e8f0; transform: translateY(-2px); } }
+}
+
+/* -------------------------------------------------------------------------- */
+/*                         LINT FIXES & MODALS                                */
+/* -------------------------------------------------------------------------- */
+
+.modal-overlay {
+  position: fixed; inset: 0; background: rgba(15, 23, 42, 0.8);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  display: flex; align-items: center; justify-content: center; z-index: 1000; padding: 1rem;
+}
+.glass-card { background: rgba(255, 255, 255, 0.95); border: 1px solid rgba(255, 255, 255, 0.2); }
+
+/* Re-using some core AI styles for consistency */
+.ai-insight-card {
+  &.analysis { border-left: 4px solid #10b981; .tag { background: #10b981; color: white; } }
+  &.forecast { border-left: 4px solid #6366f1; .tag { background: #6366f1; color: white; } }
+  // ...
+}
+
+@keyframes modalSlideUp { from { opacity: 0; transform: translateY(40px) scale(0.95); } to { opacity: 1; transform: translateY(0) scale(1); } }
+@keyframes thinkingPulse { 0% { transform: scale(1); opacity: 0.4; } 100% { transform: scale(2.5); opacity: 0; } }
+@keyframes livePulse { 0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); } 100% { box-shadow: 0 0 0 8px rgba(16, 185, 129, 0); } }
+@keyframes tetherGlow { 0%, 100% { opacity: 0.3; height: 10px; } 50% { opacity: 0.8; height: 15px; } }
+@keyframes activeValueBloom { 0% { transform: scale(1); filter: brightness(1); } 30% { transform: scale(1.05); filter: brightness(1.2); color: #059669; } 100% { transform: scale(1); filter: brightness(1); } }
+
+/* Inventory Specific Modal Visuals */
+.checkout-modal, .scale-modal {
+  width: 100%; max-width: 500px; padding: 2.5rem; border-radius: 28px; animation: modalSlideUp 0.4s ease;
+  .modal-header { display: flex; justify-content: space-between; margin-bottom: 2rem; .eyebrow { font-size: 0.7rem; font-weight: 900; color: var(--primary-color); letter-spacing: 0.1em; } h2 { font-size: 1.75rem; font-weight: 950; color: #0f172a; margin: 5px 0 0; } .close-modal { background: #f1f5f9; border: none; width: 32px; height: 32px; border-radius: 50%; cursor: pointer; } }
+  .audit-visual-stack, .stock-gap-visual {
+    height: 180px;
+    position: relative;
+    margin-bottom: 2rem;
+    display: flex;
+    justify-content: center;
+    perspective: 1000px;
+  }
+
+  .audit-visual-stack {
+    .audit-card {
+      position: absolute; width: 180px; padding: 1.25rem; border-radius: 16px; text-align: left; transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+      .card-tag { font-size: 0.6rem; font-weight: 900; color: #94a3b8; letter-spacing: 0.1em; margin-bottom: 0.5rem; }
+      .card-status { font-size: 0.8rem; font-weight: 800; color: #10b981; margin-bottom: 0.25rem; }
+      .card-stat { font-size: 0.7rem; font-weight: 700; color: #64748b; }
+      &.back { transform: translateZ(-60px) translateY(-30px) translateX(-40px) rotate(-5deg); opacity: 0.4; }
+      &.middle { transform: translateZ(-30px) translateY(-15px) translateX(20px) rotate(3deg); opacity: 0.7; }
+      &.front { transform: translateZ(20px); z-index: 10; box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
+    }
+  }
+
+  .stock-gap-visual {
+    .gap-card {
+      position: absolute; width: 200px; padding: 1.25rem; border-radius: 16px; text-align: left; transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+      .day-label { font-size: 0.6rem; font-weight: 950; color: #94a3b8; letter-spacing: 0.1em; margin-bottom: 0.75rem; }
+      .gap-value { font-size: 1.25rem; font-weight: 950; color: #1e293b; margin-bottom: 0.5rem; }
+      .status-warning { font-size: 0.65rem; font-weight: 900; color: #ef4444; background: rgba(239, 68, 68, 0.1); padding: 4px 8px; border-radius: 4px; display: inline-block; }
+      .status-ok { font-size: 0.65rem; font-weight: 900; color: #10b981; background: rgba(16, 185, 129, 0.1); padding: 4px 8px; border-radius: 4px; display: inline-block; }
+
+      &.day-15 { transform: translateZ(-80px) translateY(-40px) translateX(40px) rotate(8deg); opacity: 0.3; border-left: 4px solid #ef4444; }
+      &.day-7 { transform: translateZ(-40px) translateY(-20px) translateX(-20px) rotate(-4deg); opacity: 0.6; border-left: 4px solid #f59e0b; }
+      &.day-now { transform: translateZ(30px); z-index: 10; border-left: 4px solid #10b981; box-shadow: 0 30px 60px rgba(0,0,0,0.12); }
+    }
+  }
+
+  .audit-summary-footer, .forecast-details {
+    background: #f8fafc; padding: 1.5rem; border-radius: 20px; margin-bottom: 2rem;
+  }
+
+  .audit-summary-footer {
+    display: flex; align-items: flex-start; gap: 1rem;
+    .status-icon { width: 24px; height: 24px; background: #10b981; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; flex-shrink: 0; }
+    p { font-size: 0.9rem; color: #475569; margin: 0; line-height: 1.5; text-align: left; }
+  }
+
+  .forecast-details {
+    text-align: left;
+    .detail-row { display: flex; justify-content: space-between; margin-bottom: 0.75rem; span { color: #64748b; font-weight: 600; font-size: 0.85rem; } strong { color: #1e293b; font-weight: 800; &.green { color: #10b981; } } }
+    .forecast-alert { margin-top: 1rem; padding-top: 1rem; border-top: 1px solid #e2e8f0; font-size: 0.8rem; color: #ef4444; font-weight: 700; }
+  }
+
+  .btn-primary-glow, .btn-scale-commit, .btn-primary.w-full { 
+    width: 100%; padding: 1.1rem; background: var(--primary-color); color: white; border: none; border-radius: 14px; font-weight: 800; cursor: pointer; box-shadow: 0 10px 25px rgba(99, 102, 241, 0.25); transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    &:hover { transform: translateY(-3px); box-shadow: 0 20px 40px rgba(99, 102, 241, 0.35); filter: brightness(1.1); }
+  }
+  
+  .staffing-visual { background: #0f172a; border-radius: 16px; padding: 1.5rem; margin-bottom: 1.5rem; .map-label { font-size: 0.65rem; color: #64748b; font-weight: 800; margin-bottom: 1rem; } .heatmap-grid { display: flex; gap: 8px; .h-cell { flex: 1; height: 40px; border-radius: 8px; &.high { background: #4f46e5; opacity: 0.8; } &.mid { background: #6366f1; opacity: 0.6; } &.low { background: #818cf8; opacity: 0.4; } } } }
+  .scale-info-box { display: flex; gap: 10px; background: rgba(99, 102, 241, 0.05); padding: 1rem; border-radius: 12px; p { font-size: 0.85rem; color: #4338ca; margin: 0; } }
+}
+
 .outcome-section {
   padding: 12rem 0; background: white; text-align: center;
   .outcome-container {

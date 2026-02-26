@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, ChangeDetectorRef, ViewChild, ElementRef, OnDestroy } from '@angular/core';
+import { CommonModule, CurrencyPipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { FinalCtaComponent } from '../../components/final-cta/final-cta.component';
 
@@ -7,6 +7,7 @@ import { FinalCtaComponent } from '../../components/final-cta/final-cta.componen
   selector: 'app-accounting',
   standalone: true,
   imports: [CommonModule, RouterLink, FinalCtaComponent],
+  providers: [CurrencyPipe],
   template: `
     <div class="container page-content">
       <!-- SECTION 1: Centered Hero (Sync Parity + Ledger Visual) -->
@@ -63,7 +64,7 @@ import { FinalCtaComponent } from '../../components/final-cta/final-cta.componen
                   <path d="M0,140 Q150,140 400,100" class="path-baseline" />
                   <circle cx="200" cy="60" r="4" class="current-marker" />
                   <rect x="180" y="30" width="80" height="20" rx="4" class="date-callout" />
-                  <text x="185" y="44" class="callout-text">₹ 2,38,758</text>
+                  <text x="185" y="44" class="callout-text">{{ netPosition | currency:'INR':'symbol':'1.0-0' }}</text>
                 </svg>
               </div>
 
@@ -154,7 +155,7 @@ import { FinalCtaComponent } from '../../components/final-cta/final-cta.componen
         
         <div class="split-content-v4">
           <div class="ops-list-v4">
-            <div class="ops-card-v4 active">
+            <div class="ops-card-v4" [class.active]="!showInsight && !isAnalyzing">
               <h3>Automated Journal Posting</h3>
               <p>Sales, returns, and expenses are automatically categorized and posted to their respective ledgers in real-time.</p>
             </div>
@@ -169,26 +170,186 @@ import { FinalCtaComponent } from '../../components/final-cta/final-cta.componen
           </div>
 
           <div class="ops-visual-v4">
-            <div class="dashboard-preview glass-card">
-              <div class="dash-top">
-                <div class="dash-search-mock">✨ Finalizing April Books...</div>
-              </div>
-              <div class="dash-main-stat">
-                <label>Tax Liability (Estimated)</label>
-                <div class="stat-row">
-                  <span class="val">₹ 1.2M</span>
-                  <span class="trend down">↓ 4.1%</span>
+            <div class="dashboard-preview glass-card" [class.analyzing]="isAnalyzing">
+              
+              <!-- COGNITIVE SEARCH HUB (Accounting Context) -->
+              <div class="ai-search-container" (mousedown)="$event.stopPropagation()">
+                <div class="search-input-wrapper" [class.focused]="isFocused">
+                  <span class="ai-stars">✨</span>
+                  <input #aiInput 
+                         type="text" 
+                         [placeholder]="placeholderText"
+                         (focus)="isFocused = true"
+                         (blur)="isFocused = false"
+                         (keydown.enter)="triggerAnalysis(aiInput.value)">
+                </div>
+
+                <!-- Suggestions Dropdown -->
+                <div class="ai-suggestions" *ngIf="isFocused && !isAnalyzing && !showInsight">
+                  <div class="suggestion-item" *ngFor="let s of accountingSuggestions" (mousedown)="triggerAnalysis(s.query)">
+                    <span class="icon">{{ s.icon }}</span> {{ s.label }}
+                  </div>
                 </div>
               </div>
-              <div class="dash-mini-grid">
+
+              <!-- Content Area -->
+              <div class="dash-content-area">
+                
+                <!-- Persistent Net Position (Live Ticker) -->
+                <div class="dash-main-stat" [class.active-ai]="isAnalyzing || showInsight">
+                  <div class="live-indicator-wrapper" *ngIf="isAnalyzing || showInsight">
+                    <span class="live-dot"></span> LIVE
+                  </div>
+                  <label>Monthly Net Position</label>
+                  <div class="stat-row">
+                    <span class="val" [class.flash-green]="netPosition !== lastNetPosition">
+                      {{ netPosition | currency:'INR':'symbol':'1.0-0' }}
+                    </span>
+                    <span class="trend up">↑ 8.4%</span>
+                  </div>
+                  <div class="live-tether" *ngIf="isAnalyzing || showInsight"></div>
+                </div>
+
+                <!-- THINKING STATE -->
+                <div class="ai-thinking-state" *ngIf="isAnalyzing">
+                  <div class="brain-loader">
+                    <div class="pulse"></div>
+                  </div>
+                  <p>{{ analysisMode }}</p>
+                </div>
+
+                <!-- INSIGHT CARD -->
+                <div class="ai-insight-card {{ insightTheme }}" *ngIf="showInsight && !isAnalyzing">
+                  <div class="theme-accent-visual">
+                    <div class="wave-box" *ngIf="insightTheme === 'forecast'">
+                      <div class="wave"></div><div class="wave"></div><div class="wave"></div>
+                    </div>
+                    <div class="alert-pulse" *ngIf="insightTheme === 'alert'"></div>
+                    <div class="sync-grid" *ngIf="insightTheme === 'analysis'">
+                      <span></span><span></span><span></span><span></span>
+                    </div>
+                  </div>
+                  
+                  <div class="insight-header">
+                    <span class="tag">AI INSIGHT</span>
+                    <button class="close-card" (click)="showInsight = false">×</button>
+                  </div>
+                  <h3>{{ insightTitle }}</h3>
+                  <p [innerHTML]="insightText"></p>
+                  <button class="action-btn-pill" (click)="handleInsightAction()">
+                    {{ insightAction }}
+                  </button>
+                </div>
+
+              </div>
+
+              <div class="dash-mini-grid" *ngIf="!showInsight && !isAnalyzing">
                 <div class="mini-bar"></div>
-                <div class="mini-bar"></div>
+                <div class="mini-bar :mini-bar"></div>
                 <div class="mini-bar"></div>
               </div>
             </div>
           </div>
         </div>
       </section>
+
+      <!-- MODALS: Accounting Strategic Actions -->
+
+      <!-- SETTLEMENT TRIAGE MODAL -->
+      <div class="modal-overlay" *ngIf="showSettlementModal" (click)="closeSettlementModal()">
+        <div class="checkout-modal glass-card" (click)="$event.stopPropagation()">
+           <div class="modal-header">
+             <div class="title-group">
+               <span class="eyebrow">CASHFLOW AUDIT</span>
+               <h2>Settlement Triage</h2>
+             </div>
+             <button class="close-modal" (click)="closeSettlementModal()">×</button>
+           </div>
+           <div class="modal-body">
+              <div class="optimization-status">
+                <div class="pulse-ring"></div>
+                <span class="status-text">Scanning settlements for April...</span>
+              </div>
+              <div class="channel-success-list">
+                <div class="channel-item">
+                  <div class="channel-info"><span class="name">UPI (Razorpay)</span><span class="score green">99.2% Matched</span></div>
+                  <div class="channel-bar"><div class="fill green" style="width: 90%"></div></div>
+                </div>
+                <div class="channel-item">
+                  <div class="channel-info"><span class="name">Card (HDFC)</span><span class="score yellow">Pending ₹1.2L</span></div>
+                  <div class="channel-bar"><div class="fill yellow" style="width: 60%"></div></div>
+                </div>
+              </div>
+              <div class="recommendation-box">
+                <div class="icon">✨</div>
+                <p>AI identified ₹12,400 in unmatched settlements due to bank holiday delays. Re-syncing now.</p>
+              </div>
+           </div>
+           <div class="modal-footer">
+             <button class="btn-primary-glow w-full" (click)="closeSettlementModal()">Sync All Settlements</button>
+           </div>
+        </div>
+      </div>
+
+      <!-- TAX PROVISION MODAL -->
+      <div class="modal-overlay" *ngIf="showTaxModal" (click)="closeTaxModal()">
+        <div class="scale-modal glass-card" (click)="$event.stopPropagation()">
+           <div class="modal-header">
+             <div class="title-group">
+               <span class="eyebrow">COMPLIANCE HUB</span>
+               <h2>Tax Provision Forecast</h2>
+             </div>
+             <button class="close-modal" (click)="closeTaxModal()">×</button>
+           </div>
+           <div class="modal-body">
+              <div class="staffing-visual">
+                <div class="map-label">Monthly GST Liability Stream</div>
+                <div class="heatmap-grid">
+                  <div class="h-cell high" title="IGST"></div>
+                  <div class="h-cell mid" title="CGST"></div>
+                  <div class="h-cell mid" title="SGST"></div>
+                </div>
+              </div>
+              <div class="scale-info-box">
+                <div class="ai-burst">⚡</div>
+                <p>Projected GSTR-3B liability: <strong>₹4.2L</strong>. AI recommends provisioning ₹1.5L today to maintain liquidity.</p>
+              </div>
+           </div>
+           <div class="modal-footer">
+             <button class="btn-scale-commit w-full" (click)="closeTaxModal()">Allocate Tax Provision</button>
+           </div>
+        </div>
+      </div>
+
+      <!-- AUDIT LOG MODAL -->
+      <div class="modal-overlay" *ngIf="showAuditModal" (click)="closeAuditModal()">
+        <div class="scale-modal glass-card" (click)="$event.stopPropagation()">
+           <div class="modal-header">
+             <div class="title-group">
+               <span class="eyebrow">LEDGER INTELLIGENCE</span>
+               <h2>Audit Log Explorer</h2>
+             </div>
+             <button class="close-modal" (click)="closeAuditModal()">×</button>
+           </div>
+           <div class="modal-body">
+              <div class="staffing-visual">
+                <div class="map-label">Anomalous Activity Triggers</div>
+                <div class="heatmap-grid">
+                  <div class="h-cell high" title="Duplicate Entry"></div>
+                  <div class="h-cell mid" title="High Expense"></div>
+                  <div class="h-cell low" title="System Correction"></div>
+                </div>
+              </div>
+              <div class="scale-info-box">
+                <div class="ai-burst">🕵️</div>
+                <p>Reviewing unusual petty cash spikes in <strong>Pune Branch</strong>. AI found 3 duplicate receipt filings.</p>
+              </div>
+           </div>
+           <div class="modal-footer">
+             <button class="btn-scale-commit w-full" (click)="closeAuditModal()">Mark for Manager Review</button>
+           </div>
+        </div>
+      </div>
 
       <!-- SECTION 4: Outcome Section (Matching Suite) -->
       <section class="outcome-section">
@@ -227,4 +388,113 @@ import { FinalCtaComponent } from '../../components/final-cta/final-cta.componen
   `,
   styleUrl: './accounting.component.scss'
 })
-export class AccountingComponent { }
+export class AccountingComponent implements OnDestroy { 
+  @ViewChild('aiInput') aiInput!: ElementRef<HTMLInputElement>;
+
+  // AI Demo State
+  isFocused = false;
+  isAnalyzing = false;
+  showInsight = false;
+  currentQuery = '';
+  
+  // Modals
+  showSettlementModal = false;
+  showTaxModal = false;
+  showAuditModal = false;
+
+  // Accounting suggestions
+  accountingSuggestions = [
+    { label: 'Audit Cash Flow Settlements', query: 'Audit cash flow...', icon: '💹' },
+    { label: 'Forecast Tax Liability', query: 'Forecast tax...', icon: '📑' },
+    { label: 'Analyze Expense Leakage', query: 'Analyze expenses...', icon: '🔎' }
+  ];
+
+  // Live Ticker Data
+  netPosition = 12400000;
+  lastNetPosition = 12400000;
+  placeholderText = 'Ask AI for financial insights';
+  analysisMode = 'Analyzing...';
+  
+  // Insight Items
+  insightTitle = '';
+  insightText = '';
+  insightAction = '';
+  insightTheme = 'default';
+
+  private tickerInterval: any;
+
+  constructor(private cdr: ChangeDetectorRef) {
+    this.startLivePositionTicker();
+  }
+
+  ngOnDestroy() {
+    if (this.tickerInterval) clearInterval(this.tickerInterval);
+  }
+
+  startLivePositionTicker() {
+    this.tickerInterval = setInterval(() => {
+      this.lastNetPosition = this.netPosition;
+      // fluctuate +/- 2000 to 8000
+      const change = Math.floor(Math.random() * 6000) + 2000;
+      this.netPosition += Math.random() > 0.4 ? change : -change;
+      this.cdr.markForCheck();
+    }, 4000);
+  }
+
+  triggerAnalysis(query: string) {
+    if (!query) return;
+    
+    this.currentQuery = query;
+    this.isAnalyzing = true;
+    this.showInsight = false;
+    this.isFocused = false;
+    
+    // UI Feedback: Set input value visually
+    if (this.aiInput) this.aiInput.nativeElement.value = query;
+
+    // Routing Logic based on query
+    if (query.includes('audit') || query.includes('settlement')) {
+      this.analysisMode = 'Reconciling Gateway Settlements...';
+      this.insightTheme = 'analysis';
+      this.insightTitle = 'Cashflow Audit Ready';
+      this.insightText = 'Reconciled 1,240 transactions against Razorpay settlements. Identified <strong>₹12.4k leakage</strong> in pending bank transfers.';
+      this.insightAction = 'Reconcile Settlements';
+    } else if (query.includes('tax') || query.includes('provision')) {
+      this.analysisMode = 'Calculating GST Provisions...';
+      this.insightTheme = 'alert';
+      this.insightTitle = 'Tax Forecast Alert';
+      this.insightText = 'Projected GSTR-3B liability for April: <strong>₹4.2L</strong>. Recommended tax provision: ₹1.5L.';
+      this.insightAction = 'Provision GST';
+    } else {
+      this.analysisMode = 'Scanning Ledger Anomalies...';
+      this.insightTheme = 'forecast';
+      this.insightTitle = 'Expense Optimization';
+      this.insightText = 'Unusual spike in petty cash detected at Pune branch. 3 potential <strong>duplicate entries found</strong>.';
+      this.insightAction = 'Review Anomalies';
+    }
+
+    setTimeout(() => {
+      this.isAnalyzing = false;
+      this.showInsight = true;
+      this.cdr.markForCheck();
+    }, 700); 
+  }
+
+  handleInsightAction() {
+    switch (this.insightAction) {
+      case 'Reconcile Settlements': this.openSettlementModal(); break;
+      case 'Provision GST': this.openTaxModal(); break;
+      case 'Review Anomalies': this.openAuditModal(); break;
+    }
+  }
+
+  // Modals
+  openSettlementModal() { this.showSettlementModal = true; this.cdr.markForCheck(); }
+  closeSettlementModal() { this.showSettlementModal = false; this.cdr.markForCheck(); }
+
+  openTaxModal() { this.showTaxModal = true; this.cdr.markForCheck(); }
+  closeTaxModal() { this.showTaxModal = false; this.cdr.markForCheck(); }
+
+  openAuditModal() { this.showAuditModal = true; this.cdr.markForCheck(); }
+  closeAuditModal() { this.showAuditModal = false; this.cdr.markForCheck(); }
+}

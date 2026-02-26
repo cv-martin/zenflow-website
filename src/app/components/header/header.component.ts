@@ -66,7 +66,7 @@ import { CommonModule } from '@angular/common';
       z-index: 1000;
       display: flex;
       align-items: center;
-      transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+      transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
       background: rgba(255, 255, 255, 0.01);
       backdrop-filter: blur(8px);
       -webkit-backdrop-filter: blur(8px);
@@ -117,7 +117,7 @@ import { CommonModule } from '@angular/common';
       gap: 0.5rem;
       opacity: 0;
       transform: translateX(-10px);
-      transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+      transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
       pointer-events: none;
       white-space: nowrap;
       
@@ -231,7 +231,7 @@ import { CommonModule } from '@angular/common';
       align-items: center;
       gap: 1.25rem;
       transform: translateX(100%);
-      transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+      transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
       z-index: 1001;
       opacity: 0;
       visibility: hidden; /* Prevent horizontal scroll when closed */
@@ -248,7 +248,7 @@ import { CommonModule } from '@angular/common';
         letter-spacing: -0.02em;
         opacity: 0;
         transform: translateY(20px);
-        transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        transition: all 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
         border-radius: 16px;
         
         &.active { 
@@ -286,7 +286,7 @@ import { CommonModule } from '@angular/common';
             transform: translateY(0);
             
             @for $i from 1 through 7 {
-                &:nth-child(#{$i}) { transition-delay: #{$i * 0.05}s; }
+                &:nth-child(#{$i}) { transition-delay: #{$i * 0.03}s; }
             }
         }
       }

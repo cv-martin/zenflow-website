@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, ChangeDetectorRef, ViewChild, ElementRef, OnDestroy } from '@angular/core';
+import { CommonModule, CurrencyPipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { FinalCtaComponent } from '../../components/final-cta/final-cta.component';
 
@@ -7,209 +7,405 @@ import { FinalCtaComponent } from '../../components/final-cta/final-cta.componen
   selector: 'app-inventory',
   standalone: true,
   imports: [CommonModule, RouterLink, FinalCtaComponent],
+  providers: [CurrencyPipe],
   template: `
     <div class="container page-content">
-      <!-- SECTION 1: Centered Hero (Sync Parity + Capital Hub Visual) -->
+      <!-- SECTION 1: Network Intelligence Hero -->
       <section class="hero-section reveal-active">
-        <div class="eyebrow">INVENTORY ORCHESTRATION</div>
-        <h1 class="gradient-text"><span class="text-highlight-pink">Inventory Orchestration.</span><br>Unlock Capital Trapped in Your Warehouse.</h1>
-        <p>Reduce inventory holding costs by 20% through automated capital optimization. Achieving real-time liquidity across complex supply chains.</p>
+        <div class="eyebrow">GLOBAL WAREHOUSE ORCHESTRATION</div>
+        <h1 class="gradient-text"><span class="text-highlight-pink">Network Intelligence.</span><br>Monitor All Locations at Once.</h1>
+        <p>Zenflow AI tracks stock velocity, warehouse temperature, and capital efficiency across your entire global network, resolving imbalances before they impact your margin.</p>
 
         <div class="hero-cta">
-          <a routerLink="/contact" class="btn-primary">Analyze Capital Efficiency</a>
+          <a routerLink="/contact" class="btn-primary">View Global Health</a>
         </div>
 
-        <!-- 3D Capital Hub Visual -->
-        <div class="hero-visual-fleet-v4">
-          <div class="fleet-container">
-            <!-- Back Card (Aging Stock) -->
-            <div class="terminal-card-v4 terminal-back secondary-card glass-card">
-              <div class="terminal-header">
-                <span>SEGMENT: SLOW MOVING</span>
-                <span class="status-sync">● OPTIMIZING</span>
+        <!-- NEW: Global Network Command Center (Visual V5) -->
+        <div class="command-center-visual">
+          <div class="network-matrix">
+            <!-- Global Map Silhouette (Background) -->
+            <div class="network-node bom" [class.active-node]="isAnalyzing">
+              <div class="location-ping"></div>
+              <div class="node-label">BOM-01 (MUMBAI)</div>
+              <div class="node-telemetry">
+                <span>Temp: 22°C</span>
+                <span>Cap: 84%</span>
               </div>
-              <div class="terminal-rows">
-                <div class="t-row mini"><span>Aging Factor: 0.82</span></div>
-                <div class="t-progress-v4"><div class="t-fill"></div></div>
+            </div>
+            
+            <div class="network-node del" [class.active-node]="isAnalyzing && currentQuery.includes('rebalance')">
+              <div class="location-ping"></div>
+              <div class="node-label">DEL-04 (DELHI)</div>
+              <div class="node-telemetry">
+                <span>Temp: 24°C</span>
+                <span class="warning">Cap: 98%</span>
               </div>
             </div>
 
-            <!-- Middle Card (High Velocity) -->
-            <div class="terminal-card-v4 terminal-middle secondary-card glass-card">
-              <div class="terminal-header">
-                <span>SEGMENT: HIGH VELOCITY</span>
-                <span class="status-live">● PEAK</span>
-              </div>
-              <div class="terminal-rows">
-                <div class="t-row mini"><span>SKU-44: 12 Sales/Hr</span></div>
+            <div class="network-node blr" [class.active-node]="isAnalyzing">
+              <div class="location-ping"></div>
+              <div class="node-label">BLR-02 (BANGALORE)</div>
+              <div class="node-telemetry">
+                <span>Temp: 21°C</span>
+                <span>Cap: 62%</span>
               </div>
             </div>
 
-            <!-- Main Card (Capital Matrix) -->
-            <div class="terminal-card-v4 terminal-main glass-card">
-              <div class="terminal-header">
-                <span>CAPITAL ALLOCATION</span>
-                <span class="status-live">● HEALTHY</span>
+            <!-- Global Stats Overlay -->
+            <div class="global-floating-stats glass-card">
+              <div class="g-stat">
+                <span class="l">TOTAL WAREHOUSE VALUE</span>
+                <span class="v">{{ valuation | currency:'INR':'symbol':'1.0-0' }}</span>
               </div>
-              <div class="terminal-rows">
-                <div class="t-row"><span>Total Stock Value</span><span>₹ 4.2M</span></div>
-                <div class="t-row"><span>Net Liquidity</span><span>84.2%</span></div>
-                <div class="t-total-row">
-                  <span>UNLOCKED CASH</span><span>₹ 0.8M</span>
-                </div>
+              <div class="g-stat">
+                <span class="l">NETWORK VELOCITY</span>
+                <span class="v green">↑ 12.4%</span>
               </div>
             </div>
+
+            <!-- Sync Lines (SVG) -->
+            <svg class="network-paths">
+              <path [class.flowing]="isAnalyzing" d="M150,200 L450,150" stroke="rgba(99, 102, 241, 0.2)" fill="none" />
+              <path [class.flowing]="isAnalyzing" d="M450,150 L350,300" stroke="rgba(99, 102, 241, 0.2)" fill="none" stroke-dasharray="5,5" />
+            </svg>
           </div>
         </div>
       </section>
 
-      <!-- SECTION 2: Capabilities Bento (Matching Billing Style) -->
+      <!-- SECTION 2: Monitoring Bento (Redesigned for Multi-Location) -->
       <section class="bento-section">
         <div class="bento-container">
           <div class="bento-header text-center">
-            <span class="eyebrow">CAPABILITIES</span>
-            <h2>Stock Intelligence at Scale.</h2>
+            <span class="eyebrow">MONITORING SUITE</span>
+            <h2>Stock Visibility Across the Grid.</h2>
           </div>
 
           <div class="inner-bento-grid">
-            <!-- Large Card: Live Stock Visibility -->
             <div class="bento-card-inner bento-large-inner">
-              <div class="bento-icon-inner">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-              </div>
-              <h3>Live Stock Visibility</h3>
-              <p>Track every SKU across all warehouses and stores in real-time. Know exactly what’s moving, where it’s stuck, and when to reorder.</p>
+              <div class="bento-icon-inner">✨</div>
+              <h3>Intelligent Network Sync</h3>
+              <p>Zenflow doesn't just track stock; it orchestrates it. When Delhi runs high on SKU-44, the AI automatically suggests a transfer to Mumbai to prevent dead stock.</p>
             </div>
-
-            <!-- Card 2: Auto Purchase Orders -->
             <div class="bento-card-inner">
-              <div class="bento-icon-inner">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <path d="M16 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M19 11v6m-3-3h6"/>
-                </svg>
-              </div>
-              <h3>Auto Purchase Orders</h3>
-              <p>Automate replenishment based on real-time sales velocity and vendor lead times. Zero stockouts.</p>
+              <h3>Shelf-Life Triage</h3>
+              <p>Track expiry at a global level. AI prioritizes the movement of aging stock across regions.</p>
             </div>
-
-            <!-- Card 3: Store-to-Store Transfers -->
             <div class="bento-card-inner">
-              <div class="bento-icon-inner">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <path d="M17 2.1l4 4-4 4"/><path d="M3 12.2v-2a4 4 0 014-4h14"/><path d="M7 21.9l-4-4 4-4"/><path d="M21 11.8v2a4 4 0 01-4 4H3"/>
-                </svg>
-              </div>
-              <h3>Smart Stock Transfers</h3>
-              <p>Move inventory instantly to the counter where it's most likely to sell, preventing dead stock.</p>
-            </div>
-
-            <!-- Card 4: Low Stock Alerts -->
-            <div class="bento-card-inner">
-              <div class="bento-icon-inner">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>
-                </svg>
-              </div>
-              <h3>Predictive Alerts</h3>
-              <p>AI-driven notifications before items go out of stock, protecting your top-line revenue.</p>
-            </div>
-
-            <!-- Card 5: SKU-Level Tracking -->
-            <div class="bento-card-inner">
-              <div class="bento-icon-inner">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <rect x="2" y="7" width="20" height="15" rx="2" ry="2"/><polyline points="17 21 17 13 7 13 7 21"/><path d="M2 14h20"/><path d="M6 7V4a2 2 0 012-2h8a2 2 0 012 2v3"/>
-                </svg>
-              </div>
-              <h3>Batch & Serial Lineage</h3>
-              <p>Deep compliance with batch numbers and expiry tracking for every product in your network.</p>
+              <h3>Elastic Capacity</h3>
+              <p>Real-time space utilization metrics for every warehouse in your network.</p>
             </div>
           </div>
         </div>
       </section>
 
-      <!-- SECTION 3: Operations Split (Refined Walkthrough) -->
+      <!-- SECTION 3: Operations (The Live Command Center) -->
       <section class="ops-walkthrough-v4">
         <div class="ops-header text-center">
-          <span class="eyebrow">OPERATIONS</span>
-          <h2 class="section-title">Maximum Capital Turnover.</h2>
+          <span class="eyebrow">COMMAND CENTER</span>
+          <h2 class="section-title">Zero-Gaps Monitoring.</h2>
         </div>
         
         <div class="split-content-v4">
           <div class="ops-list-v4">
-            <div class="ops-card-v4 active">
-              <h3>Cycle Counting 2.0</h3>
-              <p>Digital stock takes that are verified in real-time. Reduce audit time from days to hours.</p>
+            <div class="ops-card-v4" [class.active]="!showInsight && !isAnalyzing">
+              <h3>Global Health Dashboard</h3>
+              <p>One unified view for every location. Monitor environmentals, security, and stock health from a single pane of glass.</p>
             </div>
             <div class="ops-card-v4">
-              <h3>Vendor Scorecards</h3>
-              <p>Automatically rank your suppliers based on lead-time accuracy and fulfillment quality.</p>
-            </div>
-            <div class="ops-card-v4">
-              <h3>Multi-Warehouse Routing</h3>
-              <p>Automatically fulfill orders from the closest warehouse to minimize shipping cost and time.</p>
+              <h3>Inter-Store Transfers</h3>
+              <p>Move stock with a single click. AI generates the gate-passes and logistics manifests automatically.</p>
             </div>
           </div>
 
           <div class="ops-visual-v4">
-            <div class="dashboard-preview glass-card">
-              <div class="dash-top">
-                <div class="dash-search-mock">✨ Auditing Warehouse A...</div>
-              </div>
-              <div class="dash-main-stat">
-                <label>Inventory Valuation</label>
-                <div class="stat-row">
-                  <span class="val">₹ 4.2 Cr</span>
-                  <span class="trend up">↑ 8.4%</span>
+            <div class="dashboard-preview command-preview glass-card" [class.analyzing]="isAnalyzing">
+              
+              <!-- COGNITIVE SEARCH HUB (Network Context) -->
+              <div class="ai-search-container" (mousedown)="$event.stopPropagation()">
+                <div class="search-input-wrapper" [class.focused]="isFocused">
+                  <span class="ai-stars">✨</span>
+                  <input #aiInput 
+                         type="text" 
+                         [placeholder]="placeholderText"
+                         (focus)="isFocused = true"
+                         (blur)="isFocused = false"
+                         (keydown.enter)="triggerAnalysis(aiInput.value)">
+                </div>
+                <div class="ai-suggestions" *ngIf="isFocused && !isAnalyzing && !showInsight">
+                  <div class="suggestion-item" *ngFor="let s of inventorySuggestions" (mousedown)="triggerAnalysis(s.query)">
+                    <span class="icon">{{ s.icon }}</span> {{ s.label }}
+                  </div>
                 </div>
               </div>
-              <div class="dash-mini-grid">
-                <div class="mini-bar"></div>
-                <div class="mini-bar"></div>
-                <div class="mini-bar"></div>
+
+              <div class="dash-content-area">
+                <!-- Persistent Valuation -->
+                <div class="dash-main-stat" [class.active-ai]="isAnalyzing || showInsight">
+                  <div class="live-indicator-wrapper" *ngIf="isAnalyzing || showInsight">
+                    <span class="live-dot"></span> ANALYZING NETWORK
+                  </div>
+                  <label>Consolidated Network Value</label>
+                  <div class="stat-row">
+                    <span class="val" [class.flash-green]="valuation !== lastValuation">
+                      {{ valuation | currency:'INR':'symbol':'1.0-0' }}
+                    </span>
+                    <span class="trend up">↑ 12.4%</span>
+                  </div>
+                </div>
+
+                <!-- THINKING -->
+                <div class="ai-thinking-state" *ngIf="isAnalyzing">
+                  <div class="network-sonar">
+                    <div class="sonar-wave"></div>
+                  </div>
+                  <p>{{ analysisMode }}</p>
+                </div>
+
+                <!-- INSIGHT -->
+                <div class="ai-insight-card {{ insightTheme }}" *ngIf="showInsight && !isAnalyzing">
+                  <div class="insight-header">
+                    <span class="tag">NETWORK OPTIMIZER</span>
+                    <button class="close-card" (click)="showInsight = false">×</button>
+                  </div>
+                  <h3>{{ insightTitle }}</h3>
+                  <p [innerHTML]="insightText"></p>
+                  <button class="action-btn-pill" (click)="handleInsightAction()">
+                    {{ insightAction }}
+                  </button>
+                </div>
               </div>
+
             </div>
           </div>
         </div>
       </section>
 
-      <!-- SECTION 4: Outcome Section (Matching Billing) -->
+      <!-- REST OF THE SECTIONS (Outcome, CTA) -->
       <section class="outcome-section">
         <div class="outcome-container">
-          <h2>Stop Funding Dead Stock.</h2>
-          <p class="outcome-statement">Zenflow ensures your capital is always working, never sitting on a shelf.</p>
-          <div class="outcome-points">
-            <div class="outcome-item">
-              <div class="outcome-check">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
-                  <path d="M20 6L9 17L4 12" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-              </div>
-              <span>Reduce inventory holding costs by up to 30%.</span>
-            </div>
-            <div class="outcome-item">
-              <div class="outcome-check">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
-                  <path d="M20 6L9 17L4 12" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-              </div>
-              <span>100% audit accuracy across all locations.</span>
-            </div>
-          </div>
+          <h2>One Grid. One Ledger.</h2>
+          <p class="outcome-statement">Zenflow eliminates information silos, giving you a crystal clear view of every product across every border.</p>
         </div>
       </section>
+
+      <!-- CUSTOM MODAL: REDISTRIBUTION HUB -->
+      <div class="modal-overlay" *ngIf="showWarehouseModal" (click)="closeWarehouseModal()">
+        <div class="scale-modal redistribution-modal glass-card" (click)="$event.stopPropagation()">
+           <div class="modal-header">
+             <div class="title-group">
+               <span class="eyebrow">ELASTIC REBALANCE</span>
+               <h2>Network Redistribution Center</h2>
+             </div>
+             <button class="close-modal" (click)="closeWarehouseModal()">×</button>
+           </div>
+           <div class="modal-body">
+              <div class="redistribution-visual">
+                <div class="location-flow">
+                   <div class="l-box"><span>DEL-04</span><small>Overstock</small></div>
+                   <div class="flow-arrow">→</div>
+                   <div class="l-box"><span>BOM-01</span><small>Req: 800 units</small></div>
+                </div>
+                <div class="impact-stats">
+                   <div class="i-stat"><span>IMPACT</span><strong>+₹2.4L Margin</strong></div>
+                   <div class="i-stat"><span>SAVING</span><strong>-₹18k Logistics</strong></div>
+                </div>
+              </div>
+           </div>
+           <div class="modal-footer">
+             <button class="btn-scale-commit w-full" (click)="closeWarehouseModal()">Authorize Network Rebalance</button>
+           </div>
+        </div>
+      </div>
+
+      <!-- AUDIT MODAL -->
+      <div class="modal-overlay" *ngIf="showLiquidationModal" (click)="closeLiquidationModal()">
+        <div class="scale-modal audit-modal glass-card" (click)="$event.stopPropagation()">
+           <div class="modal-header">
+             <div class="title-group">
+               <span class="eyebrow">COGNITIVE AUDIT</span>
+               <h2>Global Health Audit</h2>
+             </div>
+             <button class="close-modal" (click)="closeLiquidationModal()">×</button>
+           </div>
+           <div class="modal-body">
+              <div class="audit-visual-stack">
+                <!-- Stacked status cards -->
+                <div class="audit-card glass-card back">
+                  <div class="card-tag">DEL-04</div>
+                  <div class="card-status">SYNCED</div>
+                  <div class="card-stat">CAP: 98%</div>
+                </div>
+                <div class="audit-card glass-card middle">
+                  <div class="card-tag">BOM-01</div>
+                  <div class="card-status">OPTIMAL</div>
+                  <div class="card-stat">CAP: 84%</div>
+                </div>
+                <div class="audit-card glass-card front">
+                  <div class="card-tag">BLR-02</div>
+                  <div class="card-status">PEAK VELOCITY</div>
+                  <div class="card-stat">CAP: 62%</div>
+                </div>
+              </div>
+
+            <div class="modal-footer">
+             <button class="btn-primary w-full" (click)="closeLiquidationModal()">Acknowledge & Save Audit</button>
+           </div>
+        </div>
+      </div>
+
+      <!-- NEW: STOCK GAP FORECAST MODAL -->
+      <div class="modal-overlay" *ngIf="showForecastModal" (click)="closeForecastModal()">
+        <div class="scale-modal forecast-modal glass-card" (click)="$event.stopPropagation()">
+           <div class="modal-header">
+             <div class="title-group">
+               <span class="eyebrow">PREDICTIVE INTELLIGENCE</span>
+               <h2>Stock Gap Forecast</h2>
+             </div>
+             <button class="close-modal" (click)="closeForecastModal()">×</button>
+           </div>
+           <div class="modal-body">
+              <div class="stock-gap-visual">
+                <!-- Predictive Cards -->
+                <div class="gap-card glass-card day-15">
+                  <div class="day-label">T + 12 Days</div>
+                  <div class="gap-value">0 Units</div>
+                  <div class="status-warning">CRITICAL DEPLETION</div>
+                </div>
+                <div class="gap-card glass-card day-7">
+                  <div class="day-label">T + 5 Days</div>
+                  <div class="gap-value">142 Units</div>
+                  <div class="status-ok">LOW STOCK</div>
+                </div>
+                <div class="gap-card glass-card day-now">
+                  <div class="day-label">CURRENT</div>
+                  <div class="gap-value">1,240 Units</div>
+                  <div class="status-ok">OPTIMAL</div>
+                </div>
+              </div>
+
+              <div class="forecast-details">
+                <div class="detail-row">
+                  <span>Velocity:</span>
+                  <strong class="green">↑ 18.4% WoW</strong>
+                </div>
+                <div class="detail-row">
+                  <span>Lead Time:</span>
+                  <strong>4 Days (Sea)</strong>
+                </div>
+                <p class="forecast-alert">⚠️ Order must be placed within <strong>24 hours</strong> to avoid stock-out.</p>
+              </div>
+           </div>
+           <div class="modal-footer">
+             <button class="btn-primary-glow w-full" (click)="closeForecastModal()">Generate Purchase Order</button>
+           </div>
+        </div>
+      </div>
+
     </div>
 
-    <!-- Conversion CTA -->
     <app-final-cta 
-      eyebrow="READY TO OPTIMIZE YOUR STOCK?"
-      headline="Transform Your <br>Inventory Today."
-      subtext="See how Zenflow transforms billing, inventory, and accounting into one seamless retail system."
-      buttonText="Analyze My Efficiency →">
+      eyebrow="READY TO SCALE YOUR NETWORK?"
+      headline="Multi-Location Mastery <br>Starts Here."
+      subtext="Join the next generation of retail giants using Zenflow AI to monitor and move stock with absolute precision."
+      buttonText="Request Network Audit →">
     </app-final-cta>
   `,
   styleUrl: './inventory.component.scss'
 })
-export class InventoryComponent { }
+export class InventoryComponent implements OnDestroy { 
+  @ViewChild('aiInput') aiInput!: ElementRef<HTMLInputElement>;
+
+  isFocused = false;
+  isAnalyzing = false;
+  showInsight = false;
+  currentQuery = '';
+  
+  showLiquidationModal = false;
+  showWarehouseModal = false;
+  showForecastModal = false;
+
+  inventorySuggestions = [
+    { label: 'Rebalance Global Network', query: 'Rebalance global network...', icon: '🌐' },
+    { label: 'Audit Multi-Location Health', query: 'Audit all locations...', icon: '🏥' },
+    { label: 'Forecast Stock Gap', query: 'Predict cross-store gaps...', icon: '📈' }
+  ];
+
+  valuation = 84200000;
+  lastValuation = 84200000;
+  placeholderText = 'Monitor your network with AI...';
+  analysisMode = 'Syncing Network Data...';
+  
+  insightTitle = '';
+  insightText = '';
+  insightAction = '';
+  insightTheme = 'default';
+
+  private tickerInterval: any;
+
+  constructor(private cdr: ChangeDetectorRef) {
+    this.startLiveValuation();
+  }
+
+  ngOnDestroy() {
+    if (this.tickerInterval) clearInterval(this.tickerInterval);
+  }
+
+  startLiveValuation() {
+    this.tickerInterval = setInterval(() => {
+      this.lastValuation = this.valuation;
+      const change = Math.floor(Math.random() * 20000) + 10000;
+      this.valuation += Math.random() > 0.4 ? change : -change;
+      this.cdr.markForCheck();
+    }, 4000);
+  }
+
+  triggerAnalysis(query: string) {
+    if (!query) return;
+    this.currentQuery = query;
+    this.isAnalyzing = true;
+    this.showInsight = false;
+    this.isFocused = false;
+    if (this.aiInput) this.aiInput.nativeElement.value = query;
+
+    if (query.includes('rebalance') || query.includes('global')) {
+      this.analysisMode = 'Calculating Inter-Store Delta...';
+      this.insightTheme = 'analysis';
+      this.insightTitle = 'Network Rebalance Opportunity';
+      this.insightText = 'Delhi (DEL-04) has excess stock of SKU-44. Moving 800 units to Mumbai (BOM-01) unlocks <strong>₹2.4L in margin</strong>.';
+      this.insightAction = 'Execute Rebalance';
+    } else if (query.includes('audit')) {
+      this.analysisMode = 'Auditing Operational Latency...';
+      this.insightTheme = 'forecast';
+      this.insightTitle = 'Global Health Report';
+      this.insightText = 'All 14 locations synchronized. Bangalore (BLR-02) showing optimal velocity. Audit successful.';
+      this.insightAction = 'Audit All Stores';
+    } else {
+      this.analysisMode = 'Projecting Stock Velocity...';
+      this.insightTheme = 'alert';
+      this.insightTitle = 'Predicted Stock Gap';
+      this.insightText = 'High demand in Bangalore (BLR-02) will deplete <strong>SKU-88</strong> by next Tuesday. Reorder recommended.';
+      this.insightAction = 'Forecast Stock Gap';
+    }
+
+    setTimeout(() => {
+      this.isAnalyzing = false;
+      this.showInsight = true;
+      this.cdr.markForCheck();
+    }, 600); 
+  }
+
+  handleInsightAction() {
+    switch (this.insightAction) {
+      case 'Execute Rebalance': this.openWarehouseModal(); break;
+      case 'Audit All Stores': this.openLiquidationModal(); break;
+      case 'Forecast Stock Gap': this.openForecastModal(); break;
+    }
+  }
+
+  openWarehouseModal() { this.showWarehouseModal = true; this.cdr.markForCheck(); }
+  closeWarehouseModal() { this.showWarehouseModal = false; this.cdr.markForCheck(); }
+  openLiquidationModal() { this.showLiquidationModal = true; this.cdr.markForCheck(); }
+  closeLiquidationModal() { this.showLiquidationModal = false; this.cdr.markForCheck(); }
+  openForecastModal() { this.showForecastModal = true; this.cdr.markForCheck(); }
+  closeForecastModal() { this.showForecastModal = false; this.cdr.markForCheck(); }
+}

@@ -232,11 +232,7 @@ import { FinalCtaComponent } from '../../components/final-cta/final-cta.componen
 
                   <h3>{{ insightTitle }}</h3>
                   <p [innerHTML]="insightText"></p>
-                  <button class="action-btn-pill" (click)="
-                    insightAction === 'View Sales Report' ? openSalesReport() : 
-                    insightAction === 'Optimize Checkout' ? openCheckoutModal() : 
-                    insightAction === 'Scale Operations' ? openScaleModal() : 
-                    null">
+                  <button class="action-btn-pill" (click)="handleInsightAction()">
                     {{ insightAction }}
                   </button>
                 </div>
@@ -631,6 +627,14 @@ export class BillingComponent {
       }
 
       this.cdr.markForCheck(); // Force update
-    }, 400); 
+    }, 500); 
+  }
+
+  handleInsightAction() {
+    switch (this.insightAction) {
+      case 'View Sales Report': this.openSalesReport(); break;
+      case 'Optimize Checkout': this.openCheckoutModal(); break;
+      case 'Scale Operations': this.openScaleModal(); break;
+    }
   }
 }
