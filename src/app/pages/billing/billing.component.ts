@@ -1,4 +1,4 @@
-import { Component, ViewChild, ElementRef, ChangeDetectorRef } from '@angular/core';
+import { Component, ViewChild, ElementRef, ChangeDetectorRef, NgZone, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { FinalCtaComponent } from '../../components/final-cta/final-cta.component';
@@ -435,9 +435,10 @@ import { FinalCtaComponent } from '../../components/final-cta/final-cta.componen
     </app-final-cta>
   `,
 
-  styleUrl: './billing.component.scss'
+  styleUrl: './billing.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class BillingComponent { 
+export class BillingComponent implements OnDestroy { 
   // Live Revenue State
   revenue = 142850;
   revenueTrend = 12.4;
@@ -471,10 +472,19 @@ export class BillingComponent {
   insightAction = '';
   insightTheme = 'default'; // 'forecast', 'alert', 'analysis'
   analysisMode = 'Analyzing...'; // Dynamic Loading Text
+  private revenueTimer: any;
+  private typewriterTimer: any;
   
-  constructor(private cdr: ChangeDetectorRef) {
-    this.startLiveRevenue();
-    this.startTypewriter();
+  constructor(private cdr: ChangeDetectorRef, private ngZone: NgZone) {
+    this.ngZone.runOutsideAngular(() => {
+      this.startLiveRevenue();
+      this.startTypewriter();
+    });
+  }
+
+  ngOnDestroy() {
+    if (this.revenueTimer) clearTimeout(this.revenueTimer);
+    if (this.typewriterTimer) clearTimeout(this.typewriterTimer);
   }
 
   // ... (startLiveRevenue and startTypewriter remain unchanged)
@@ -510,13 +520,18 @@ export class BillingComponent {
   }
 
   startLiveRevenue() {
-    // Randomly add sales every 3-8 seconds
     const loop = () => {
       const delay = Math.random() * 5000 + 3000;
-      setTimeout(() => {
+      this.revenueTimer = setTimeout(() => {
         const increment = Math.floor(Math.random() * (1500 - 350 + 1)) + 350;
         this.lastRevenue = this.revenue;
         this.revenue += increment;
+        
+        // Return to Angular zone to update UI
+        this.ngZone.run(() => {
+          this.cdr.markForCheck();
+        });
+        
         loop();
       }, delay);
     };
@@ -527,7 +542,7 @@ export class BillingComponent {
     const loop = () => {
       // Stop typing if user is interacting
       if (this.isSearchFocused || this.showInsight || this.isAnalyzing) {
-        setTimeout(loop, 1000); // Check again later
+        this.typewriterTimer = setTimeout(loop, 1000); 
         return;
       }
 
@@ -552,7 +567,12 @@ export class BillingComponent {
         typeSpeed = 500; // Pause before typing next
       }
 
-      setTimeout(loop, typeSpeed);
+      // Return to Angular zone only if actually deleted/typed a character
+      this.ngZone.run(() => {
+        this.cdr.markForCheck();
+      });
+
+      this.typewriterTimer = setTimeout(loop, typeSpeed);
     };
     loop();
   }

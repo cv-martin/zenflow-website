@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { FinalCtaComponent } from '../../components/final-cta/final-cta.component';
@@ -7,6 +7,7 @@ import { FinalCtaComponent } from '../../components/final-cta/final-cta.componen
   selector: 'app-pricing',
   standalone: true,
   imports: [CommonModule, RouterLink, FinalCtaComponent],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="container page-content">
       <!-- SECTION 1: Centered Header (Same Hero Pattern) -->
@@ -151,11 +152,12 @@ import { FinalCtaComponent } from '../../components/final-cta/final-cta.componen
       border: 1px solid rgba(0, 0, 0, 0.04) !important;
       border-radius: 24px;
       padding: 2rem 1.5rem;
-      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
       position: relative;
       max-width: 330px;
       margin: 0 auto;
       width: 100%;
+      will-change: transform;
       
       &.featured {
         background: rgba(255, 255, 255, 0.8);
@@ -164,7 +166,7 @@ import { FinalCtaComponent } from '../../components/final-cta/final-cta.componen
         z-index: 2;
         box-shadow: 0 30px 70px -15px rgba(99, 102, 241, 0.12);
         
-        &:hover { transform: scale(1.02) translateY(-8px); }
+        &:hover { transform: scale(1.02) translateY(-8px); opacity: 1; }
       }
 
       &:hover {
@@ -193,7 +195,8 @@ import { FinalCtaComponent } from '../../components/final-cta/final-cta.componen
     .btn-tier {
       display: block; padding: 0.9rem; text-align: center; border: 1.5px solid rgba(0,0,0,0.06);
       border-radius: 12px; font-weight: 800; text-decoration: none; color: #0f172a;
-      transition: all 0.3s ease; font-size: 0.9rem; margin-bottom: 1.5rem;
+      transition: border-color 0.3s ease, color 0.3s ease, background-color 0.3s ease, transform 0.3s ease; font-size: 0.9rem; margin-bottom: 1.5rem;
+      will-change: transform;
       &:hover { border-color: var(--primary-color); color: var(--primary-color); background: rgba(99, 102, 241, 0.04); }
       &.primary {
         background: #0f172a; color: white; border-color: #0f172a;
@@ -225,6 +228,7 @@ import { FinalCtaComponent } from '../../components/final-cta/final-cta.componen
       -webkit-backdrop-filter: blur(30px);
       border: 1px solid rgba(255, 255, 255, 0.7);
       border-radius: 32px;
+      will-change: backdrop-filter;
     }
     .faq-container h2 { font-size: 2.5rem; font-weight: 950; margin-bottom: 3rem; color: #0f172a; }
     .faq-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2.5rem; }

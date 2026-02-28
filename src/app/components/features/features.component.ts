@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AccountingChartComponent } from './accounting-chart.component';
 import { ScrollRevealDirective } from '../../directives/scroll-reveal.directive';
@@ -7,6 +7,7 @@ import { ScrollRevealDirective } from '../../directives/scroll-reveal.directive'
   selector: 'app-features',
   standalone: true,
   imports: [CommonModule, AccountingChartComponent, ScrollRevealDirective],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <section class="features">
       <!-- Narrative Process Line (Central Spine) -->
@@ -62,11 +63,11 @@ import { ScrollRevealDirective } from '../../directives/scroll-reveal.directive'
                <div class="inventory-header"><span>WAREHOUSE A</span><span>Live</span></div>
                <div class="stock-item">
                  <div class="stock-info"><span>Prime SKU-99</span><span>850 units</span></div>
-                 <div class="stock-bar"><div class="stock-level" style="--target-width: 85%"></div></div>
+                 <div class="stock-bar"><div class="stock-level" style="--target-width-num: 85"></div></div>
                </div>
                <div class="stock-item">
                  <div class="stock-info"><span>Alert SKU-14</span><span style="color:#f43f5e">15 units</span></div>
-                 <div class="stock-bar"><div class="stock-level" style="--target-width: 15%"></div></div>
+                 <div class="stock-bar"><div class="stock-level" style="--target-width-num: 15"></div></div>
                </div>
              </div>
           </div>
@@ -136,10 +137,11 @@ import { ScrollRevealDirective } from '../../directives/scroll-reveal.directive'
       padding: 2.5rem;
       border: 1px solid rgba(255, 255, 255, 0.5);
       box-shadow: 0 20px 40px rgba(0,0,0,0.05);
+      will-change: backdrop-filter;
     }
 
     /* Terminal/POS Styles */
-    .pos-terminal { font-family: monospace; font-size: 0.9rem; }
+    .pos-terminal { font-family: monospace; font-size: 0.9rem; will-change: transform; transition: transform 0.3s ease; }
     .pos-header, .pos-total { display: flex; justify-content: space-between; padding: 0.5rem 0; }
     .pos-header { border-bottom: 1px solid rgba(0,0,0,0.05); margin-bottom: 1rem; color: var(--text-light); }
     .pos-total { border-top: 1px solid rgba(0,0,0,0.05); margin-top: 1rem; font-weight: 900; font-size: 1.1rem; }
@@ -152,7 +154,7 @@ import { ScrollRevealDirective } from '../../directives/scroll-reveal.directive'
     .stock-item { margin-bottom: 1.2rem; }
     .stock-info { display: flex; justify-content: space-between; margin-bottom: 0.4rem; font-weight: 700; color: var(--text-dark); }
     .stock-bar { height: 10px; background: rgba(0,0,0,0.05); border-radius: 5px; overflow: hidden; }
-    .stock-level { height: 100%; background: var(--primary-color); width: var(--target-width); }
+    .stock-level { height: 100%; background: var(--primary-color); width: 100%; transform: scaleX(calc(var(--target-width-num) / 100)); transform-origin: left; transition: transform 1s cubic-bezier(0.16, 1, 0.3, 1); will-change: transform; }
 
     @media (max-width: 992px) {
       .process-line { display: none; }

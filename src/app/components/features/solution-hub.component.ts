@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewEncapsulation, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { AccountingChartComponent } from './accounting-chart.component';
@@ -19,6 +19,7 @@ interface HubTab {
   standalone: true,
   imports: [CommonModule, AccountingChartComponent, RouterLink, ScrollRevealDirective],
   encapsulation: ViewEncapsulation.None,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <section class="solution-hub">
       <div class="container relative">
@@ -293,11 +294,12 @@ interface HubTab {
       background: rgba(255, 255, 255, 0.4); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
       padding: 1rem 1.75rem; border-radius: 12px;
       border: 1px solid rgba(255, 255, 255, 0.3); display: flex; flex-direction: column; align-items: center;
-      cursor: pointer; transition: background 0.2s ease, border-color 0.2s ease; 
+      cursor: pointer; transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease; 
       user-select: none; position: relative; gap: 0.25rem;
+      will-change: transform, background, border-color;
     }
 
-    .glass-tab:hover { background: rgba(255, 255, 255, 0.6); }
+    .glass-tab:hover { background: rgba(255, 255, 255, 0.6); transform: translateY(-2px); }
     
     .glass-tab.active { 
       background: #ffffff; border-color: rgba(99, 102, 241, 0.4);
@@ -309,10 +311,11 @@ interface HubTab {
       width: 40%; height: 2.5px; background: var(--primary-color);
       transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
       border-radius: 4px 4px 0 0;
+      will-change: transform;
     }
     .tab-indicator.active { transform: translateX(-50%) scaleX(1); }
 
-    .tab-title { font-weight: 850; font-size: 1rem; color: #1e293b; transition: color 0.2s; }
+    .tab-title { font-weight: 850; font-size: 1rem; color: #1e293b; transition: color 0.2s ease; }
     .tab-benefit { font-size: 0.7rem; color: #64748b; font-weight: 800; text-transform: uppercase; letter-spacing: 0.06em; opacity: 0.8; }
     .glass-tab.active .tab-title { color: var(--primary-color); }
 
@@ -322,6 +325,7 @@ interface HubTab {
       border-radius: 28px; border: 1px solid rgba(255, 255, 255, 0.5);
       box-shadow: 0 40px 80px -20px rgba(15, 23, 42, 0.08);
       z-index: 1; overflow: hidden;
+      will-change: backdrop-filter;
     }
 
     /* Moving Gradient Border Signature */
@@ -454,7 +458,8 @@ interface HubTab {
       position: absolute; background: rgba(30,41,59,0.9); backdrop-filter: blur(8px);
       padding: 0.6rem 1rem; border-radius: 12px; border: 1px solid rgba(255,255,255,0.08);
       font-size: 0.9rem; display: flex; align-items: center; gap: 8px; z-index: 10;
-      box-shadow: 0 10px 20px rgba(0,0,0,0.2); transition: all 0.3s;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.2); transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+      will-change: transform;
       .n-l { font-size: 0.65rem; font-weight: 800; color: #94a3b8; }
       &:hover { border-color: #6366f1; transform: translateY(-3px); }
     }
@@ -481,8 +486,8 @@ interface HubTab {
     .m-value { font-size: 1.4rem; font-weight: 950; color: white; &.green { color: #10b981; } }
     
     .m-bar { height: 6px; background: rgba(255,255,255,0.04); border-radius: 6px; position: relative; overflow: hidden; }
-    .m-fill { width: 84%; height: 100%; background: linear-gradient(90deg, #6366f1, #10b981); border-radius: 6px; animation: barGrow 1.5s ease-out; }
-    .m-bar::after { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent); animation: scanLine 2s infinite; }
+    .m-fill { width: 100%; height: 100%; background: linear-gradient(90deg, #6366f1, #10b981); border-radius: 6px; transform: scaleX(0.84); transform-origin: left; animation: barGrow 1.5s cubic-bezier(0.16, 1, 0.3, 1) forwards; will-change: transform; }
+    .m-bar::after { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent); animation: scanLine 2s infinite; will-change: transform; }
     @keyframes scanLine { from { transform: translateX(-100%); } to { transform: translateX(100%); } }
 
     .status-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; margin-top: 4px; }
@@ -490,7 +495,7 @@ interface HubTab {
     
     .sidebar-footer { margin-top: auto; font-size: 0.55rem; font-weight: 800; color: #334155; border-top: 1px solid rgba(255,255,255,0.06); padding-top: 1rem; }
     @keyframes scanMove { from { left: -30%; } to { left: 100%; } }
-    @keyframes barGrow { from { width: 0; } to { width: 84%; } }
+    @keyframes barGrow { from { transform: scaleX(0); } to { transform: scaleX(0.84); } }
 
     /* Omnichannel V3 Styles - Orchestration Polish */
     .omni-hub-v3 { 
@@ -513,14 +518,15 @@ interface HubTab {
     .omni-sources { display: flex; gap: 1.25rem; justify-content: center; width: 100%; }
     .omni-source { 
       display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
-      transition: all 0.3s ease;
+      transition: transform 0.3s ease;
+      will-change: transform;
       .s-label { font-size: 0.75rem; font-weight: 800; color: #475569; }
       &:hover { transform: translateY(-3px); .omni-source-icon { box-shadow: 0 8px 20px rgba(0,0,0,0.15); border-color: #6366f1; } }
     }
     .omni-source-icon { 
       width: 52px; height: 52px; border-radius: 14px; position: relative;
       box-shadow: 0 4px 12px rgba(0,0,0,0.08); border: 1.5px solid transparent;
-      overflow: hidden; transition: all 0.3s;
+      overflow: hidden; transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
       svg { width: 100%; height: 100%; display: block; }
 
       &.pro { width: 56px; height: 56px; border-radius: 16px; }
@@ -554,7 +560,8 @@ interface HubTab {
       border-radius: 20px; padding: 0.85rem 1.75rem;
       box-shadow: 0 15px 40px rgba(99,102,241,0.25);
       display: flex; flex-direction: column; align-items: center; gap: 2px; position: relative;
-      transition: all 0.3s;
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
+      will-change: transform;
       &:hover { transform: scale(1.05); box-shadow: 0 20px 50px rgba(99,102,241,0.35); }
     }
     .omni-hub-brand { font-size: 1.1rem; font-weight: 950; color: #1e293b; }
@@ -727,6 +734,8 @@ export class SolutionHubComponent implements OnInit, OnDestroy {
   isAnimating = false;
   private autoCycleInterval: any;
 
+  constructor(private cdr: ChangeDetectorRef) {}
+
   ngOnInit() {
     // Disabled Auto-Cycle bug: User now has full control over tab selection
   }
@@ -762,14 +771,15 @@ export class SolutionHubComponent implements OnInit, OnDestroy {
   setActiveTab(tab: HubTab) {
     if (this.activeTab.id === tab.id) return;
 
-    // Instant State Update (Eliminates Lag)
+    // Fast Entrance Animation
+    this.isAnimating = false;
     this.activeTab = tab;
     this.progress = 0;
-    this.isAnimating = false;
+    this.cdr.markForCheck();
 
-    // Fast Entrance Animation
     requestAnimationFrame(() => {
       this.isAnimating = true;
+      this.cdr.markForCheck();
     });
   }
 }
