@@ -1,4 +1,4 @@
-/* Hero Background — transparent for Global Living Background */
+﻿/* Hero Background â€” transparent for Global Living Background */
 :host {
   display: block;
   width: 100%;
@@ -37,7 +37,7 @@
   position: relative;
 }
 
-/* Technique 3: Soft radial glow behind text — adds visual mass */
+/* Technique 3: Soft radial glow behind text â€” adds visual mass */
 .hero-content::before {
   content: '';
   position: absolute;
@@ -65,8 +65,8 @@
 }
 
 .headline {
-  font-size: clamp(3.5rem, 5.5vw, 5.5rem);
-  line-height: 1.05;
+  font-size: clamp(3rem, 4.8vw, 4.8rem);
+  line-height: 1.1;
   font-weight: 900;
   letter-spacing: -0.04em;
   color: #0F172A;
@@ -91,6 +91,10 @@
   -webkit-text-fill-color: transparent;
   background-clip: text;
   color: transparent;
+  
+  &.no-break {
+    white-space: nowrap;
+  }
 }
 
 .subtext {
@@ -141,7 +145,7 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 1.25rem;
-  /* Technique 1: Perspective tilt — cards recede into background depth */
+  /* Technique 1: Perspective tilt â€” cards recede into background depth */
   transform: perspective(1200px) rotateY(-8deg);
   transform-style: preserve-3d;
   transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
@@ -165,7 +169,7 @@
   transition: opacity 0.4s ease, filter 0.4s ease, box-shadow 0.4s ease, background 0.4s ease;
   position: relative;
   cursor: default;
-  /* Technique 2: Subdued default — cards are quiet background elements */
+  /* Technique 2: Subdued default â€” cards are quiet background elements */
   opacity: 0.7;
   filter: saturate(0.85);
   @media (hover: hover) {
@@ -174,7 +178,7 @@
       box-shadow: 
         0 20px 40px -10px rgba(99, 102, 241, 0.15),
         0 0 0 1px rgba(99, 102, 241, 0.15);
-      /* Technique 2: Hover activation — snap to full prominence */
+      /* Technique 2: Hover activation â€” snap to full prominence */
       opacity: 1;
       filter: saturate(1);
     }
