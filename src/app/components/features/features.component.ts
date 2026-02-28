@@ -17,7 +17,7 @@ import { ScrollRevealDirective } from '../../directives/scroll-reveal.directive'
         <div class="container grid-2-col">
           <div class="step-indicator">01</div>
           <div class="text-content">
-            <h2 class="text-gradient">Billing (POS)</h2>
+            <h2><span class="text-highlight-pink">Billing</span> (POS)</h2>
             <h3>Lightning fast billing for In-Store and Online orders.</h3>
             <ul class="sophisticated-list">
               <li>Faster Billing, multi-GST support</li>
@@ -48,7 +48,7 @@ import { ScrollRevealDirective } from '../../directives/scroll-reveal.directive'
         <div class="container grid-2-col swap-desktop">
           <div class="step-indicator right-side">02</div>
           <div class="text-content">
-            <h2 class="text-gradient">Inventory</h2>
+            <h2>Real-time <span class="text-highlight-pink">Inventory</span></h2>
             <h3>Real-time visibility across your entire network.</h3>
             <ul class="sophisticated-list">
               <li>Track expiry, batch, and multidimensional SKUs</li>
@@ -78,7 +78,7 @@ import { ScrollRevealDirective } from '../../directives/scroll-reveal.directive'
         <div class="container grid-2-col">
           <div class="step-indicator">03</div>
           <div class="text-content">
-            <h2 class="text-gradient">Accounting</h2>
+            <h2>Financial <span class="text-highlight-pink">Accounting</span></h2>
             <h3>Auto-Post journal entries. Save 10+ hours/week.</h3>
             <ul class="sophisticated-list">
               <li>Fully reconciled Daily Sales Reports</li>

@@ -28,7 +28,7 @@ import { ScrollRevealDirective } from '../../directives/scroll-reveal.directive'
           <div class="stat-value">
             <app-counter [target]="10" prefix="₹" suffix="Cr"></app-counter>
           </div>
-          <div class="stat-label">Revenue Reconciled</div>
+          <div class="stat-label">Monthly Revenue</div>
         </div>
       </div>
     </div>

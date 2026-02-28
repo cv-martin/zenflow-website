@@ -410,20 +410,16 @@ import { FinalCtaComponent } from '../../components/final-cta/final-cta.componen
           <p class="outcome-statement">Zenflow ensures every rupee is accounted for, from checkout to bank.</p>
           <div class="outcome-points">
             <div class="outcome-item">
-              <div class="outcome-check">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
-                  <path d="M20 6L9 17L4 12" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-              </div>
               <span>Reduce human error in reconciliation by 99%.</span>
             </div>
             <div class="outcome-item">
-              <div class="outcome-check">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
-                  <path d="M20 6L9 17L4 12" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-              </div>
               <span>Accept 15+ payment modes with instant verification.</span>
+            </div>
+            <div class="outcome-item">
+              <span>Endless aisle — Find unavailable sizes in other stores and ship to the customer.</span>
+            </div>
+            <div class="outcome-item">
+              <span>Receive online orders directly at POS — check cross-store stock availability and fulfil from the nearest location.</span>
             </div>
           </div>
         </div>

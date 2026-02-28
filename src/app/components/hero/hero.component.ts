@@ -15,7 +15,7 @@ import { CommonModule } from '@angular/common';
         <div class="hero-content">
           <div class="eyebrow">AI ERP for Retail & E-Commerce</div>
           <h1 class="headline">
-            Run Your Entire Retail Operation from One <span class="text-gradient">AI ERP</span>
+            The intelligent command center for <span class="text-gradient">Retail</span> & <span class="text-gradient no-break">E-commerce</span>
           </h1>
           <p class="subtext">
             Manage billing, inventory, accounting, and multi-warehouse operations in real time — from a single intelligent command center.

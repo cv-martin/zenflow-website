@@ -43,7 +43,7 @@ import { FinalCtaComponent } from '../../components/final-cta/final-cta.componen
           <div class="tier-card bento-card-inner featured">
             <div class="featured-badge">MOST POPULAR</div>
             <div class="tier-header">
-              <h3>Pro</h3>
+              <h3>Growth</h3>
               <div class="price">₹ 1.5<span>/trans</span></div>
               <p>Transparent transaction-based pricing. Pay as you scale.</p>
             </div>

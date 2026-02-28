@@ -10,7 +10,7 @@ import { ScrollRevealDirective } from '../../directives/scroll-reveal.directive'
       <div class="container wide-container">
         <div class="section-header text-center mb-5" appScrollReveal>
           <h2 style="color:white; margin-bottom:1rem;">Powering the future of Retail</h2>
-          <p style="color:rgba(255,255,255,0.7);">Everything you need to scale your business, built right in.</p>
+          <p style="color:rgba(255,255,255,0.7);">See sales, inventory, and performance in real time—across every location and channel.</p>
         </div>
         
         <div class="grid feature-grid">
@@ -48,10 +48,12 @@ import { ScrollRevealDirective } from '../../directives/scroll-reveal.directive'
 
           <div class="power-card stagger-5" appScrollReveal>
             <h3>
-              <svg class="icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.456-2.455l.259-1.036.259 1.036a3.375 3.375 0 002.455 2.456l1.036.259-1.035.259a3.375 3.375 0 00-2.456 2.456zM16.894 20.567L16.5 21.75l-.394-1.183a2.25 2.25 0 00-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 001.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 001.423 1.423l1.183.394-1.183.394a2.25 2.25 0 00-1.423 1.423z" /></svg>
-              Agentic AI
+              <svg class="icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V8.625zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z" />
+              </svg>
+              Analytics
             </h3>
-            <p>Autonomous agents that predict stock-outs, optimize pricing, and re-order in real-time.</p>
+            <p>Live tracking of sales velocity, store-wise performance, and stock health for data-backed growth.</p>
           </div>
         </div>
       </div>

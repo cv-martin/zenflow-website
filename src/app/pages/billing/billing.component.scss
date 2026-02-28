@@ -1,4 +1,18 @@
 /* src/app/pages/billing/billing.component.scss */
+.text-gradient {
+  background: linear-gradient(135deg, #7C3AED 0%, #DB2777 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+}
+.text-gradient {
+  background: linear-gradient(135deg, #7C3AED 0%, #DB2777 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+}
 
 :host {
   display: block;
@@ -277,11 +291,19 @@
     h2 { font-size: 4rem; font-weight: 950; color: #0f172a; margin-bottom: 2rem; }
     .outcome-statement { font-size: 1.5rem; color: #64748b; margin-bottom: 5rem; }
   }
-  .outcome-points { display: flex; flex-direction: column; gap: 2rem; align-items: center; }
-  .outcome-item { display: flex; align-items: center; gap: 1.5rem; font-size: 1.3rem; font-weight: 700;
-    .outcome-check { width: 32px; height: 32px; background: #10b981; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center;
-      svg { width: 18px; height: 18px; }
-    }
+  .outcome-points { display: flex; flex-direction: column; gap: 1.25rem; align-items: stretch; max-width: 700px; margin: 0 auto; }
+  .outcome-item { 
+    display: flex; align-items: center;
+    font-size: 1.2rem; font-weight: 600; color: #1e293b;
+    background: #f8fafc;
+    border: 1px solid #f1f5f9;
+    border-left: 4px solid #10b981;
+    border-radius: 12px;
+    padding: 1.25rem 1.75rem;
+    text-align: left;
+    transition: all 0.25s ease;
+    line-height: 1.5;
+    &:hover { background: #f0fdf4; border-left-color: #059669; transform: translateX(4px); }
   }
 }
 

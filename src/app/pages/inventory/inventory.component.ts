@@ -13,61 +13,137 @@ import { FinalCtaComponent } from '../../components/final-cta/final-cta.componen
       <!-- SECTION 1: Network Intelligence Hero -->
       <section class="hero-section reveal-active">
         <div class="eyebrow">GLOBAL WAREHOUSE ORCHESTRATION</div>
-        <h1 class="gradient-text"><span class="text-highlight-pink">Network Intelligence.</span><br>Monitor All Locations at Once.</h1>
-        <p>Zenflow AI tracks stock velocity, warehouse temperature, and capital efficiency across your entire global network, resolving imbalances before they impact your margin.</p>
+        <h1 class="text-gradient-premium">Lightning-fast <span class="text-highlight-pink">Inventory</span> intelligence.</h1>
+        <p>Perfectly balanced stock. No overstocking or losing a sale due to out of stock.</p>
 
-        <div class="hero-cta">
-          <a routerLink="/contact" class="btn-primary">View Global Health</a>
-        </div>
+        <div class="hero-subline">Orchestrating distributed retail operations with unified AI intelligence.</div>
 
-        <!-- NEW: Global Network Command Center (Visual V5) -->
-        <div class="command-center-visual">
-          <div class="network-matrix">
-            <!-- Global Map Silhouette (Background) -->
-            <div class="network-node bom" [class.active-node]="isAnalyzing">
-              <div class="location-ping"></div>
-              <div class="node-label">BOM-01 (MUMBAI)</div>
-              <div class="node-telemetry">
-                <span>Temp: 22°C</span>
-                <span>Cap: 84%</span>
-              </div>
-            </div>
+        <!-- V6: High-Fidelity Enterprise Network Hub -->
+        <div class="enterprise-network-grid">
+          <div class="network-canvas glass-card">
             
-            <div class="network-node del" [class.active-node]="isAnalyzing && currentQuery.includes('rebalance')">
-              <div class="location-ping"></div>
-              <div class="node-label">DEL-04 (DELHI)</div>
-              <div class="node-telemetry">
-                <span>Temp: 24°C</span>
-                <span class="warning">Cap: 98%</span>
+            <!-- Console Header -->
+            <div class="console-header">
+              <div class="console-controls">
+                <span class="ctrl"></span><span class="ctrl"></span><span class="ctrl"></span>
+              </div>
+              <div class="console-title">INVENTORY ORCHESTRATION CONSOLE v4.2</div>
+            </div>
+
+            <!-- EXECUTIVE HUD (Top Right) -->
+            <div class="network-summary-card glass-hud">
+              <div class="summary-header">
+                <div class="live-tag"><span class="dot"></span> SYNC ACTIVE</div>
+                <h3 class="white-title">Control Summary</h3>
+              </div>
+              
+              <div class="metric-grid">
+                <div class="metric-item">
+                  <div class="m-label">CONSOLIDATED VALUE</div>
+                  <div class="m-value">₹84,432,591</div>
+                </div>
+                <div class="metric-item">
+                  <div class="m-label">NETWORK VELOCITY</div>
+                  <div class="m-value green">↑ 18.2% <span class="wow">WoW</span></div>
+                </div>
+                <div class="metric-item full">
+                  <div class="m-label">Network Health <span class="perc">99.4%</span></div>
+                  <div class="health-bar-container"><div class="health-fill" style="width: 99.4%"></div></div>
+                </div>
+              </div>
+
+              <div class="hud-footer">
+                <span>12 Global Locations</span>
+                <span class="alert">1 REBALANCE OPT.</span>
+              </div>
+
+              <a routerLink="/contact" class="btn-hud-cta">Request System Audit</a>
+            </div>
+
+            <!-- CENTRAL CONTROLLER -->
+            <div class="central-controller engine-core">
+              <div class="scan-ring"></div>
+              <div class="scan-ring r2"></div>
+              <div class="brand-core">
+                <span class="brand-name">Zenflow <span class="engine-tag">CORE</span></span>
+              </div>
+              <div class="controller-label">AI ENGINE V4.2</div>
+            </div>
+
+            <!-- BALANCED 6-NODE NETWORK -->
+            <div class="nodes-layer">
+              <div class="network-node warehouse w-blr">
+                <div class="node-icon-bin">🏭</div>
+                <div class="node-body">
+                  <div class="node-title">Warehouse 1 - Bangalore</div>
+                  <div class="node-meta">Strategic Hub • 82% Cap <span class="tag">ACTIVE</span></div>
+                </div>
+              </div>
+
+              <div class="network-node warehouse w-pun">
+                <div class="node-icon-bin">🏭</div>
+                <div class="node-body">
+                  <div class="node-title">Warehouse 2 - Pune</div>
+                  <div class="node-meta">West Zone • Low Stock <span class="tag warning">SYNC</span></div>
+                </div>
+              </div>
+
+              <div class="network-node store s-bom">
+                <div class="node-icon-bin">🏬</div>
+                <div class="node-body">
+                  <div class="node-title">Store 1 - Mumbai</div>
+                  <div class="node-meta">Colaba Flagship • High Vol</div>
+                </div>
+              </div>
+
+              <div class="network-node store s-del">
+                <div class="node-icon-bin">🏬</div>
+                <div class="node-body">
+                  <div class="node-title">Store 2 - Delhi</div>
+                  <div class="node-meta">NCR Outlet • <span class="tag warning">REORDER</span></div>
+                </div>
+              </div>
+
+              <div class="network-node store s-kol">
+                <div class="node-icon-bin">🏬</div>
+                <div class="node-body">
+                  <div class="node-title">Store 3 - Kolkata</div>
+                  <div class="node-meta">Park St • <span class="tag">TRANSIT</span></div>
+                </div>
+              </div>
+
+              <div class="network-node hub s-jai">
+                <div class="node-icon-bin">📦</div>
+                <div class="node-body">
+                  <div class="node-title">Smart Hub 1 - Jaipur</div>
+                  <div class="node-meta">North Logistics • Ready</div>
+                </div>
               </div>
             </div>
 
-            <div class="network-node blr" [class.active-node]="isAnalyzing">
-              <div class="location-ping"></div>
-              <div class="node-label">BLR-02 (BANGALORE)</div>
-              <div class="node-telemetry">
-                <span>Temp: 21°C</span>
-                <span>Cap: 62%</span>
-              </div>
-            </div>
+            <!-- SVG TOPOLOGY CANVAS (Mapped for Central Hub) -->
+            <svg class="topology-canvas" viewBox="0 0 1000 600" preserveAspectRatio="none">
+              <defs>
+                <filter id="glow"><feGaussianBlur stdDeviation="3" result="coloredBlur"/><feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+              </defs>
+              <g class="lines-group" filter="url(#glow)">
+                <path class="flow-path" d="M160,84 Q300,180 500,300" /> <!-- BLR -->
+                <path class="flow-path" d="M180,480 Q300,450 500,300" /> <!-- PUN (Shifted Left) -->
+                <path class="flow-path" d="M140,372 Q280,350 500,300" /> <!-- BOM (Shifted) -->
+                <path class="flow-path" d="M400,72 Q450,200 500,300" /> <!-- DEL -->
+                <path class="flow-path" d="M520,504 Q480,420 500,300" /> <!-- KOL (Shifted Right) -->
+                <path class="flow-path" d="M60,192 Q300,240 500,300" /> <!-- JAI -->
+              </g>
 
-            <!-- Global Stats Overlay -->
-            <div class="global-floating-stats glass-card">
-              <div class="g-stat">
-                <span class="l">TOTAL WAREHOUSE VALUE</span>
-                <span class="v">{{ valuation | currency:'INR':'symbol':'1.0-0' }}</span>
-              </div>
-              <div class="g-stat">
-                <span class="l">NETWORK VELOCITY</span>
-                <span class="v green">↑ 12.4%</span>
-              </div>
-            </div>
-
-            <!-- Sync Lines (SVG) -->
-            <svg class="network-paths">
-              <path [class.flowing]="isAnalyzing" d="M150,200 L450,150" stroke="rgba(99, 102, 241, 0.2)" fill="none" />
-              <path [class.flowing]="isAnalyzing" d="M450,150 L350,300" stroke="rgba(99, 102, 241, 0.2)" fill="none" stroke-dasharray="5,5" />
+              <!-- ALL 6 DATA PARTICLES ACTIVE -->
+              <circle r="2.5" fill="#6366f1" class="data-particle"><animateMotion dur="2s" repeatCount="indefinite" path="M160,84 Q300,180 500,300" /></circle>
+              <circle r="2.5" fill="#f43f5e" class="data-particle"><animateMotion dur="2.8s" repeatCount="indefinite" path="M400,72 Q450,200 500,300" /></circle>
+              <circle r="2.5" fill="#6366f1" class="data-particle"><animateMotion dur="4s" repeatCount="indefinite" path="M60,192 Q300,240 500,300" /></circle>
+              <circle r="2.5" fill="#10b981" class="data-particle"><animateMotion dur="3.2s" repeatCount="indefinite" path="M140,372 Q280,350 500,300" /></circle> <!-- Mumbai Dot -->
+              <circle r="2.5" fill="#6366f1" class="data-particle"><animateMotion dur="3.8s" repeatCount="indefinite" path="M180,480 Q300,450 500,300" /></circle> <!-- Pune Dot -->
+              <circle r="2.5" fill="#10b981" class="data-particle"><animateMotion dur="2.5s" repeatCount="indefinite" path="M520,504 Q480,420 500,300" /></circle> <!-- Kolkata Dot -->
             </svg>
+
           </div>
         </div>
       </section>
