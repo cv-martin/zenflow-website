@@ -229,8 +229,21 @@ import { RouterLink } from '@angular/router';
     }
 
     @media (max-width: 640px) {
-      .footer-grid { grid-template-columns: 1fr; gap: 2.5rem; }
-      .footer-bottom { flex-direction: column; gap: 1.5rem; }
+      .footer { padding: 4rem 1.5rem 3rem; }
+      .footer-grid { 
+        grid-template-columns: 1fr 1fr; 
+        gap: 3rem 1.5rem; 
+        margin-bottom: 4rem; 
+      }
+      .footer-brand { grid-column: span 2; margin-bottom: 1rem; }
+      .brand-subtext { max-width: 100%; margin-bottom: 2rem; }
+      .footer-bottom { 
+        flex-direction: column-reverse; 
+        gap: 2rem; 
+        text-align: center;
+        align-items: center;
+      }
+      .status-indicator { width: fit-content; }
     }
   `]
 })

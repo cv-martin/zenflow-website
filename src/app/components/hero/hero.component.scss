@@ -516,40 +516,62 @@
 }
 
 @media (max-width: 640px) {
-  .hero { padding: 4rem 0 1rem; }
-  .headline { font-size: 2.1rem; }
-  .subtext { font-size: 1rem; margin-bottom: 2rem; }
+  .hero { 
+    padding: 8rem 0 2rem; /* Increased top padding to clear fixed header */
+  }
+  .headline { 
+    font-size: clamp(2rem, 9vw, 2.5rem); 
+    letter-spacing: -0.05em; 
+    line-height: 1.05;
+  }
+  .headline::after {
+    margin: 1.5rem auto 0; /* Clearer visual separation */
+  }
+  .subtext { 
+    font-size: 1.05rem; 
+    margin-bottom: 3rem; 
+    line-height: 1.5;
+    opacity: 0.8;
+  }
 
   .cta-group {
     flex-direction: column;
     width: 100%;
     max-width: 320px;
     margin: 0 auto;
-    gap: 1rem;
-    .btn { width: 100%; text-align: center; }
+    gap: 1.25rem;
+    .btn { 
+      width: 100%; 
+      text-align: center;
+      padding: 1.2rem; /* Consistent touch targets */
+    }
   }
 
   .hero-visual {
     grid-template-columns: 1fr;
     gap: 1.5rem;
+    padding: 0 0.5rem;
+    margin-top: 4rem; /* More space below buttons */
     grid-template-areas: none;
     animation: none; 
   }
 
   .metric-card { 
-    padding: 1.25rem; 
+    padding: 1.5rem; 
     grid-column: span 1 !important;
     opacity: 1 !important;
     filter: none !important;
     background: #ffffff;
-    border: 1px solid rgba(0, 0, 0, 0.05);
-    box-shadow: 0 10px 25px rgba(15, 23, 42, 0.05);
+    border: 1px solid rgba(0, 0, 0, 0.08); /* More defined */
+    box-shadow: 0 15px 35px rgba(15, 23, 42, 0.06);
     animation: cardReveal 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards !important;
+    
+    .hud-corner { opacity: 0.25; }
   }
 
-  .value { font-size: 2rem; }
-  .value.small { font-size: 1.5rem; }
-  .value.small-label { font-size: 1.8rem; }
+  .value { font-size: 2.2rem; }
+  .value.small { font-size: 1.6rem; }
+  .value.small-label { font-size: 1.9rem; }
   
-  .mini-chart.complex { height: 60px; }
+  .mini-chart.complex { height: 70px; }
 }

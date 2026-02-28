@@ -52,28 +52,49 @@ html, body {
   padding: 0;
   background-color: var(--bg-white);
   color: var(--text-dark);
-  line-height: 1.6;
+  line-height: 1.5;
   -webkit-font-smoothing: antialiased;
-  -moz-osx-osx-font-smoothing: grayscale;
+  -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
   width: 100%;
   position: relative;
   touch-action: manipulation;
+  scroll-behavior: smooth;
+  text-rendering: optimizeLegibility;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
 }
 
-/* Scroll Reveal Animations - Premium Standardized Slomo */
+/* Premium Mobile Scrollbar */
+@media (max-width: 1024px) {
+  ::-webkit-scrollbar {
+    width: 4px;
+    height: 4px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: rgba(99, 102, 241, 0.2);
+    border-radius: 10px;
+  }
+}
+
+/* Zero-Latency Reveal System (2026 Standard) */
 .reveal-hidden {
   opacity: 0;
-  transform: translate3d(0, 30px, 0);
+  transform: translate3d(0, 20px, 0) scale(0.98);
   transition: 
-    opacity 0.8s cubic-bezier(0.2, 0.8, 0.2, 1), 
-    transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+    opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), 
+    transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
   will-change: opacity, transform;
+  pointer-events: none;
 }
 
 .reveal-active {
   opacity: 1 !important;
-  transform: translate3d(0, 0, 0) !important;
+  transform: translate3d(0, 0, 0) scale(1) !important;
+  pointer-events: auto !important;
 }
 
 /* Stagger Utilities for smoother grid reveals */
@@ -151,12 +172,18 @@ a {
 
 /* Mixins */
 @mixin glass-morphism {
-  background: rgba(255, 255, 255, 0.65);
-  -webkit-backdrop-filter: blur(6px);
-  backdrop-filter: blur(6px);
-  border: 1px solid rgba(255, 255, 255, 0.5);
-  box-shadow: 0 8px 32px 0 rgba(99, 102, 241, 0.1);
-  /* Purple tint */
+  background: rgba(255, 255, 255, 0.7);
+  -webkit-backdrop-filter: blur(30px) saturate(180%);
+  backdrop-filter: blur(30px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 10px 40px -10px rgba(15, 23, 42, 0.1);
+}
+
+.gpu-accel {
+  will-change: transform, opacity;
+  transform: translate3d(0, 0, 0);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
 }
 
 /* Utilities */

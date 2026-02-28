@@ -173,11 +173,19 @@ import { ScrollRevealDirective } from '../../directives/scroll-reveal.directive'
     }
     
     @media (max-width: 768px) {
-      .power-section { padding: 5rem 0; }
-      .section-header h2 { font-size: 1.8rem; }
-      .section-header p { font-size: 1rem; }
-      .feature-grid { grid-template-columns: 1fr; gap: 1rem; }
-      .power-card { padding: 2rem 1.5rem; }
+      .power-section { padding: 6rem 0; }
+      .section-header { 
+        padding: 0 1.5rem; 
+        h2 { font-size: clamp(1.8rem, 8vw, 2.2rem); letter-spacing: -0.04em; }
+        p { font-size: 1.05rem; line-height: 1.5; }
+      }
+      .feature-grid { grid-template-columns: 1fr; gap: 1.25rem; padding: 0 1.25rem; }
+      .power-card { 
+        padding: 2.2rem 1.75rem; 
+        border-radius: 20px;
+        transform: translate3d(0, 0, 0); /* Force GPU */
+        will-change: transform, opacity;
+      }
     }
   `]
 })

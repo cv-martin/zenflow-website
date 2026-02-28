@@ -260,11 +260,35 @@ import { FinalCtaComponent } from '../../components/final-cta/final-cta.componen
     }
 
     @media (max-width: 640px) {
-      .page-content { padding-top: 5.5rem; }
-      .hero-section { padding: 4rem 0 6rem; }
-      .hero-section h1 { font-size: 2.2rem; margin-bottom: 1.5rem; }
-      .faq-container h2 { font-size: 1.8rem; margin-bottom: 2rem; }
-      .tier-card { padding: 2rem 1.25rem; }
+      .page-content { padding-top: 4.5rem; }
+      .hero-section { 
+        padding: 4rem 0 5rem; 
+        h1 { font-size: 2.6rem; letter-spacing: -0.04em; margin-bottom: 1.5rem; line-height: 1.1; }
+        p { font-size: 1.15rem; margin-bottom: 2.5rem; line-height: 1.5; }
+      }
+      .faq-container h2 { font-size: 2.2rem; margin-bottom: 2.5rem; letter-spacing: -0.04em; }
+      .tier-card { 
+        padding: 2.25rem 1.75rem; 
+        max-width: 100%;
+        background: rgba(255, 255, 255, 0.98);
+        -webkit-backdrop-filter: blur(30px);
+        backdrop-filter: blur(30px);
+        border: 1px solid rgba(255, 255, 255, 0.2) !important;
+        box-shadow: 0 15px 45px rgba(0, 0, 0, 0.08);
+
+        &.featured {
+          transform: scale(1) !important;
+          border-width: 2px !important;
+          box-shadow: 0 30px 60px rgba(99, 102, 241, 0.15);
+        }
+      }
+      .tier-header .price { font-size: 3rem; }
+      .faq-container { 
+        padding: 2.5rem 1.75rem !important; 
+        border-radius: 24px;
+      }
+      .faq-item h4 { font-size: 1.25rem; margin-bottom: 0.75rem; }
+      .faq-item p { font-size: 1rem; line-height: 1.5; }
     }
 
   `]

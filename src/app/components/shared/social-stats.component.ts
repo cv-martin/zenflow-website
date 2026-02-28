@@ -104,11 +104,27 @@ import { ScrollRevealDirective } from '../../directives/scroll-reveal.directive'
     }
 
     @media (max-width: 640px) {
-      .stats-container { padding: 4rem 0; }
-      .stats-row { padding: 3rem 1.5rem; gap: 3rem; }
-      .stat-value { font-size: 3rem; }
-      .stat-block { min-width: auto; }
-      .stat-label { font-size: 0.65rem; }
+      .stats-container { padding: 4rem 0 6rem; }
+      .stats-row { 
+        padding: 3rem 1.5rem; 
+        gap: 2.5rem; 
+        border-radius: 32px;
+        width: 100%;
+        max-width: 320px; /* Locked width for better stacking control */
+        margin: 0 auto;
+        flex-direction: column;
+      }
+      .stat-value { font-size: 2.8rem; letter-spacing: -0.05em; }
+      .stat-block { min-width: auto; width: 100%; }
+      .stat-label { 
+        font-size: 0.75rem; 
+        white-space: normal; 
+        line-height: 1.4;
+        max-width: 90%;
+        margin: 0 auto;
+        opacity: 0.8;
+      }
+      .stat-divider { width: 40px; height: 1px; opacity: 0.1; }
     }
   `]
 })

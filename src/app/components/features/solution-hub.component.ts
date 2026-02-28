@@ -264,38 +264,57 @@ interface HubTab {
     .container.relative { position: relative; z-index: 1; max-width: 1300px; margin: 0 auto; }
 
     .tab-grid { 
-      display: flex; justify-content: center; gap: 1.2rem; 
-      margin-bottom: 3rem; position: relative; z-index: 10;
+      display: flex; 
+      justify-content: center; 
+      gap: 0.5rem; 
+      margin-bottom: 3.5rem; 
+      position: relative; 
+      z-index: 10;
+      background: rgba(15, 23, 42, 0.03);
+      padding: 0.4rem;
+      border-radius: 100px; /* Segmented Control Container */
+      max-width: fit-content;
+      margin-left: auto;
+      margin-right: auto;
+      border: 1px solid rgba(0, 0, 0, 0.05);
     }
-
 
     .glass-tab {
-      background: rgba(255, 255, 255, 0.4); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
-      padding: 1rem 1.75rem; border-radius: 12px;
-      border: 1px solid rgba(255, 255, 255, 0.3); display: flex; flex-direction: column; align-items: center;
-      cursor: pointer; transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease; 
-      user-select: none; position: relative; gap: 0.25rem;
-      will-change: transform, background, border-color;
+      background: transparent;
+      padding: 0.8rem 1.75rem; 
+      border-radius: 100px;
+      border: none;
+      display: flex; 
+      flex-direction: column; 
+      align-items: center;
+      cursor: pointer; 
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      user-select: none; 
+      position: relative;
+      gap: 0;
     }
 
-    .glass-tab:hover { background: rgba(255, 255, 255, 0.6); transform: translateY(-2px); }
-    
     .glass-tab.active { 
-      background: #ffffff; border-color: rgba(99, 102, 241, 0.4);
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+      background: #ffffff; 
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      transform: scale(1.02);
     }
 
-    .tab-indicator {
-      position: absolute; bottom: 0; left: 50%; transform: translateX(-50%) scaleX(0);
-      width: 40%; height: 2.5px; background: var(--primary-color);
-      transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-      border-radius: 4px 4px 0 0;
-      will-change: transform;
+    .tab-title { 
+      font-weight: 800; 
+      font-size: 0.9rem; 
+      color: #64748b; 
+      transition: color 0.3s ease; 
     }
-    .tab-indicator.active { transform: translateX(-50%) scaleX(1); }
-
-    .tab-title { font-weight: 850; font-size: 1rem; color: #1e293b; transition: color 0.2s ease; }
-    .tab-benefit { font-size: 0.7rem; color: #64748b; font-weight: 800; text-transform: uppercase; letter-spacing: 0.06em; opacity: 0.8; }
+    .tab-benefit { 
+      font-size: 0.6rem; 
+      color: #94a3b8; 
+      font-weight: 700; 
+      text-transform: uppercase; 
+      letter-spacing: 0.05em; 
+      opacity: 0.6;
+      display: none; /* Cleaner mobile look */
+    }
     .glass-tab.active .tab-title { color: var(--primary-color); }
 
     .glass-card-main { 
@@ -670,46 +689,149 @@ interface HubTab {
         font-size: 0.75rem;
       }
 
-      .glass-tab { flex-shrink: 0; white-space: nowrap; }
-
-      .hub-content { grid-template-columns: 1fr; gap: 3rem; }
-      
-      .text-side { order: 1; text-align: center; display: flex; flex-direction: column; align-items: center; }
-      .visual-side { order: 2; width: 100%; }
-
-      .text-side h2 { font-size: 2.25rem; }
-      .hub-subheading { margin-left: auto; margin-right: auto; }
-      .sophisticated-list { text-align: left; align-self: stretch; max-width: 450px; margin-left: auto; margin-right: auto; }
+      .tab-grid {
+        justify-content: center;
+        width: 100%;
+        gap: 0.6rem;
+        padding: 0 1rem;
+        margin-bottom: 2.5rem;
+      }
+      .glass-tab {
+        flex: 1; /* Allow them to grow and share space */
+        min-width: 0;
+        padding: 0.75rem 0.5rem;
+        border-radius: 12px;
+        .tab-title { font-size: 0.8rem; letter-spacing: -0.01em; }
+        .tab-benefit { font-size: 0.55rem; letter-spacing: 0.05em; }
+      }
     }
 
     @media (max-width: 640px) {
-      .glass-card-main { padding: 2.5rem 1.25rem; border-radius: 20px; }
-      .text-side h2 { font-size: 1.85rem; }
-      .hub-subheading { font-size: 1rem; margin-bottom: 2.5rem; }
-      .glass-surface { padding: 1.25rem; min-height: 280px; }
+      .solution-hub { padding: 4rem 0 6rem; }
       
-      .pos-total { font-size: 1.4rem; }
-      .success-badge { width: 100%; padding: 0.6rem 1rem; }
-      
-      .inventory-control-pane { border-radius: 16px; }
-      .orchestration-map { height: 220px; }
-      .node-pro { 
-        padding: 0.35rem 0.5rem; 
-        font-size: 0.7rem; 
-        .n-l { font-size: 0.55rem; }
+      .tab-grid {
+        width: 100%;
+        max-width: 100vw;
+        overflow-x: auto;
+        justify-content: flex-start;
+        padding: 0.4rem;
+        border-radius: 100px;
+        margin-bottom: 2.5rem;
+        gap: 0.4rem;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        background: rgba(15, 23, 42, 0.05);
+        &::-webkit-scrollbar { display: none; }
       }
-      .s1 { top: 5%; left: 5%; }
-      .s2 { bottom: 5%; left: 5%; }
-      .w1 { top: 5%; right: 5%; }
-      .w2 { bottom: 5%; right: 5%; }
 
-      .omni-sources { gap: 0.75rem; }
-      .omni-source-icon { width: 38px; height: 38px; border-radius: 10px; }
-      .omni-source-icon.pro { width: 44px; height: 44px; }
-      .s-label { font-size: 0.6rem; }
-      .omni-hub-core-pro { padding: 0.6rem 1rem; }
-      .omni-hub-brand { font-size: 0.9rem; }
-      .omni-status-bar { font-size: 0.65rem; }
+      .glass-tab {
+        padding: 0.75rem 1.75rem;
+        flex: 0 0 auto;
+        border-radius: 100px;
+        .tab-title { font-size: 0.85rem; font-weight: 850; }
+        &.active { 
+          background: white; 
+          box-shadow: 0 8px 16px rgba(0, 0, 0, 0.06); 
+        }
+      }
+
+      .glass-card-main { 
+        padding: 3rem 1.5rem; 
+        border-radius: 32px; 
+        width: 100%;
+        margin: 0;
+        background: rgba(255, 255, 255, 0.9);
+        -webkit-backdrop-filter: blur(40px);
+        backdrop-filter: blur(40px);
+        border: 1.5px solid white;
+        box-shadow: 0 30px 60px rgba(0,0,0,0.06);
+      }
+
+      .hub-content { 
+        grid-template-columns: 1fr; 
+        gap: 0;
+      }
+
+      .text-side {
+        min-height: auto;
+        margin-bottom: 4rem;
+        text-align: center;
+        align-items: center;
+      }
+
+      .text-side h2 { 
+        font-size: 2.4rem; 
+        font-weight: 950;
+        letter-spacing: -0.05em; 
+        line-height: 1.05;
+        margin-bottom: 1.5rem;
+      }
+
+      .hub-subheading { 
+        font-size: 1.15rem; 
+        line-height: 1.6;
+        color: #64748b;
+        margin-bottom: 3rem; 
+        max-width: 100%;
+        -webkit-line-clamp: unset; 
+        display: block; 
+      }
+
+      .sophisticated-list { 
+        margin-bottom: 3.5rem; 
+        text-align: left;
+        li { font-size: 1.1rem; gap: 0.85rem; margin-bottom: 1.5rem; }
+        li div { -webkit-line-clamp: unset; display: block; }
+      }
+      
+      .btn-primary.glass-btn {
+        width: 100%;
+        padding: 1.25rem;
+        font-size: 1.1rem;
+        border-radius: 18px;
+        background: #0f172a;
+        font-weight: 850;
+      }
+
+      .visual-side { 
+        margin-top: 2rem;
+        perspective: 1500px;
+      }
+
+      .glass-surface { 
+        padding: 1.5rem; 
+        min-height: 380px; 
+        height: auto;
+        border-radius: 28px;
+        background: rgba(255, 255, 255, 0.4);
+        border: 1px solid rgba(255, 255, 255, 0.8);
+      }
+      
+      .inventory-control-pane { 
+        border-radius: 20px; 
+        height: 420px; 
+        flex-direction: column;
+        .network-canvas { flex: 1; padding: 1.5rem; border-right: none; border-bottom: 1px solid rgba(255,255,255,0.08); }
+        .executive-sidebar { padding: 1.25rem; }
+      }
+      
+      .orchestration-map { 
+        height: 180px; 
+      }
+      
+      .pos-terminal {
+        padding: 1rem;
+        .pos-item { font-size: 1rem; }
+        .pos-total { font-size: 1.8rem; }
+      }
+
+      .omni-sources { gap: 0.85rem; }
+      .omni-source-icon { width: 44px; height: 44px; border-radius: 12px; }
+      .omni-source-icon.pro { width: 50px; height: 50px; }
+      .s-label { font-size: 0.7rem; font-weight: 900; }
+      .omni-hub-core-pro { padding: 0.8rem 1.4rem; border-radius: 20px; }
+      .omni-hub-brand { font-size: 1.15rem; }
+      .omni-status-bar { font-size: 0.75rem; padding: 0.5rem 0 1rem; }
     }
   `]
 })

@@ -306,16 +306,18 @@ import { CommonModule } from '@angular/common';
       width: 100%;
       height: 100vh;
       height: 100dvh; /* Dynamic Viewport for Safari */
-      background: rgba(255, 255, 255, 0.98);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
+      background: rgba(255, 255, 255, 0.75);
+      backdrop-filter: blur(40px) saturate(180%);
+      -webkit-backdrop-filter: blur(40px) saturate(180%);
+      border-left: 1px solid rgba(255, 255, 255, 0.4);
+      box-shadow: -20px 0 60px rgba(0, 0, 0, 0.1);
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      gap: 1.25rem;
+      gap: 0.5rem;
       transform: translateX(100%);
-      transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+      transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.5s ease;
       z-index: 1001;
       opacity: 0;
       visibility: hidden; /* Prevent horizontal scroll when closed */
