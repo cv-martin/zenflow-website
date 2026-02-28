@@ -215,6 +215,14 @@ import { CommonModule } from '@angular/common';
         opacity: 1;
         transform: translateX(0);
       }
+
+      @media (max-width: 480px) {
+        .title {
+          max-width: 80px;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+      }
     }
     
     .header.scrolled .logo { font-size: 1.35rem; }

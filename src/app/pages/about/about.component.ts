@@ -41,8 +41,9 @@ import { Component } from '@angular/core';
     }
 
     @media (max-width: 640px) {
-      h1 { font-size: 2.25rem; }
-      .lead { font-size: 1.15rem; }
+      .page-content { padding-top: 4rem; }
+      h1 { font-size: 2.25rem; line-height: 1.2; }
+      .lead { font-size: 1.15rem; margin-bottom: 3rem; }
       .about-card { padding: 2rem 1.5rem !important; }
       .about-card h3 { font-size: 1.6rem; }
       .about-card p { font-size: 1.1rem; }

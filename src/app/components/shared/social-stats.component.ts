@@ -88,17 +88,18 @@ import { ScrollRevealDirective } from '../../directives/scroll-reveal.directive'
     }
 
     @media (max-width: 1100px) {
-      .stats-container { padding: 6rem 0; }
+      .stats-container { padding: 4rem 0; }
       .stats-row {
         flex-direction: column;
-        gap: 4rem;
-        padding: 4rem;
+        gap: 2.5rem;
+        padding: 3rem 2rem;
         border-radius: 40px;
         width: calc(100% - 3rem);
       }
       .stat-divider {
-        width: 100px;
+        width: 80px;
         height: 1px;
+        opacity: 0.1;
       }
     }
 

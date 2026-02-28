@@ -173,9 +173,11 @@ import { ScrollRevealDirective } from '../../directives/scroll-reveal.directive'
     }
     
     @media (max-width: 768px) {
-      .power-section { padding: 6rem 0; }
+      .power-section { padding: 5rem 0; }
+      .section-header h2 { font-size: 1.8rem; }
+      .section-header p { font-size: 1rem; }
       .feature-grid { grid-template-columns: 1fr; gap: 1rem; }
-      .power-card { padding: 2.5rem 1.5rem; }
+      .power-card { padding: 2rem 1.5rem; }
     }
   `]
 })

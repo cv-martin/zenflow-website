@@ -648,6 +648,28 @@ interface HubTab {
         &::-webkit-scrollbar { display: none; }
       }
 
+      .inventory-control-pane {
+        flex-direction: column;
+        height: auto;
+      }
+      .network-canvas {
+        flex: 1 1 auto;
+        padding: 1.5rem;
+        border-right: none;
+        border-bottom: 1px solid rgba(255,255,255,0.06);
+      }
+      .executive-sidebar {
+        flex: 1 1 auto;
+        padding: 1.5rem;
+      }
+      .orchestration-map {
+        height: 180px;
+      }
+      .node-pro {
+        padding: 0.4rem 0.6rem;
+        font-size: 0.75rem;
+      }
+
       .glass-tab { flex-shrink: 0; white-space: nowrap; }
 
       .hub-content { grid-template-columns: 1fr; gap: 3rem; }
@@ -661,17 +683,33 @@ interface HubTab {
     }
 
     @media (max-width: 640px) {
-      .glass-card-main { padding: 2.5rem 1.5rem; border-radius: 20px; }
+      .glass-card-main { padding: 2.5rem 1.25rem; border-radius: 20px; }
       .text-side h2 { font-size: 1.85rem; }
-      .hub-subheading { font-size: 1rem; }
-      .glass-surface { padding: 1.5rem; min-height: 300px; }
+      .hub-subheading { font-size: 1rem; margin-bottom: 2.5rem; }
+      .glass-surface { padding: 1.25rem; min-height: 280px; }
       
       .pos-total { font-size: 1.4rem; }
-      .success-badge { width: 100%; }
-      .channel-dot { font-size: 0.7rem; padding: 0.5rem 1rem; }
-      .web { top: 15%; }
-      .app { top: 35%; }
-      .channel-dot { white-space: nowrap; max-width: 100%; overflow: hidden; text-overflow: ellipsis; }
+      .success-badge { width: 100%; padding: 0.6rem 1rem; }
+      
+      .inventory-control-pane { border-radius: 16px; }
+      .orchestration-map { height: 220px; }
+      .node-pro { 
+        padding: 0.35rem 0.5rem; 
+        font-size: 0.7rem; 
+        .n-l { font-size: 0.55rem; }
+      }
+      .s1 { top: 5%; left: 5%; }
+      .s2 { bottom: 5%; left: 5%; }
+      .w1 { top: 5%; right: 5%; }
+      .w2 { bottom: 5%; right: 5%; }
+
+      .omni-sources { gap: 0.75rem; }
+      .omni-source-icon { width: 38px; height: 38px; border-radius: 10px; }
+      .omni-source-icon.pro { width: 44px; height: 44px; }
+      .s-label { font-size: 0.6rem; }
+      .omni-hub-core-pro { padding: 0.6rem 1rem; }
+      .omni-hub-brand { font-size: 0.9rem; }
+      .omni-status-bar { font-size: 0.65rem; }
     }
   `]
 })

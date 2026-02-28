@@ -118,6 +118,11 @@ import { ScrollRevealDirective } from '../../directives/scroll-reveal.directive'
       line-height: 1.1;
       margin-bottom: 1.5rem;
       letter-spacing: -0.04em;
+      
+      br { display: block; }
+      @media (max-width: 768px) {
+        br { display: none; }
+      }
     }
 
     .subtext {

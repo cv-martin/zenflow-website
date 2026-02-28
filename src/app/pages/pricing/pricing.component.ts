@@ -253,15 +253,18 @@ import { FinalCtaComponent } from '../../components/final-cta/final-cta.componen
       .tier-card { max-width: 310px; }
     }
 
-    @media (max-width: 992px) {
+    @media (max-width: 900px) {
       .tiers-grid { grid-template-columns: 1fr; max-width: 360px; gap: 2rem; }
       .faq-grid { grid-template-columns: 1fr; gap: 2rem; }
+      .faq-container { padding: 2.5rem 1.5rem !important; }
     }
 
     @media (max-width: 640px) {
       .page-content { padding-top: 5.5rem; }
-      .hero-section h1 { font-size: 2rem; }
-      .faq-container h2 { font-size: 1.8rem; }
+      .hero-section { padding: 4rem 0 6rem; }
+      .hero-section h1 { font-size: 2.2rem; margin-bottom: 1.5rem; }
+      .faq-container h2 { font-size: 1.8rem; margin-bottom: 2rem; }
+      .tier-card { padding: 2rem 1.25rem; }
     }
 
   `]

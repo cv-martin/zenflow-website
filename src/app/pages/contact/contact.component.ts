@@ -148,7 +148,9 @@ import { Component } from '@angular/core';
     }
 
     @media (max-width: 640px) {
-      .contact-hero h1 { font-size: 2rem; }
+      .page-content { padding-top: 4rem; }
+      .contact-hero { margin-bottom: 1.5rem; }
+      .contact-hero h1 { font-size: 2.2rem; }
       .contact-card { padding: 2rem 1.25rem !important; }
     }
   `]
