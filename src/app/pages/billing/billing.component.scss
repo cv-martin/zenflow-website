@@ -157,6 +157,11 @@
 /*                          5. AI Demo Intelligence                           */
 /* -------------------------------------------------------------------------- */
 
+.dash-top {
+  position: relative;
+  z-index: 500;
+}
+
 .dash-search-container {
   display: flex;
   align-items: center;
@@ -176,6 +181,7 @@
     background: white;
     border-color: var(--primary-color);
     box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
+    z-index: 1000;
     .sparkle-icon { transform: scale(1.2) rotate(15deg); }
   }
 
@@ -274,6 +280,11 @@
     .action-btn-pill { background: #059669; }
     .live-glow { margin-bottom: 1rem; font-size: 0.7rem; font-weight: 950; color: #10b981; display: flex; align-items: center; gap: 8px; .dot { width: 8px; height: 8px; background: #10b981; border-radius: 50%; animation: livePulse 1s infinite; will-change: box-shadow; } }
   }
+}
+
+.dash-content-area {
+  position: relative;
+  z-index: 10;
 }
 
 .dash-main-stat {

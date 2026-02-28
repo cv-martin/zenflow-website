@@ -27,7 +27,7 @@ import { ScrollRevealDirective } from '../../directives/scroll-reveal.directive'
             <div class="pulse-ring pr-2"></div>
             <div class="pulse-ring pr-3"></div>
             <div class="logo-circle">
-              <span class="logo-z">Z</span>
+              <img src="/logo/logo.png" alt="Zenflow" class="logo-icon" />
             </div>
           </div>
         </div>
@@ -138,21 +138,37 @@ import { ScrollRevealDirective } from '../../directives/scroll-reveal.directive'
     }
 
     .logo-circle {
-      width: 120px;
-      height: 120px;
-      background: #ffffff;
-      border-radius: 50%;
+      width: 140px;
+      height: 140px;
+      background: linear-gradient(135deg, #ffffff 0%, #f3f4f6 100%);
+      border-radius: 36px;
       display: flex;
       justify-content: center;
       align-items: center;
-      box-shadow: 0 0 50px rgba(0, 0, 0, 0.1);
+      box-shadow: 
+        0 20px 50px rgba(0, 0, 0, 0.2), 
+        0 0 80px rgba(139, 92, 246, 0.4),
+        inset 0 2px 2px rgba(255, 255, 255, 1);
       z-index: 2;
+      border: 1px solid rgba(255, 255, 255, 0.8);
+      transform: rotate(-3deg);
+      transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
     }
 
-    .logo-z {
-      font-size: 3.5rem;
-      font-weight: 950;
-      color: #4f46e5;
+    .cta-visual:hover .logo-circle {
+      transform: rotate(0deg) scale(1.05) translateY(-10px);
+      box-shadow: 
+        0 30px 60px rgba(0, 0, 0, 0.25), 
+        0 0 100px rgba(139, 92, 246, 0.6),
+        inset 0 2px 2px rgba(255, 255, 255, 1);
+    }
+
+    .logo-icon {
+      width: 70%;
+      height: 70%;
+      object-fit: contain;
+      display: block;
+      filter: drop-shadow(0 10px 15px rgba(139, 92, 246, 0.2));
     }
 
     .pulse-ring {
@@ -187,8 +203,7 @@ import { ScrollRevealDirective } from '../../directives/scroll-reveal.directive'
       .cta-subtext { font-size: 1.1rem; margin-bottom: 2.5rem; }
       .cta-actions { flex-direction: column; width: 100%; gap: 1rem; }
       .btn-primary, .btn-secondary { width: 100%; text-align: center; padding: 1rem 1.5rem; font-size: 1rem; }
-      .logo-circle { width: 100px; height: 100px; }
-      .logo-z { font-size: 3rem; }
+      .logo-circle { width: 100px; height: 100px; border-radius: 24px; }
       .pr-1 { width: 140px; height: 140px; }
       .pr-2 { width: 190px; height: 190px; }
       .pr-3 { width: 240px; height: 240px; }

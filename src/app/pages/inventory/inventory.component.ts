@@ -127,21 +127,21 @@ import { FinalCtaComponent } from '../../components/final-cta/final-cta.componen
                 <filter id="glow"><feGaussianBlur stdDeviation="3" result="coloredBlur"/><feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
               </defs>
               <g class="lines-group" filter="url(#glow)">
-                <path class="flow-path" d="M160,84 Q300,180 500,300" /> <!-- BLR -->
-                <path class="flow-path" d="M180,480 Q300,450 500,300" /> <!-- PUN (Shifted Left) -->
-                <path class="flow-path" d="M140,372 Q280,350 500,300" /> <!-- BOM (Shifted) -->
-                <path class="flow-path" d="M400,72 Q450,200 500,300" /> <!-- DEL -->
-                <path class="flow-path" d="M520,504 Q480,420 500,300" /> <!-- KOL (Shifted Right) -->
-                <path class="flow-path" d="M60,192 Q300,240 500,300" /> <!-- JAI -->
+                <path class="flow-path" d="M100,108 Q280,200 500,300" /> <!-- BLR -->
+                <path class="flow-path" d="M180,480 Q300,450 500,300" /> <!-- PUN -->
+                <path class="flow-path" d="M140,372 Q280,350 500,300" /> <!-- BOM -->
+                <path class="flow-path" d="M460,48 Q480,180 500,300" /> <!-- DEL -->
+                <path class="flow-path" d="M520,504 Q480,420 500,300" /> <!-- KOL -->
+                <path class="flow-path" d="M40,228 Q260,260 500,300" /> <!-- JAI -->
               </g>
 
-              <!-- ALL 6 DATA PARTICLES ACTIVE -->
-              <circle r="2.5" fill="#6366f1" class="data-particle"><animateMotion dur="2s" repeatCount="indefinite" path="M160,84 Q300,180 500,300" /></circle>
-              <circle r="2.5" fill="#f43f5e" class="data-particle"><animateMotion dur="2.8s" repeatCount="indefinite" path="M400,72 Q450,200 500,300" /></circle>
-              <circle r="2.5" fill="#6366f1" class="data-particle"><animateMotion dur="4s" repeatCount="indefinite" path="M60,192 Q300,240 500,300" /></circle>
-              <circle r="2.5" fill="#10b981" class="data-particle"><animateMotion dur="3.2s" repeatCount="indefinite" path="M140,372 Q280,350 500,300" /></circle> <!-- Mumbai Dot -->
-              <circle r="2.5" fill="#6366f1" class="data-particle"><animateMotion dur="3.8s" repeatCount="indefinite" path="M180,480 Q300,450 500,300" /></circle> <!-- Pune Dot -->
-              <circle r="2.5" fill="#10b981" class="data-particle"><animateMotion dur="2.5s" repeatCount="indefinite" path="M520,504 Q480,420 500,300" /></circle> <!-- Kolkata Dot -->
+              <!-- ALL 6 DATA PARTICLES - Smooth, slow flow -->
+              <circle r="2.5" fill="#6366f1" class="data-particle"><animateMotion dur="6s" repeatCount="indefinite" calcMode="spline" keySplines="0.4 0 0.2 1" keyTimes="0;1" path="M100,108 Q280,200 500,300" /></circle>
+              <circle r="2.5" fill="#f43f5e" class="data-particle"><animateMotion dur="7s" repeatCount="indefinite" calcMode="spline" keySplines="0.4 0 0.2 1" keyTimes="0;1" path="M460,48 Q480,180 500,300" /></circle>
+              <circle r="2.5" fill="#6366f1" class="data-particle"><animateMotion dur="8s" repeatCount="indefinite" calcMode="spline" keySplines="0.4 0 0.2 1" keyTimes="0;1" path="M40,228 Q260,260 500,300" /></circle>
+              <circle r="2.5" fill="#10b981" class="data-particle"><animateMotion dur="7.5s" repeatCount="indefinite" calcMode="spline" keySplines="0.4 0 0.2 1" keyTimes="0;1" path="M140,372 Q280,350 500,300" /></circle> <!-- Mumbai Dot -->
+              <circle r="2.5" fill="#6366f1" class="data-particle"><animateMotion dur="8.5s" repeatCount="indefinite" calcMode="spline" keySplines="0.4 0 0.2 1" keyTimes="0;1" path="M180,480 Q300,450 500,300" /></circle> <!-- Pune Dot -->
+              <circle r="2.5" fill="#10b981" class="data-particle"><animateMotion dur="6.5s" repeatCount="indefinite" calcMode="spline" keySplines="0.4 0 0.2 1" keyTimes="0;1" path="M520,504 Q480,420 500,300" /></circle> <!-- Kolkata Dot -->
             </svg>
 
           </div>
@@ -198,13 +198,13 @@ import { FinalCtaComponent } from '../../components/final-cta/final-cta.componen
               
               <!-- COGNITIVE SEARCH HUB (Network Context) -->
               <div class="ai-search-container" (mousedown)="$event.stopPropagation()">
-                <div class="search-input-wrapper" [class.focused]="isFocused">
+                <div class="search-input-wrapper" [class.focused]="isFocused" (click)="focusSearch()">
                   <span class="ai-stars">✨</span>
                   <input #aiInput 
                          type="text" 
                          [placeholder]="placeholderText"
-                         (focus)="isFocused = true"
-                         (blur)="isFocused = false"
+                         (focus)="focusSearch()"
+                         (blur)="onSearchBlur()"
                          (keydown.enter)="triggerAnalysis(aiInput.value)">
                 </div>
                 <div class="ai-suggestions" *ngIf="isFocused && !isAnalyzing && !showInsight">
@@ -476,6 +476,21 @@ export class InventoryComponent implements OnDestroy {
       case 'Audit All Stores': this.openLiquidationModal(); break;
       case 'Forecast Stock Gap': this.openForecastModal(); break;
     }
+  }
+
+  focusSearch() {
+    this.isFocused = true;
+    this.showInsight = false;
+    if (this.aiInput) this.aiInput.nativeElement.focus();
+    this.cdr.markForCheck();
+  }
+
+  onSearchBlur() {
+    // Add small delay to let mousedown on suggestions fire before dropdown is removed from DOM
+    setTimeout(() => {
+      this.isFocused = false;
+      this.cdr.markForCheck();
+    }, 200);
   }
 
   openWarehouseModal() { this.showWarehouseModal = true; this.cdr.markForCheck(); }

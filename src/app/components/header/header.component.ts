@@ -13,7 +13,10 @@ import { CommonModule } from '@angular/common';
       <div class="container header-content">
         <div class="header-left">
           <a routerLink="/" class="logo" (click)="colorsMenu()">
-            <span class="logo-text">Zenflow</span><span class="highlight">.ai</span>
+            <span class="brand-icon-wrap">
+              <img src="/logo/logo.png" alt="Zenflow" class="brand-icon" />
+            </span>
+            <img src="/logo/zenflow_text.png" alt="Zenflow" class="brand-wordmark" />
           </a>
           
           <div class="page-context" [class.visible]="isScrolled && currentPageTitle">
@@ -61,12 +64,13 @@ import { CommonModule } from '@angular/common';
       height: var(--header-height);
       position: fixed;
       top: 0;
-      left: 0;
-      right: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      max-width: 100vw;
       z-index: 1000;
       display: flex;
       align-items: center;
-      transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+      transition: background 0.4s cubic-bezier(0.165, 0.84, 0.44, 1), border-color 0.4s cubic-bezier(0.165, 0.84, 0.44, 1), backdrop-filter 0.4s cubic-bezier(0.165, 0.84, 0.44, 1), -webkit-backdrop-filter 0.4s cubic-bezier(0.165, 0.84, 0.44, 1), box-shadow 0.4s cubic-bezier(0.165, 0.84, 0.44, 1), top 0.4s cubic-bezier(0.165, 0.84, 0.44, 1), width 0.4s cubic-bezier(0.165, 0.84, 0.44, 1), border-radius 0.4s cubic-bezier(0.165, 0.84, 0.44, 1), height 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
       background: rgba(255, 255, 255, 0.01);
       backdrop-filter: blur(8px);
       -webkit-backdrop-filter: blur(8px);
@@ -78,7 +82,6 @@ import { CommonModule } from '@angular/common';
       top: 1.5rem;
       width: 95%;
       max-width: 1100px;
-      margin: 0 auto;
       height: 64px;
       border-radius: 999px;
       background: rgba(255, 255, 255, 0.8);
@@ -90,7 +93,7 @@ import { CommonModule } from '@angular/common';
 
     .header-content {
       display: grid;
-      grid-template-columns: 200px 1fr 200px;
+      grid-template-columns: auto 1fr auto;
       align-items: center;
       width: 100%;
     }
@@ -99,18 +102,90 @@ import { CommonModule } from '@angular/common';
     .header-right { display: flex; align-items: center; justify-content: flex-end; }
 
     .logo {
-      font-size: 1.5rem;
-      font-weight: 800;
-      letter-spacing: -0.03em;
-      transition: all 0.3s ease;
+      transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
       position: relative;
       z-index: 1002;
       display: flex;
       align-items: center;
+      gap: 0.8rem;
+      margin-right: 2.5rem;
+
+      &:hover .brand-icon-wrap {
+        transform: translateY(-2px) scale(1.02);
+        box-shadow: 
+          0 10px 25px -5px rgba(124, 58, 237, 0.25),
+          0 8px 10px -6px rgba(124, 58, 237, 0.15),
+          inset 0 0 0 1px rgba(255, 255, 255, 1);
+        background: linear-gradient(135deg, rgba(139, 92, 246, 0.12) 0%, rgba(255, 255, 255, 1) 100%);
+      }
+
+      &:hover .brand-wordmark {
+        opacity: 1;
+        transform: translateX(2px);
+        filter: brightness(1.1);
+      }
       
-      .highlight { color: var(--primary-color); }
+      .brand-icon-wrap {
+        width: 44px;
+        height: 44px;
+        border-radius: 13px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        background: linear-gradient(135deg, rgba(139, 92, 246, 0.05) 0%, rgba(255, 255, 255, 0.8) 100%);
+        border: 1px solid rgba(139, 92, 246, 0.15);
+        backdrop-filter: blur(8px);
+        box-shadow: 
+          0 4px 12px -2px rgba(124, 58, 237, 0.08),
+          0 2px 6px -1px rgba(124, 58, 237, 0.05),
+          inset 0 1px 1px rgba(255, 255, 255, 0.9);
+        transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+        position: relative;
+        overflow: hidden;
+
+        &::after {
+          content: '';
+          position: absolute;
+          inset: 0;
+          background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+          transform: translateX(-100%);
+          transition: transform 0.6s ease;
+        }
+      }
+
+      &:hover .brand-icon-wrap::after {
+        transform: translateX(100%);
+      }
+      
+      .brand-icon {
+        height: 30px;
+        width: auto;
+        object-fit: contain;
+        filter: drop-shadow(0 2px 4px rgba(139, 92, 246, 0.1));
+      }
+      
+      .brand-wordmark {
+        height: 20px;
+        width: auto;
+        flex-shrink: 0;
+        object-fit: contain;
+        opacity: 0.85;
+        transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+        filter: brightness(0.95);
+      }
     }
     
+    .header.scrolled .logo .brand-icon-wrap { 
+      width: 38px; 
+      height: 38px; 
+      border-radius: 11px;
+      background: rgba(255, 255, 255, 0.9);
+    }
+    .header.scrolled .logo .brand-icon { height: 26px; }
+    .header.scrolled .logo .brand-wordmark { height: 16px; }
+    .header.scrolled .logo { margin-right: 2rem; }
+
     .page-context {
       display: none; /* Hide on desktop by default */
       align-items: center;
@@ -143,6 +218,7 @@ import { CommonModule } from '@angular/common';
     }
     
     .header.scrolled .logo { font-size: 1.35rem; }
+    .logo:hover .brand-icon { transform: rotate(90deg); }
 
     .nav.desktop-nav {
       display: flex;
@@ -304,11 +380,11 @@ import { CommonModule } from '@angular/common';
       .header.scrolled {
         width: calc(100% - 2rem);
         top: 1rem;
-        margin: 0 1rem;
       }
 
-      .logo-text { display: inline-block !important; }
-      .logo { font-size: 1.25rem; }
+      .brand-wordmark { display: inline-block !important; }
+      .logo .brand-icon-wrap { width: 40px; height: 40px; border-radius: 12px; }
+      .logo .brand-icon { height: 28px; }
       
       .page-context {
         display: flex; /* Show only on mobile */
@@ -322,10 +398,12 @@ import { CommonModule } from '@angular/common';
        .header.scrolled {
          width: 100% !important;
          top: 0 !important;
-         margin: 0 !important;
          border-radius: 0 !important;
        }
-       .logo { font-size: 1.2rem; }
+       .logo .brand-icon-wrap { width: 36px; height: 36px; border-radius: 10px; }
+       .logo .brand-icon { height: 24px; }
+       .logo .brand-wordmark { height: 16px; }
+       .logo { margin-right: 0; }
     }
     
     /* Menu Open State handling aka "Burger Animation" */
@@ -358,6 +436,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
       })
     ).subscribe(title => {
       this.currentPageTitle = title;
+      this.isScrolled = false;
       this.closeMenu();
     });
   }

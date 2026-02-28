@@ -13,7 +13,7 @@ import { filter } from 'rxjs/operators';
     <!-- Global Living Background -->
     <div class="scanning-grid fixed-bg"></div>
     <div class="hero-glow fixed-bg"></div>
-    <div class="brand-watermark fixed-bg" [class.page-mode]="currentWatermark !== 'ZENFLOW'">
+    <div class="brand-watermark fixed-bg" [class.page-mode]="currentWatermark !== 'Zenflow'">
       {{ currentWatermark }}
     </div>
     
@@ -48,7 +48,7 @@ import { filter } from 'rxjs/operators';
 })
 export class AppComponent implements OnInit {
   title = 'Zenflow - Modern Retail OS';
-  currentWatermark = 'ZENFLOW';
+  currentWatermark = 'Zenflow';
 
   constructor(private router: Router) { }
 
@@ -58,12 +58,6 @@ export class AppComponent implements OnInit {
     ).subscribe((event: any) => {
       const url = event.urlAfterRedirects || event.url;
       this.updateWatermark(url);
-      
-      setTimeout(() => {
-        window.scrollTo({ top: 0, left: 0, behavior: 'instant' as any });
-        document.body.scrollTop = 0;
-        document.documentElement.scrollTop = 0;
-      }, 100);
     });
   }
 
@@ -74,6 +68,6 @@ export class AppComponent implements OnInit {
     else if (url.includes('omnichannel')) this.currentWatermark = 'OMNICHANNEL';
     else if (url.includes('pricing')) this.currentWatermark = 'PRICING';
     else if (url.includes('contact')) this.currentWatermark = 'CONTACT';
-    else this.currentWatermark = 'ZENFLOW';
+    else this.currentWatermark = 'Zenflow';
   }
 }

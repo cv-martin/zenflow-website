@@ -46,226 +46,205 @@ interface HubTab {
           <!-- Moving Gradient Background Element for Hub -->
           <div class="hub-visual-glow"></div>
           
-          <div class="hub-content" [class.content-fade-in]="isAnimating">
-            <!-- Left Side: Strategic Narratives -->
-            <div class="text-side">
-              <h2 class="text-gradient-premium" [innerHTML]="activeTab.headline"></h2>
-              <p class="hub-subheading">{{ activeTab.subtext }}</p>
-              
-              <ul class="sophisticated-list">
-                <li *ngFor="let feat of activeTab.features">
-                  <div>
-                    <strong>{{ feat.title }}:</strong>
-                    <span> {{ feat.desc }}</span>
-                  </div>
-                </li>
-              </ul>
-              
-              <a [routerLink]="['/' + activeTab.id]" class="btn btn-primary glass-btn">
-                Learn about {{ activeTab.title }} &rarr;
-              </a>
-            </div>
+          <!-- All 4 panels are always mounted. Only the active one is visible. -->
+          <div class="hub-panels-wrapper">
+            <div *ngFor="let tab of tabs" class="hub-panel" [class.active]="activeTab.id === tab.id">
+              <div class="hub-content">
+                <!-- Left Side: Strategic Narratives -->
+                <div class="text-side">
+                  <h2 class="text-gradient-premium" [innerHTML]="tab.headline"></h2>
+                  <p class="hub-subheading">{{ tab.subtext }}</p>
+                  
+                  <ul class="sophisticated-list">
+                    <li *ngFor="let feat of tab.features">
+                      <div>
+                        <strong>{{ feat.title }}:</strong>
+                        <span> {{ feat.desc }}</span>
+                      </div>
+                    </li>
+                  </ul>
+                  
+                  <a [routerLink]="['/' + tab.id]" class="btn btn-primary glass-btn">
+                    Learn about {{ tab.title }} &rarr;
+                  </a>
+                </div>
 
-            <!-- Right Side: High-Fidelity Technical Visualization -->
-            <div class="visual-side">
-              <div class="visual-container glass-surface">
-                <div class="hud-corner top-left"></div>
-                <div class="hud-corner bottom-right"></div>
-                
-                <ng-container [ngSwitch]="activeTab.visualType">
-                  <!-- Specialized POS Visual -->
-                  <div class="pos-terminal" *ngSwitchCase="'pos'">
-                    <div class="pos-header">
-                      <span>TERMINAL: ZEN-01</span>
-                      <span>LIVE</span>
-                    </div>
-                    <div class="pos-item"><span>Elite SKU-44</span><span>₹ 12,500</span></div>
-                    <div class="pos-item"><span>GST (18%)</span><span>₹ 2,250</span></div>
-                    <div class="pos-total"><span>TOTAL</span><span>₹ 14,750</span></div>
-                    <div class="success-badge">PAYMENT RECONCILED</div>
-                  </div>
-
-                  <!-- Specialized Inventory Visual: Executive Control-Pane Architecture -->
-                  <div class="inventory-control-pane" *ngSwitchCase="'inventory'">
+                <!-- Right Side: High-Fidelity Technical Visualization -->
+                <div class="visual-side">
+                  <div class="visual-container glass-surface">
+                    <div class="hud-corner top-left"></div>
+                    <div class="hud-corner bottom-right"></div>
                     
-                    <!-- Left: Intelligence Canvas (75%) -->
-                    <div class="network-canvas">
-                      <div class="canvas-header">
-                         <span class="engine-label">INFRASTRUCTURE ENGINE v4.2</span>
+                    <!-- POS Visual -->
+                    <div class="pos-terminal" *ngIf="tab.visualType === 'pos'">
+                      <div class="pos-header">
+                        <span>TERMINAL: GEN-01</span>
+                        <span>LIVE</span>
                       </div>
+                      <div class="pos-item"><span>Elite SKU-44</span><span>₹ 12,500</span></div>
+                      <div class="pos-item"><span>GST (18%)</span><span>₹ 2,250</span></div>
+                      <div class="pos-total"><span>TOTAL</span><span>₹ 14,750</span></div>
+                      <div class="success-badge">PAYMENT RECONCILED</div>
+                    </div>
 
-                      <div class="orchestration-map">
-                        <!-- Central AI Core -->
-                        <div class="core-hub">
-                          <div class="hub-rings">
-                            <div class="ring-pulse"></div>
-                            <div class="ring-pulse r2"></div>
+                    <!-- Inventory Visual -->
+                    <div class="inventory-control-pane" *ngIf="tab.visualType === 'inventory'">
+                      <div class="network-canvas">
+                        <div class="canvas-header">
+                           <span class="engine-label">INFRASTRUCTURE ENGINE v4.2</span>
+                        </div>
+                        <div class="orchestration-map">
+                          <div class="core-hub">
+                            <div class="hub-rings">
+                              <div class="ring-pulse"></div>
+                              <div class="ring-pulse r2"></div>
+                            </div>
+                            <div class="hub-inner">
+                              <span class="hub-brand">Zenflow</span>
+                              <span class="hub-label">CORE AI</span>
+                            </div>
                           </div>
-                          <div class="hub-inner">
-                            <span class="hub-brand">Zenflow</span>
-                            <span class="hub-label">CORE AI</span>
+                          <div class="node-pro shop s1">🏬 <span class="n-l">Store 01</span></div>
+                          <div class="node-pro shop s2">🏬 <span class="n-l">Store 02</span></div>
+                          <div class="node-pro wh w1">🏭 <span class="n-l">WH 01</span></div>
+                          <div class="node-pro wh w2">🏭 <span class="n-l">WH 02</span></div>
+                          <svg class="flow-canvas-pro" viewBox="0 0 280 220" preserveAspectRatio="none">
+                            <path d="M50,40 Q140,40 140,110" fill="none" class="f-p" />
+                            <path d="M50,180 Q140,180 140,110" fill="none" class="f-p" />
+                            <path d="M230,40 Q140,40 140,110" fill="none" class="f-p" />
+                            <path d="M230,180 Q140,180 140,110" fill="none" class="f-p" />
+                            <circle r="2.5" fill="#6366f1" class="p-d"><animateMotion dur="2.2s" repeatCount="indefinite" path="M50,40 Q140,40 140,110" /></circle>
+                            <circle r="2.5" fill="#6366f1" class="p-d"><animateMotion dur="2.8s" repeatCount="indefinite" path="M50,180 Q140,180 140,110" /></circle>
+                            <circle r="2.5" fill="#10b981" class="p-d"><animateMotion dur="3s" repeatCount="indefinite" path="M230,40 Q140,40 140,110" /></circle>
+                            <circle r="2.5" fill="#10b981" class="p-d"><animateMotion dur="2.5s" repeatCount="indefinite" path="M230,180 Q140,180 140,110" /></circle>
+                          </svg>
+                        </div>
+                      </div>
+                      <div class="executive-sidebar">
+                        <div class="sidebar-header">
+                          <span class="pulse-dot"></span>
+                          LIVE SYNC
+                        </div>
+                        <div class="sidebar-metrics">
+                          <div class="metric-item">
+                            <span class="m-label">NETWORK VELOCITY</span>
+                            <span class="m-value green">↑ 18.2%</span>
+                            <div class="m-bar"><div class="m-fill"></div></div>
+                          </div>
+                          <div class="metric-item">
+                            <span class="m-label">ACTIVE NODES</span>
+                            <span class="m-value">14 / 14</span>
+                            <div class="status-grid">
+                               <div class="dot active"></div><div class="dot active"></div><div class="dot active"></div><div class="dot active"></div>
+                               <div class="dot active"></div><div class="dot active"></div><div class="dot"></div><div class="dot"></div>
+                            </div>
                           </div>
                         </div>
-
-                        <!-- Distributed Grid (Balanced 75% Space) -->
-                        <div class="node-pro shop s1">🏬 <span class="n-l">Store 01</span></div>
-                        <div class="node-pro shop s2">🏬 <span class="n-l">Store 02</span></div>
-                        <div class="node-pro wh w1">🏭 <span class="n-l">WH 01</span></div>
-                        <div class="node-pro wh w2">🏭 <span class="n-l">WH 02</span></div>
-
-                        <!-- SVG Flow Topology -->
-                        <svg class="flow-canvas-pro" viewBox="0 0 280 220" preserveAspectRatio="none">
-                          <path d="M50,40 Q140,40 140,110" fill="none" class="f-p" /> <!-- S1 -->
-                          <path d="M50,180 Q140,180 140,110" fill="none" class="f-p" /> <!-- S2 -->
-                          <path d="M230,40 Q140,40 140,110" fill="none" class="f-p" /> <!-- W1 -->
-                          <path d="M230,180 Q140,180 140,110" fill="none" class="f-p" /> <!-- W2 -->
-                          
-                          <!-- Premium Flow Particles -->
-                          <circle r="2.5" fill="#6366f1" class="p-d"><animateMotion dur="2.2s" repeatCount="indefinite" path="M50,40 Q140,40 140,110" /></circle>
-                          <circle r="2.5" fill="#6366f1" class="p-d"><animateMotion dur="2.8s" repeatCount="indefinite" path="M50,180 Q140,180 140,110" /></circle>
-                          <circle r="2.5" fill="#10b981" class="p-d"><animateMotion dur="3s" repeatCount="indefinite" path="M230,40 Q140,40 140,110" /></circle>
-                          <circle r="2.5" fill="#10b981" class="p-d"><animateMotion dur="2.5s" repeatCount="indefinite" path="M230,180 Q140,180 140,110" /></circle>
-                        </svg>
+                        <div class="sidebar-footer">
+                          SYSTEM HEALTH: 99.8%
+                        </div>
                       </div>
                     </div>
 
-                    <!-- Right: Executive Sidebar HUD (25%) -->
-                    <div class="executive-sidebar">
-                      <div class="sidebar-header">
-                        <span class="pulse-dot"></span>
-                        LIVE SYNC
+                    <!-- Accounting Visual -->
+                    <div class="mockup-accounting" *ngIf="tab.visualType === 'accounting'">
+                      <div class="acc-header">
+                        <span>GST COMPLIANCE</span>
+                        <div class="gst-marker">✓ GST FILED</div>
                       </div>
+                      <app-accounting-chart></app-accounting-chart>
+                    </div>
 
-                      <div class="sidebar-metrics">
-                        <div class="metric-item">
-                          <span class="m-label">NETWORK VELOCITY</span>
-                          <span class="m-value green">↑ 18.2%</span>
-                          <div class="m-bar"><div class="m-fill"></div></div>
-                        </div>
-
-                        <div class="metric-item">
-                          <span class="m-label">ACTIVE NODES</span>
-                          <span class="m-value">14 / 14</span>
-                          <div class="status-grid">
-                             <div class="dot active"></div><div class="dot active"></div><div class="dot active"></div><div class="dot active"></div>
-                             <div class="dot active"></div><div class="dot active"></div><div class="dot"></div><div class="dot"></div>
+                    <!-- Omnichannel Visual -->
+                    <div class="omni-hub-v3" *ngIf="tab.visualType === 'omnichannel'">
+                      <div class="omni-status-bar">
+                        <div class="omni-live-dot"></div>
+                        <span class="status-main">ALL CHANNELS ACTIVE</span>
+                        <span class="omni-order-count">1,284 orders today</span>
+                      </div>
+                      <div class="omni-sources top-row">
+                        <div class="omni-source shopify">
+                          <div class="omni-source-icon">
+                            <svg viewBox="0 0 256 292" fill="none" xmlns="http://www.w3.org/2000/svg">
+                              <path d="M223.774 57.34c-.201-1.46-1.48-2.268-2.537-2.357-1.055-.088-23.383-1.743-23.383-1.743s-15.507-15.395-17.209-17.099c-1.703-1.703-5.029-1.185-6.32-.825-.19.056-3.388 1.043-8.678 2.68-5.18-14.906-14.322-28.604-30.405-28.604-.444 0-.901.018-1.358.044C129.31 3.407 123.644.779 118.75.779c-37.465 0-55.364 46.835-60.952 70.654-14.558 4.511-24.906 7.718-26.209 8.133-8.13 2.549-8.387 2.805-9.457 10.418C21.186 95.806.001 260.235.001 260.235l165.024 31.043 89.481-19.27S223.974 58.8 223.774 57.34zM174.098 42.87l-11.718 3.625c0-2.498-.253-6.104-.728-10.346 7.225 1.39 12.051 5.225 12.446 6.721zm-20.718-7.184c.832 5.622 1.37 13.627.587 21.93l-30.328 9.392c5.871-22.553 16.871-33.473 29.74-31.322zm-12.83-13.02c1.94 0 3.627.664 5.11 1.973-14.206 6.677-29.443 23.564-35.87 57.263l-23.983 7.427C92.936 66.665 107.89 22.664 140.55 22.666z" fill="#95BF47"/>
+                              <path d="M221.237 54.983c-1.055-.088-23.383-1.743-23.383-1.743s-15.507-15.395-17.209-17.099c-.637-.634-1.496-.949-2.394-1.069l-12.527 255.164 89.481-19.27S223.974 58.8 223.774 57.34c-.201-1.46-1.48-2.268-2.537-2.357z" fill="#5E8E3E"/>
+                              <path d="M135.553 104.585l-11.054 32.926s-9.715-5.183-21.588-5.183c-17.434 0-18.304 10.933-18.304 13.693 0 15.038 39.2 20.8 39.2 56.024 0 27.713-17.577 45.558-41.277 45.558-28.44 0-42.984-17.7-42.984-17.7l7.615-25.16s14.95 12.835 27.565 12.835c8.243 0 11.596-6.49 11.596-11.232 0-19.616-32.16-20.491-32.16-52.724 0-27.129 19.472-53.382 58.778-53.382 15.145 0 22.613 4.345 22.613 4.345z" fill="white"/>
+                            </svg>
                           </div>
+                          <span class="s-label">Shopify</span>
+                        </div>
+                        <div class="omni-source amazon">
+                          <div class="omni-source-icon">
+                            <svg viewBox="0 0 300 180" xmlns="http://www.w3.org/2000/svg">
+                              <rect width="300" height="180" rx="24" fill="#232F3E"/>
+                              <g transform="translate(40, 35) scale(0.72)">
+                                <path d="M176.7 138.1c-13.7 10.1-33.5 15.5-50.6 15.5-23.9 0-45.5-8.9-61.8-23.7-1.3-1.2-.1-2.8 1.4-1.9 17.6 10.2 39.4 16.4 61.8 16.4 15.2 0 31.8-3.1 47.1-9.6 2.3-1 4.2 1.5 2.1 3.3z" fill="#FF9900"/>
+                                <path d="M182.7 131.2c-1.7-2.2-11.4-1-15.8-.5-1.3.2-1.5-1-0.3-1.8 7.7-5.4 20.3-3.9 21.8-2.1 1.5 1.9-.4 14.9-7.6 21.1-1.1 1-2.2.5-1.7-.8 1.6-4.1 5.3-13.6 3.6-15.9z" fill="#FF9900"/>
+                                <path d="M167.5 44.5v-7.2c0-1.1.8-1.8 1.8-1.8h31.8c1 0 1.8.7 1.8 1.8v6.1c0 1-.9 2.4-2.5 4.6l-16.5 23.5c6.1-.2 12.6.8 18.2 3.9 1.3.7 1.6 1.7 1.7 2.7v7.7c0 1-1.1 2.2-2.3 1.6-9.5-5-22.2-5.5-32.7.1-1.1.6-2.2-.6-2.2-1.6v-7.3c0-1.1 0-3 1.1-4.7L186 47.9h-16.7c-1 0-1.8-.7-1.8-1.8v-1.6zM72.8 85h-9.7c-.9-.1-1.6-.8-1.7-1.6V37.3c0-1 .8-1.8 1.8-1.8h9c.9.1 1.6.8 1.7 1.7v6h.2c2.3-5.9 6.6-8.7 12.4-8.7 5.9 0 9.6 2.8 12.2 8.7 2.3-5.9 7.5-8.7 13-8.7 4 0 8.3 1.6 10.9 5.3 3 4.1 2.4 10 2.4 15.2l0 28.8c0 1-.8 1.8-1.8 1.8h-9.7c-.9-.1-1.7-.8-1.7-1.8V57.3c0-2 .2-7.1-.3-9-.7-3.2-2.8-4.1-5.6-4.1-2.3 0-4.7 1.5-5.7 4-.9 2.5-.8 6.6-.8 9.1v26.4c0 1-.8 1.8-1.8 1.8h-9.7c-.9-.1-1.7-.8-1.7-1.8l0-26.5c0-5.4.9-13.2-5.9-13.2-6.9 0-6.6 7.7-6.6 13.2l0 26.4c-.1.9-.9 1.7-1.9 1.7zM228.3 34.5c14.4 0 22.2 12.4 22.2 28.1 0 15.2-8.6 27.3-22.2 27.3-14.1 0-21.8-12.4-21.8-27.8 0-15.5 7.8-27.6 21.8-27.6zm.1 10.2c-7.1 0-7.6 9.7-7.6 15.8 0 6.1-.1 19.1 7.5 19.1 7.5 0 7.9-10.5 7.9-16.9 0-4.2-.2-9.2-1.5-13.2-1.1-3.4-3.4-4.8-6.3-4.8zM264.2 85h-9.6c-.9-.1-1.7-.8-1.7-1.8l0-46c.1-.9.9-1.7 1.8-1.7h9c.8.1 1.5.7 1.7 1.5v7h.2c2.6-6.4 6.3-9.5 12.8-9.5 4.3 0 8.4 1.5 11.1 5.8 2.5 4 2.5 10.7 2.5 15.5v28.5c-.1.9-.9 1.6-1.8 1.6h-9.7c-.9-.1-1.6-.7-1.7-1.6V56.9c0-5.3.6-13-6-13-2.3 0-4.5 1.6-5.5 4-1.3 3-.5 8.2-1.5 11.9v23.4c0 1-.9 1.8-1.8 1.8h.2zM149.4 63.2c0 3.7.1 6.8-1.8 10.1-1.5 2.7-3.9 4.3-6.5 4.3-3.6 0-5.7-2.8-5.7-6.8 0-8 7.2-9.5 14-9.5v1.9zm9.5 23c-.6.6-1.6.6-2.3.2-3.3-2.7-3.8-4-5.6-6.6-5.4 5.5-9.2 7.1-16.1 7.1-8.2 0-14.6-5.1-14.6-15.2 0-7.9 4.3-13.3 10.4-15.9 5.3-2.3 12.7-2.7 18.3-3.4v-1.3c0-2.3.2-5-1.2-7-1.2-1.8-3.5-2.5-5.5-2.5-3.7 0-7 1.9-7.8 5.9-.2.9-.8 1.7-1.6 1.7l-9.4-1c-.7-.2-1.6-.8-1.4-2 2.2-11.6 12.7-15 22.1-15 4.8 0 11.1 1.3 14.9 5 4.8 4.5 4.3 10.4 4.3 16.9v15.3c0 4.6 1.9 6.6 3.7 9.1.6.9.8 1.9-.1 2.5-2.1 1.8-5.9 5.1-8.1 7l.4-.1zM44 63.2c0 3.7.1 6.8-1.8 10.1-1.5 2.7-3.8 4.3-6.5 4.3-3.6 0-5.7-2.8-5.7-6.8 0-8 7.2-9.5 14-9.5v1.9zm9.5 23c-.6.6-1.6.6-2.3.2-3.3-2.7-3.8-4-5.6-6.6-5.4 5.5-9.2 7.1-16.1 7.1-8.2 0-14.6-5.1-14.6-15.2 0-7.9 4.3-13.3 10.4-15.9 5.3-2.3 12.7-2.7 18.3-3.4v-1.3c0-2.3.2-5-1.2-7-1.2-1.8-3.5-2.5-5.5-2.5-3.7 0-7 1.9-7.8 5.9-.2.9-.8 1.7-1.6 1.7l-9.4-1c-.7-.2-1.6-.8-1.4-2C24 33.6 34.5 30 43.9 30c4.8 0 11.1 1.3 14.9 5 4.8 4.5 4.3 10.4 4.3 16.9v15.3c0 4.6 1.9 6.6 3.7 9.1.6.9.8 1.9-.1 2.5-2.1 1.8-5.9 5.1-8.1 7l-.1-.6z" fill="white"/>
+                              </g>
+                            </svg>
+                          </div>
+                          <span class="s-label">Amazon</span>
+                        </div>
+                        <div class="omni-source flipkart">
+                          <div class="omni-source-icon">
+                            <svg viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg">
+                              <rect width="256" height="256" rx="32" fill="#2874F0"/>
+                              <path d="M88 56h80v24H112v32h48v24h-48v56H88V56z" fill="#FFFFFF"/>
+                              <path d="M194 56l-16 24h22l16-24h-22z" fill="#FFE500"/>
+                            </svg>
+                          </div>
+                          <span class="s-label">Flipkart</span>
                         </div>
                       </div>
-
-                      <div class="sidebar-footer">
-                        SYSTEM HEALTH: 99.8%
-                      </div>
-                    </div>
-                  </div>
-
-                  <!-- Accounting Visual -->
-                  <div class="mockup-accounting" *ngSwitchCase="'accounting'">
-                    <div class="acc-header">
-                      <span>GST COMPLIANCE</span>
-                      <div class="gst-marker">✓ GST FILED</div>
-                    </div>
-                    <app-accounting-chart></app-accounting-chart>
-                  </div>
-
-                  <!-- Omnichannel Visual V3: Hub & Spoke Orchestration Engine -->
-                  <div class="omni-hub-v3" *ngSwitchCase="'omnichannel'">
-
-                    <!-- Status Bar: Integrated into the core visual frame -->
-                    <div class="omni-status-bar">
-                      <div class="omni-live-dot"></div>
-                      <span class="status-main">ALL CHANNELS ACTIVE</span>
-                      <span class="omni-order-count">1,284 orders today</span>
-                    </div>
-
-                    <!-- Intelligence Layer: Top Sources -->
-                    <div class="omni-sources top-row">
-                      <div class="omni-source shopify">
-                        <div class="omni-source-icon">
-                          <svg viewBox="0 0 24 24" fill="none">
-                            <rect width="24" height="24" rx="6" fill="#96BF48"/>
-                            <path d="M12 4.5c-.5 0-.9.2-1.2.6L6.5 10H5v9c0 .6.4 1 1 1h12c.6 0 1-.4 1-1v-9h-1.5l-4.3-4.9c-.3-.4-.7-.6-1.2-.6zm0 1.5c.2 0 .4.1.5.2L16.2 10H7.8l3.7-3.8c.1-.1.3-.2.5-.2z" fill="white"/>
-                          </svg>
+                      <svg class="omni-flow-svg" viewBox="0 0 320 60" preserveAspectRatio="none">
+                        <line x1="53" y1="0" x2="160" y2="60" stroke="#6366f1" stroke-width="2" stroke-dasharray="4 2" class="flow-line"/>
+                        <line x1="160" y1="0" x2="160" y2="60" stroke="#6366f1" stroke-width="2" stroke-dasharray="4 2" class="flow-line" style="animation-delay:0.3s"/>
+                        <line x1="267" y1="0" x2="160" y2="60" stroke="#6366f1" stroke-width="2" stroke-dasharray="4 2" class="flow-line" style="animation-delay:0.6s"/>
+                      </svg>
+                      <div class="omni-central-hub-pro">
+                        <div class="hub-label-top">INTELLIGENCE LAYER</div>
+                        <div class="omni-hub-core-pro">
+                          <div class="hub-rings-pro">
+                            <div class="ring-pro"></div>
+                            <div class="ring-pro r2"></div>
+                          </div>
+                          <span class="omni-hub-brand">Zenflow</span>
+                          <span class="omni-hub-sub">AUTO-ALLOCATION</span>
                         </div>
-                        <span class="s-label">Shopify</span>
+                        <div class="hub-label-bottom">SMART ROUTING →</div>
                       </div>
-                      <div class="omni-source amazon">
-                        <div class="omni-source-icon">
-                          <svg viewBox="0 0 24 24" fill="none">
-                            <rect width="24" height="24" rx="6" fill="#000000"/>
-                            <path d="M16.5 13.5c-1.5-.5-3.5-1-5-1s-3.5.5-4.5 1c-.5.3-.8.8-.8 1.4v.1c0 .6.3 1.1.8 1.4 1 .5 3 1 4.5 1s3.5-.5 5-1c.5-.3.8-.8.8-1.4v-.1c0-.6-.3-1.1-.8-1.4z" fill="white" opacity="0.3"/>
-                            <path d="M4.5 17.5c2.5 2 6 2.5 9 1.5 1.5-.5 3-1.5 4-2.5.3-.3.1-.7-.3-.6-1 .3-2 .5-3 .5-3 0-5.5-1-7.5-3-.3-.3-.7-.1-.6.3.3 1.5.7 3 1.5 3.5.5.3.8.3.9.3z" fill="#FF9900"/>
-                          </svg>
+                      <svg class="omni-flow-svg bottom" viewBox="0 0 320 60" preserveAspectRatio="none">
+                        <line x1="160" y1="0" x2="80" y2="60" stroke="#6366f1" stroke-width="2" stroke-dasharray="4 2" class="flow-line" style="animation-delay:0.2s"/>
+                        <line x1="160" y1="0" x2="240" y2="60" stroke="#6366f1" stroke-width="2" stroke-dasharray="4 2" class="flow-line" style="animation-delay:0.5s"/>
+                      </svg>
+                      <div class="omni-sources bottom-row">
+                        <div class="omni-source instore">
+                          <div class="omni-source-icon pro">
+                            <svg viewBox="0 0 24 24" fill="none">
+                              <rect width="24" height="24" rx="8" fill="#6366f1"/>
+                              <path d="M5 10l7-6 7 6v9a1 1 0 01-1 1H6a1 1 0 01-1-1v-9z" stroke="white" stroke-width="2" fill="none"/>
+                            </svg>
+                            <div class="live-tag">LIVE</div>
+                          </div>
+                          <span class="s-label">Store POS</span>
                         </div>
-                        <span class="s-label">Amazon</span>
-                      </div>
-                      <div class="omni-source flipkart">
-                        <div class="omni-source-icon">
-                          <svg viewBox="0 0 24 24" fill="none">
-                            <rect width="24" height="24" rx="6" fill="#2874F0"/>
-                            <path d="M15.5 4h-7c-1.1 0-2 .9-2 2v2h11V6c0-1.1-.9-2-2-2z" fill="#FFD54F" opacity="0.4"/>
-                            <path d="M6 9h12v9c0 1.1-.9 2-2 2H8c-1.1 0-2-.9-2-2V9z" fill="#FFD54F"/>
-                            <path d="M12.5 14.5c.3-.3.5-.7.5-1.1v-.8c0-.6-.4-1-1-1h-2v5.5H11v-2.1h.7l1.3 2.1h1.2l-1.7-2.6zM11 12.5h1c.1 0 .2.1.2.2v.2c0 .1-.1.2-.2.2h-1v-.6z" fill="#2874F0"/>
-                          </svg>
+                        <div class="omni-source mobile">
+                          <div class="omni-source-icon pro">
+                            <svg viewBox="0 0 24 24" fill="none">
+                              <rect width="24" height="24" rx="8" fill="#ec4899"/>
+                              <rect x="7" y="3" width="10" height="18" rx="2" stroke="white" stroke-width="2" fill="none"/>
+                              <circle cx="12" cy="18" r="1.5" fill="white"/>
+                            </svg>
+                            <div class="live-tag">LIVE</div>
+                          </div>
+                          <span class="s-label">Mobile Hub</span>
                         </div>
-                        <span class="s-label">Flipkart</span>
-                      </div>
-                    </div>
-
-                    <!-- High-Density Flow Lines (Top) -->
-                    <svg class="omni-flow-svg" viewBox="0 0 320 60" preserveAspectRatio="none">
-                      <line x1="53" y1="0" x2="160" y2="60" stroke="#6366f1" stroke-width="2" stroke-dasharray="4 2" class="flow-line"/>
-                      <line x1="160" y1="0" x2="160" y2="60" stroke="#6366f1" stroke-width="2" stroke-dasharray="4 2" class="flow-line" style="animation-delay:0.3s"/>
-                      <line x1="267" y1="0" x2="160" y2="60" stroke="#6366f1" stroke-width="2" stroke-dasharray="4 2" class="flow-line" style="animation-delay:0.6s"/>
-                    </svg>
-
-                    <!-- The Brain: Genflow Orchestration Core -->
-                    <div class="omni-central-hub-pro">
-                      <div class="hub-label-top">INTELLIGENCE LAYER</div>
-                      <div class="omni-hub-core-pro">
-                        <div class="hub-rings-pro">
-                          <div class="ring-pro"></div>
-                          <div class="ring-pro r2"></div>
-                        </div>
-                        <span class="omni-hub-brand">Zenflow</span>
-                        <span class="omni-hub-sub">AUTO-ALLOCATION</span>
-                      </div>
-                      <div class="hub-label-bottom">SMART ROUTING →</div>
-                    </div>
-
-                    <!-- High-Density Flow Lines (Bottom) -->
-                    <svg class="omni-flow-svg bottom" viewBox="0 0 320 60" preserveAspectRatio="none">
-                      <line x1="160" y1="0" x2="80" y2="60" stroke="#6366f1" stroke-width="2" stroke-dasharray="4 2" class="flow-line" style="animation-delay:0.2s"/>
-                      <line x1="160" y1="0" x2="240" y2="60" stroke="#6366f1" stroke-width="2" stroke-dasharray="4 2" class="flow-line" style="animation-delay:0.5s"/>
-                    </svg>
-
-                    <!-- Fulfillment Nodes (Balanced Weight) -->
-                    <div class="omni-sources bottom-row">
-                      <div class="omni-source instore">
-                        <div class="omni-source-icon pro">
-                          <svg viewBox="0 0 24 24" fill="none">
-                            <rect width="24" height="24" rx="8" fill="#6366f1"/>
-                            <path d="M5 10l7-6 7 6v9a1 1 0 01-1 1H6a1 1 0 01-1-1v-9z" stroke="white" stroke-width="2" fill="none"/>
-                          </svg>
-                          <div class="live-tag">LIVE</div>
-                        </div>
-                        <span class="s-label">Store POS</span>
-                      </div>
-                      <div class="omni-source mobile">
-                        <div class="omni-source-icon pro">
-                          <svg viewBox="0 0 24 24" fill="none">
-                            <rect width="24" height="24" rx="8" fill="#ec4899"/>
-                            <rect x="7" y="3" width="10" height="18" rx="2" stroke="white" stroke-width="2" fill="none"/>
-                            <circle cx="12" cy="18" r="1.5" fill="white"/>
-                          </svg>
-                          <div class="live-tag">LIVE</div>
-                        </div>
-                        <span class="s-label">Mobile Hub</span>
                       </div>
                     </div>
 
                   </div>
-                </ng-container>
+                </div>
               </div>
             </div>
           </div>
@@ -320,7 +299,7 @@ interface HubTab {
     .glass-tab.active .tab-title { color: var(--primary-color); }
 
     .glass-card-main { 
-      min-height: 520px; padding: 4rem; position: relative;
+      min-height: 580px; padding: 4rem; position: relative;
       background: rgba(255, 255, 255, 0.65); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
       border-radius: 28px; border: 1px solid rgba(255, 255, 255, 0.5);
       box-shadow: 0 40px 80px -20px rgba(15, 23, 42, 0.08);
@@ -344,6 +323,29 @@ interface HubTab {
       filter: blur(50px); pointer-events: none; z-index: 0;
     }
 
+    /* Panel stacking system: all panels mounted, only active visible */
+    .hub-panels-wrapper {
+      position: relative;
+      z-index: 1;
+      min-height: 480px;
+    }
+
+    .hub-panel {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(8px);
+      transition: opacity 0.28s ease-out, transform 0.28s ease-out;
+    }
+
+    .hub-panel.active {
+      position: relative;
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0);
+    }
+
     .hub-content { 
       display: grid; 
       grid-template-columns: 1fr 1.15fr; 
@@ -353,26 +355,15 @@ interface HubTab {
       z-index: 1;
       width: 100%;
       min-width: 0;
-      will-change: transform, opacity;
-    }
-
-    /* Product-Grade Controlled Transition (Smooth 500ms) */
-    .content-fade-in { 
-      animation: contentEntrance 0.5s cubic-bezier(0.16, 1, 0.3, 1) both; 
-    }
-    
-    @keyframes contentEntrance { 
-      from { 
-        opacity: 0; 
-        transform: translateY(15px) scale(0.995); 
-      } 
-      to { 
-        opacity: 1; 
-        transform: translateY(0) scale(1.0); 
-      } 
     }
  
     .text-side h2 { font-size: 2.75rem; font-weight: 900; margin-bottom: 1.5rem; letter-spacing: -0.03em; line-height: 1.1; color: #1e293b; }
+    .text-side { 
+      min-height: 420px; 
+      display: flex; 
+      flex-direction: column;
+      justify-content: center;
+    }
     .text-gradient-premium { color: #1e293b; }
     .text-gradient { 
       background: linear-gradient(135deg, #7C3AED 0%, #DB2777 100%);
@@ -382,16 +373,22 @@ interface HubTab {
       color: transparent;
     }
  
-    .hub-subheading { font-size: 1.15rem; color: #475569; line-height: 1.6; margin-bottom: 2.5rem; font-weight: 500; max-width: 90%; }
+    .hub-subheading { 
+      font-size: 1.15rem; color: #475569; line-height: 1.6; margin-bottom: 2rem; font-weight: 500; max-width: 90%;
+      display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+    }
     
-    .sophisticated-list { list-style: none; padding: 0; margin-bottom: 2.5rem; }
+    .sophisticated-list { list-style: none; padding: 0; margin-bottom: 2rem; }
     .sophisticated-list li { 
-      margin-bottom: 1rem; 
+      margin-bottom: 0.85rem; 
       display: flex; 
       align-items: baseline; 
       gap: 0.85rem; 
       font-size: 1.05rem;
       position: relative;
+    }
+    .sophisticated-list li div {
+      display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
     }
     .sophisticated-list li::before {
       content: '';
@@ -578,10 +575,16 @@ interface HubTab {
     }
 
     /* Visualization Side Refinements */
+    .visual-side {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+    }
     .glass-surface {
       background: rgba(255, 255, 255, 0.5); backdrop-filter: blur(10px);
       border: 1px solid rgba(255, 255, 255, 0.4); border-radius: 24px;
-      padding: 1.5rem; min-height: 480px; position: relative;
+      padding: 1.5rem; height: 420px; min-height: 420px; position: relative;
       box-shadow: 0 20px 40px rgba(0,0,0,0.03); display: flex; align-items: center; justify-content: center;
       width: 100%;
       max-width: 100%;
@@ -683,8 +686,7 @@ export class SolutionHubComponent implements OnInit, OnDestroy {
       features: [
         { title: 'Endless aisle', desc: 'Check availability across stores and ship from another location.' },
         { title: 'Online orders → POS', desc: 'Receive online orders directly into the checkout workflow.' },
-        { title: 'Direct home delivery', desc: 'Fulfill out-of-stock items by shipping to the customer.' },
-        { title: 'Auto-Reconciliation', desc: 'AI reconciles payments across UPI and Cards.' }
+        { title: 'Direct home delivery', desc: 'Fulfill out-of-stock items by shipping to the customer.' }
       ],
       visualType: 'pos'
     },
@@ -731,7 +733,6 @@ export class SolutionHubComponent implements OnInit, OnDestroy {
 
   activeTab: HubTab = this.tabs[0];
   progress = 0;
-  isAnimating = false;
   private autoCycleInterval: any;
 
   constructor(private cdr: ChangeDetectorRef) {}
@@ -770,16 +771,8 @@ export class SolutionHubComponent implements OnInit, OnDestroy {
 
   setActiveTab(tab: HubTab) {
     if (this.activeTab.id === tab.id) return;
-
-    // Fast Entrance Animation
-    this.isAnimating = false;
     this.activeTab = tab;
     this.progress = 0;
     this.cdr.markForCheck();
-
-    requestAnimationFrame(() => {
-      this.isAnimating = true;
-      this.cdr.markForCheck();
-    });
   }
 }

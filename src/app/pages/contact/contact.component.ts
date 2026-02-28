@@ -31,7 +31,7 @@ import { Component } from '@angular/core';
           </div>
           <h3>Email Us</h3>
           <p>For detailed inquiries and partnership requests.</p>
-          <a href="mailto:support@zenflow.ai" class="btn-email">support@zenflow.ai</a>
+          <a href="mailto:support@Zenflow.co" class="btn-email">support@Zenflow.co</a>
         </div>
 
         <!-- Sales Inquiry Card -->

@@ -10,7 +10,7 @@ import { CommonModule } from '@angular/common';
 })
 export class PrivacyConsentComponent implements OnInit {
   isVisible = false;
-  private readonly CONSENT_KEY = 'zenflow_privacy_consent';
+  private readonly CONSENT_KEY = 'Zenflow_privacy_consent';
 
   ngOnInit() {
     this.checkConsent();

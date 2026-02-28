@@ -13,7 +13,10 @@ import { RouterLink } from '@angular/router';
           <!-- Brand Column -->
           <div class="footer-brand">
             <div class="brand-logo">
-              <span class="logo-text">Zenflow<span class="highlight">.ai</span></span>
+              <span class="brand-icon-wrap">
+                <img src="/logo/logo.png" alt="Zenflow" class="brand-icon" />
+              </span>
+              <img src="/logo/zenflow_text.png" alt="Zenflow" class="brand-wordmark" />
             </div>
             <p class="brand-subtext">The operating system for modern retail.</p>
             <div class="brand-socials">
@@ -99,14 +102,51 @@ import { RouterLink } from '@angular/router';
     }
 
     /* Brand Column */
-    .brand-logo { margin-bottom: 1rem; }
-    .logo-text {
-      font-size: 1.5rem;
-      font-weight: 800;
-      color: #ffffff;
-      letter-spacing: -0.02em;
+    .brand-logo { 
+      margin-bottom: 2rem;
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+
+      .brand-icon-wrap {
+        width: 44px;
+        height: 44px;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+      }
+
+      &:hover .brand-icon-wrap {
+        background: rgba(139, 92, 246, 0.1);
+        border-color: rgba(139, 92, 246, 0.3);
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(139, 92, 246, 0.2);
+      }
     }
-    .highlight { color: #818cf8; }
+
+    .brand-icon {
+      height: 28px;
+      width: auto;
+      object-fit: contain;
+    }
+
+    .brand-wordmark {
+      height: 18px;
+      width: auto;
+      object-fit: contain;
+      filter: invert(1) brightness(1.2);
+      opacity: 0.8;
+      transition: opacity 0.3s ease;
+    }
+
+    .brand-logo:hover .brand-wordmark {
+      opacity: 1;
+    }
 
     .brand-subtext {
       color: #94a3b8;

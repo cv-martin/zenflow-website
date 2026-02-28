@@ -11,7 +11,7 @@ import { ScrollRevealDirective } from '../../directives/scroll-reveal.directive'
       <div class="container">
         <!-- Human-Centric Header -->
         <div class="section-header" appScrollReveal>
-          <div class="section-label">WHY OUR CUSTOMERS CHOOSE ZENFLOW</div>
+          <div class="section-label">WHY OUR CUSTOMERS CHOOSE Zenflow</div>
           <h2 class="headline">Designed for Those Who <br>Refuse to Outgrow Their Software.</h2>
           <p class="subtext">
             Power without complexity — built for modern retail growth.

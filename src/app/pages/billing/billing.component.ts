@@ -212,7 +212,7 @@ import { FinalCtaComponent } from '../../components/final-cta/final-cta.componen
                 <!-- State 3: AI Insight (Result) -->
                 <div class="ai-insight-card" *ngIf="showInsight" [class]="insightTheme">
                   <div class="insight-header">
-                    <span class="ai-badge">ZENFLOW AI</span>
+                    <span class="ai-badge">Zenflow AI</span>
                     <button class="close-btn" (click)="showInsight = false">×</button>
                   </div>
 
