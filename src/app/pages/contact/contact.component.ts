@@ -151,7 +151,30 @@ import { Component } from '@angular/core';
       .page-content { padding-top: 4rem; }
       .contact-hero { margin-bottom: 1.5rem; }
       .contact-hero h1 { font-size: 2.2rem; }
+      .contact-hero p { padding: 0 1.25rem; }
       .contact-card { padding: 2rem 1.25rem !important; }
+    }
+
+    @media (max-width: 480px) {
+      .contact-hero {
+        padding: 3rem 0;
+        h1 { font-size: 2.15rem; }
+        p { font-size: 1.05rem; }
+      }
+      .contact-grid {
+        padding: 0 1.25rem;
+      }
+      .contact-card {
+        padding: 1.75rem 1.25rem !important;
+        h3 { font-size: 1.2rem; }
+        p { font-size: 0.85rem; height: auto; margin-bottom: 1rem; }
+      }
+      .btn-whatsapp, .btn-email, .btn-sales {
+        min-height: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
     }
   `]
 })

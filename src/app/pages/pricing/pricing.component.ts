@@ -264,7 +264,7 @@ import { FinalCtaComponent } from '../../components/final-cta/final-cta.componen
       .hero-section { 
         padding: 4rem 0 5rem; 
         h1 { font-size: 2.6rem; letter-spacing: -0.04em; margin-bottom: 1.5rem; line-height: 1.1; }
-        p { font-size: 1.15rem; margin-bottom: 2.5rem; line-height: 1.5; }
+        p { font-size: 1.15rem; margin-bottom: 2.5rem; line-height: 1.5; padding: 0 1rem; }
       }
       .faq-container h2 { font-size: 2.2rem; margin-bottom: 2.5rem; letter-spacing: -0.04em; }
       .tier-card { 
@@ -289,6 +289,29 @@ import { FinalCtaComponent } from '../../components/final-cta/final-cta.componen
       }
       .faq-item h4 { font-size: 1.25rem; margin-bottom: 0.75rem; }
       .faq-item p { font-size: 1rem; line-height: 1.5; }
+    }
+
+    @media (max-width: 480px) {
+      .hero-section {
+        padding: 3rem 0 3.5rem;
+        h1 { font-size: 2.22rem; }
+        p { font-size: 1.05rem; }
+      }
+      .tiers-grid {
+        padding: 0 1.25rem;
+        max-width: 100%;
+      }
+      .tier-card {
+        padding: 2rem 1.25rem;
+        background: rgba(255, 255, 255, 0.99);
+      }
+      .tier-header .price { font-size: 2.6rem; }
+      .faq-section { padding: 2rem 0; }
+      .faq-container {
+        padding: 1.5rem !important;
+        h2 { font-size: 1.75rem; margin-bottom: 2rem; }
+      }
+      .faq-item h4 { font-size: 1.1rem; }
     }
 
   `]

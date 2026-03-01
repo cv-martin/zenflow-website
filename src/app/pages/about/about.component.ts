@@ -48,6 +48,18 @@ import { Component } from '@angular/core';
       .about-card h3 { font-size: 1.6rem; }
       .about-card p { font-size: 1.1rem; }
     }
+
+    @media (max-width: 480px) {
+      .page-content { padding-top: 3rem; }
+      .about-hero { margin-bottom: 3rem; }
+      h1 { font-size: 2.15rem; }
+      .lead { font-size: 1.05rem; }
+      .about-card {
+        padding: 1.75rem 1.25rem !important;
+        h3 { font-size: 1.45rem; margin-bottom: 1rem; }
+        p { font-size: 1.05rem; line-height: 1.6; }
+      }
+    }
   `]
 })
 export class AboutComponent { }

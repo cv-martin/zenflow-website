@@ -162,6 +162,13 @@ import { ScrollRevealDirective } from '../../directives/scroll-reveal.directive'
       .grid-2-col { gap: 2rem; }
       .step-indicator { font-size: 5rem; top: -1rem; left: 1rem; transform: none; }
     }
+
+    @media (max-width: 480px) {
+      .feature-row { padding: 4rem 0; }
+      .text-content h2 { font-size: 1.85rem; }
+      .glass-mockup { padding: 1.5rem; border-radius: 16px; }
+      .step-indicator { font-size: 3.5rem; top: -0.5rem; opacity: 0.05; }
+    }
   `]
 })
 export class FeaturesComponent { }
