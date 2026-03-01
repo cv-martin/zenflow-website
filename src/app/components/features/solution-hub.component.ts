@@ -69,9 +69,8 @@ interface HubTab {
                   </a>
                 </div>
 
-                <!-- Right Side: High-Fidelity Technical Visualization -->
                 <div class="visual-side">
-                  <div class="visual-container glass-surface">
+                  <div class="visual-container glass-surface" [class.no-padding]="tab.visualType === 'inventory'">
                     <div class="hud-corner top-left"></div>
                     <div class="hud-corner bottom-right"></div>
                     
@@ -307,18 +306,18 @@ interface HubTab {
       transition: color 0.3s ease; 
     }
     .tab-benefit { 
-      font-size: 0.6rem; 
+      font-size: 0.7rem; 
       color: #94a3b8; 
-      font-weight: 700; 
+      font-weight: 800; 
       text-transform: uppercase; 
       letter-spacing: 0.05em; 
-      opacity: 0.6;
-      display: none; /* Cleaner mobile look */
+      opacity: 0.8;
+      display: block;
     }
     .glass-tab.active .tab-title { color: var(--primary-color); }
 
     .glass-card-main { 
-      min-height: 580px; padding: 4rem; position: relative;
+      min-height: 580px; height: 580px; padding: 4rem; position: relative;
       background: rgba(255, 255, 255, 0.65); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
       border-radius: 28px; border: 1px solid rgba(255, 255, 255, 0.5);
       box-shadow: 0 40px 80px -20px rgba(15, 23, 42, 0.08);
@@ -378,10 +377,29 @@ interface HubTab {
  
     .text-side h2 { font-size: 2.75rem; font-weight: 900; margin-bottom: 1.5rem; letter-spacing: -0.03em; line-height: 1.1; color: #1e293b; }
     .text-side { 
-      min-height: 420px; 
+      height: 480px; /* Locked height to prevent shift */
       display: flex; 
       flex-direction: column;
-      justify-content: center;
+      justify-content: flex-start;
+      overflow-y: auto; /* Internal scrolling for long content */
+      padding-right: 1.5rem; /* Space for scrollbar */
+    }
+
+    /* Premium Custom Scrollbar for Text Side */
+    .text-side::-webkit-scrollbar {
+      width: 4px;
+    }
+    .text-side::-webkit-scrollbar-track {
+      background: rgba(0, 0, 0, 0.02);
+      border-radius: 4px;
+    }
+    .text-side::-webkit-scrollbar-thumb {
+      background: rgba(99, 102, 241, 0.2);
+      border-radius: 4px;
+      transition: background 0.3s ease;
+    }
+    .text-side::-webkit-scrollbar-thumb:hover {
+      background: rgba(99, 102, 241, 0.4);
     }
     .text-gradient-premium { color: #1e293b; }
     .text-gradient { 
@@ -394,7 +412,7 @@ interface HubTab {
  
     .hub-subheading { 
       font-size: 1.15rem; color: #475569; line-height: 1.6; margin-bottom: 2rem; font-weight: 500; max-width: 90%;
-      display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+      display: -webkit-box; -webkit-line-clamp: unset; -webkit-box-orient: vertical; overflow: visible;
     }
     
     .sophisticated-list { list-style: none; padding: 0; margin-bottom: 2rem; }
@@ -407,7 +425,7 @@ interface HubTab {
       position: relative;
     }
     .sophisticated-list li div {
-      display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+      display: -webkit-box; -webkit-line-clamp: unset; -webkit-box-orient: vertical; overflow: visible;
     }
     .sophisticated-list li::before {
       content: '';
@@ -449,14 +467,16 @@ interface HubTab {
 
     /* Executive Control-Pane Architecture Styles */
     .inventory-control-pane { 
-      width: 100%; height: 380px; display: flex; overflow: hidden; border-radius: 12px;
+      width: 100%; height: 360px; display: flex; overflow: hidden; border-radius: 24px;
       background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      border: 1px solid rgba(255,255,255,0.08);
+      box-shadow: 0 20px 40px -10px rgba(15, 23, 42, 0.08);
     }
-    .network-canvas { flex: 0 0 75%; position: relative; padding: 2.5rem; border-right: 1px solid rgba(255,255,255,0.06); }
+    .network-canvas { flex: 0 0 71%; position: relative; padding: 1.5rem 2rem; border-right: 1px solid rgba(255,255,255,0.06); }
     .canvas-header { margin-bottom: 1.5rem; }
     .engine-label { font-size: 0.75rem; font-weight: 950; color: #6366f1; letter-spacing: 0.2em; filter: drop-shadow(0 0 8px rgba(99,102,241,0.4)); }
 
-    .orchestration-map { position: relative; height: 220px; display: flex; align-items: center; justify-content: center; width: 100%; }
+    .orchestration-map { position: relative; height: 180px; display: flex; align-items: center; justify-content: center; width: 100%; }
     .core-hub { position: relative; z-index: 5; }
     .hub-inner {
       width: 78px; height: 78px; background: #0f172a; border: 2.5px solid #6366f1; border-radius: 50%;
@@ -490,16 +510,16 @@ interface HubTab {
 
     /* Right: Executive Sidebar HUD (25%) */
     .executive-sidebar { 
-      flex: 1; padding: 2.5rem 1.5rem; display: flex; flex-direction: column; gap: 2.5rem;
+      flex: 1; padding: 1.5rem 1rem; display: flex; flex-direction: column; gap: 1.5rem;
       background: rgba(15,23,42,0.6); backdrop-filter: blur(10px);
     }
     .sidebar-header { font-size: 0.65rem; font-weight: 950; color: #10b981; letter-spacing: 0.15em; display: flex; align-items: center; gap: 8px; border-bottom: 1px solid rgba(255,255,255,0.06); padding-bottom: 1rem; }
     .pulse-dot { width: 7px; height: 7px; background: #10b981; border-radius: 50%; animation: dotPulse 2s infinite; }
     
-    .sidebar-metrics { display: flex; flex-direction: column; gap: 2rem; }
-    .metric-item { display: flex; flex-direction: column; gap: 8px; }
+    .sidebar-metrics { display: flex; flex-direction: column; gap: 1.75rem; }
+    .metric-item { display: flex; flex-direction: column; gap: 6px; }
     .m-label { font-size: 0.55rem; font-weight: 950; color: #64748b; letter-spacing: 0.1em; }
-    .m-value { font-size: 1.4rem; font-weight: 950; color: white; &.green { color: #10b981; } }
+    .m-value { font-size: 1.15rem; font-weight: 950; color: white; &.green { color: #10b981; } }
     
     .m-bar { height: 6px; background: rgba(255,255,255,0.04); border-radius: 6px; position: relative; overflow: hidden; }
     .m-fill { width: 100%; height: 100%; background: linear-gradient(90deg, #6366f1, #10b981); border-radius: 6px; transform: scaleX(0.84); transform-origin: left; animation: barGrow 1.5s cubic-bezier(0.16, 1, 0.3, 1) forwards; will-change: transform; }
@@ -517,13 +537,14 @@ interface HubTab {
     .omni-hub-v3 { 
       width: 100%; display: flex; flex-direction: column; align-items: center; gap: 0; 
       font-family: 'Inter', sans-serif;
+      padding-top: 0.25rem;
     }
     
     .omni-status-bar { 
       width: 100%; display: flex; align-items: center; gap: 0.6rem; 
-      font-size: 0.7rem; font-weight: 850; color: #64748b; 
-      border-bottom: 1px solid rgba(0,0,0,0.06); padding: 0.4rem 0.5rem 0.8rem; margin-bottom: 1rem;
-      letter-spacing: 0.08em;
+      font-size: 0.6rem; font-weight: 800; color: #64748b; 
+      border-bottom: 1px solid rgba(0,0,0,0.06); padding: 0.3rem 0.5rem 0.4rem; margin-bottom: 0.3rem;
+      letter-spacing: 0.1em;
     }
     .omni-live-dot { 
       width: 7px; height: 7px; border-radius: 50%; background: #10b981; flex-shrink: 0;
@@ -531,57 +552,55 @@ interface HubTab {
     }
 
     /* Source nodes - Expanded Weight */
-    .omni-sources { display: flex; gap: 1.25rem; justify-content: center; width: 100%; }
+    .omni-sources { display: flex; gap: 2rem; justify-content: center; width: 100%; }
     .omni-source { 
-      display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
+      display: flex; flex-direction: column; align-items: center; gap: 0.35rem;
       transition: transform 0.3s ease;
       will-change: transform;
-      .s-label { font-size: 0.75rem; font-weight: 800; color: #475569; }
-      &:hover { transform: translateY(-3px); .omni-source-icon { box-shadow: 0 8px 20px rgba(0,0,0,0.15); border-color: #6366f1; } }
+      .s-label { font-size: 0.7rem; font-weight: 700; color: #64748b; }
+      &:hover { transform: translateY(-2px); .omni-source-icon { box-shadow: 0 8px 20px rgba(0,0,0,0.12); border-color: #6366f1; } }
     }
     .omni-source-icon { 
-      width: 52px; height: 52px; border-radius: 14px; position: relative;
+      width: 42px; height: 42px; border-radius: 12px; position: relative;
       box-shadow: 0 4px 12px rgba(0,0,0,0.08); border: 1.5px solid transparent;
-      overflow: hidden; transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
-      svg { width: 100%; height: 100%; display: block; }
-
-      &.pro { width: 56px; height: 56px; border-radius: 16px; }
+      &.pro { width: 46px; height: 46px; border-radius: 14px; }
+      img, svg { width: 100%; height: 100%; display: block; object-fit: contain; }
     }
 
     .live-tag {
       position: absolute; bottom: 4px; right: 4px; background: #10b981; color: white;
-      font-size: 0.5rem; font-weight: 950; padding: 1px 4px; border-radius: 3px;
+      font-size: 0.55rem; font-weight: 950; padding: 2px 5px; border-radius: 4px;
     }
 
     /* SVG flow lines - Denser & Stronger */
     .omni-flow-svg { 
-      width: 100%; height: 60px; display: block; overflow: visible;
+      width: 100%; height: 30px; display: block; overflow: visible;
       &.bottom { transform: scaleY(-1); }
     }
     .flow-line { 
-      stroke-dashoffset: 0; stroke-opacity: 0.8;
+      stroke-dashoffset: 0; stroke-opacity: 0.8; stroke-width: 1.5;
       animation: flowDash 1s linear infinite;
     }
     @keyframes flowDash { from { stroke-dashoffset: 12; } to { stroke-dashoffset: 0; } }
 
     /* The Brain - Expanded Core Architecture */
     .omni-central-hub-pro { 
-      position: relative; width: 100%; display: flex; flex-direction: column; align-items: center; gap: 8px; z-index: 10;
+      position: relative; width: 100%; display: flex; flex-direction: column; align-items: center; gap: 4px; z-index: 10;
     }
-    .hub-label-top { font-size: 0.55rem; font-weight: 950; color: #6366f1; letter-spacing: 0.15em; opacity: 0.7; }
-    .hub-label-bottom { font-size: 0.52rem; font-weight: 900; color: #94a3b8; letter-spacing: 0.05em; font-style: italic; }
+    .hub-label-top { font-size: 0.55rem; font-weight: 950; color: #6366f1; letter-spacing: 0.15em; opacity: 0.8; }
+    .hub-label-bottom { font-size: 0.5rem; font-weight: 900; color: #94a3b8; letter-spacing: 0.05em; font-style: italic; }
 
     .omni-hub-core-pro { 
-      background: white; border: 2.5px solid #6366f1; 
-      border-radius: 20px; padding: 0.85rem 1.75rem;
-      box-shadow: 0 15px 40px rgba(99,102,241,0.25);
-      display: flex; flex-direction: column; align-items: center; gap: 2px; position: relative;
+      background: white; border: 2px solid #6366f1; 
+      border-radius: 16px; padding: 0.6rem 1.6rem;
+      box-shadow: 0 10px 30px rgba(99,102,241,0.2);
+      display: flex; flex-direction: column; align-items: center; gap: 1px; position: relative;
       transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
       will-change: transform;
-      &:hover { transform: scale(1.05); box-shadow: 0 20px 50px rgba(99,102,241,0.35); }
+      &:hover { transform: scale(1.05); box-shadow: 0 15px 40px rgba(99,102,241,0.3); }
     }
-    .omni-hub-brand { font-size: 1.1rem; font-weight: 950; color: #1e293b; }
-    .omni-hub-sub { font-size: 0.6rem; font-weight: 900; color: #6366f1; letter-spacing: 0.08em; }
+    .omni-hub-brand { font-size: 0.95rem; font-weight: 950; color: #1e293b; }
+    .omni-hub-sub { font-size: 0.55rem; font-weight: 900; color: #6366f1; letter-spacing: 0.1em; text-transform: uppercase; }
     
     .hub-rings-pro { position: absolute; inset: 0; pointer-events: none; }
     .ring-pro { position: absolute; inset: -15px; border: 2px solid rgba(99, 102, 241, 0.15); border-radius: 24px; animation: pulseRing 3s ease-out infinite; }
@@ -603,11 +622,18 @@ interface HubTab {
     .glass-surface {
       background: rgba(255, 255, 255, 0.5); backdrop-filter: blur(10px);
       border: 1px solid rgba(255, 255, 255, 0.4); border-radius: 24px;
-      padding: 1.5rem; height: 420px; min-height: 420px; position: relative;
+      padding: 1.25rem; height: 360px; min-height: auto; position: relative;
       box-shadow: 0 20px 40px rgba(0,0,0,0.03); display: flex; align-items: center; justify-content: center;
       width: 100%;
       max-width: 100%;
       overflow: hidden;
+    }
+    
+    .glass-surface.no-padding {
+      padding: 0 !important;
+      background: transparent !important;
+      border-color: transparent !important;
+      box-shadow: none !important;
     }
 
     .hud-corner {
@@ -617,12 +643,28 @@ interface HubTab {
     .top-left { top: 18px; left: 18px; border-right: 0; border-bottom: 0; }
     .bottom-right { bottom: 18px; right: 18px; border-left: 0; border-top: 0; }
 
+    /* Standardized Visualization Headers */
+    .pos-header, .canvas-header, .acc-header, .omni-status-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid rgba(0,0,0,0.06);
+      width: 100%;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 850;
+      letter-spacing: 0.15em;
+      color: #64748b;
+      text-transform: uppercase;
+    }
+
     /* POS Terminal Visuals */
-    .pos-terminal { font-family: 'Inter', sans-serif; }
-    .pos-header { display: flex; justify-content: space-between; margin-bottom: 2rem; color: #64748b; font-size: 0.8rem; font-weight: 800; letter-spacing: 0.1em; border-bottom: 1px solid rgba(0,0,0,0.05); padding-bottom: 1rem; }
-    .pos-item { display: flex; justify-content: space-between; margin-bottom: 1rem; font-size: 1.1rem; font-weight: 600; color: #1e293b; }
-    .pos-total { margin-top: 2rem; padding-top: 1.5rem; border-top: 2px dashed rgba(0,0,0,0.1); display: flex; justify-content: space-between; font-size: 1.8rem; font-weight: 900; color: var(--primary-color); }
-    .success-badge { margin-top: 2.5rem; background: #10b981; color: white; padding: 0.8rem 1.5rem; border-radius: 12px; text-align: center; font-weight: 800; font-size: 0.9rem; box-shadow: 0 10px 20px rgba(16, 185, 129, 0.2); }
+    .pos-terminal { width: 100%; font-family: 'Inter', sans-serif; }
+    .pos-item { display: flex; justify-content: space-between; margin-bottom: 0.85rem; font-size: 1rem; font-weight: 600; color: #1e293b; }
+    .pos-total { margin-top: 1.5rem; padding-top: 1.25rem; border-top: 2px dashed rgba(0,0,0,0.1); display: flex; justify-content: space-between; font-size: 1.4rem; font-weight: 800; color: var(--primary-color); }
+    .success-badge { margin-top: 2rem; background: #10b981; color: white; padding: 0.6rem 1.2rem; border-radius: 12px; text-align: center; font-weight: 800; font-size: 0.85rem; box-shadow: 0 10px 20px rgba(16, 185, 129, 0.2); }
 
     /* Inventory Visuals */
     .inventory-tracker { width: 100%; }
@@ -636,7 +678,6 @@ interface HubTab {
 
     /* Accounting Visuals */
     .mockup-accounting { width: 100%; }
-    .acc-header { display: flex; justify-content: space-between; margin-bottom: 2rem; color: #64748b; font-size: 0.8rem; font-weight: 800; align-items: center; border-bottom: 1px solid rgba(0,0,0,0.05); padding-bottom: 1rem; }
     .gst-marker { background: #f0fdf4; color: #16a34a; padding: 6px 12px; border-radius: 8px; font-size: 0.75rem; border: 1px solid #22c55e20; }
 
     /* Omnichannel Pulse */
@@ -842,11 +883,12 @@ export class SolutionHubComponent implements OnInit, OnDestroy {
       title: 'Billing',
       benefit: 'Lightning Fast POS',
       headline: 'Lightning Fast <span class="text-highlight-pink">Billing</span>',
-      subtext: 'The core of your retail operations, optimized for speed and accuracy.',
+      subtext: 'The core of your retail operations, optimized for speed and accuracy. Handle peaks with ease and never keep a customer waiting.',
       features: [
+        { title: 'Scan & Go', desc: 'Process items instantly with barcode integration.' },
         { title: 'Endless aisle', desc: 'Check availability across stores and ship from another location.' },
-        { title: 'Online orders → POS', desc: 'Receive online orders directly into the checkout workflow.' },
-        { title: 'Direct home delivery', desc: 'Fulfill out-of-stock items by shipping to the customer.' }
+        { title: 'Online orders', desc: 'Receive online orders directly into the checkout workflow.' },
+        { title: 'Direct Delivery', desc: 'Receive online orders direct on delivery per unavailable stock (check from different store for availability).' }
       ],
       visualType: 'pos'
     },
@@ -855,11 +897,12 @@ export class SolutionHubComponent implements OnInit, OnDestroy {
       title: 'Inventory',
       benefit: 'Multi Locations',
       headline: 'Lightning-fast <span class="text-highlight-pink">Inventory</span> intelligence',
-      subtext: 'Perfectly balanced stock. No overstocking or losing a sale due to out of stock.',
+      subtext: 'Perfectly balanced stock. Eliminate overstocking and stock-outs with AI-driven insights that optimize your entire network. Orchestrate inventory across multiple warehouses and stores with real-time digital precision.',
       features: [
         { title: 'Endless aisle', desc: 'Check availability across stores and ship from another location.' },
         { title: 'Stock-Aging', desc: 'Identify slow-moving stock before it becomes overhead.' },
-        { title: 'Smart Transfers', desc: 'Optimize stock across your entire store network.' }
+        { title: 'Smart Transfers', desc: 'Optimize stock across your entire store network.' },
+        { title: 'Predictive Restock', desc: 'Automated procurement based on sales velocity and trends.' }
       ],
       visualType: 'inventory'
     },
@@ -868,24 +911,26 @@ export class SolutionHubComponent implements OnInit, OnDestroy {
       title: 'Financial',
       benefit: 'Real-time precision',
       headline: 'Automated <span class="text-highlight-pink">Financial</span> Control',
-      subtext: 'Instant, Accurate & Integrated — Accounting & reconciliation with AI-powered workflows. Get accurate insights to make better decisions. Always audit-ready with 1-click share/export to CA.',
+      subtext: 'Instant, Accurate & integrated - Accounting & reconciliation with AI powered workflows. Get accurate insights to make better decisions. Always audit ready with 1 click share/export to CA.',
       features: [
+        { title: 'Auto-Reconciliation', desc: 'Match bank statements with sales automatically.' },
         { title: 'One-Click GST', desc: 'Auto-generate reports for GST R1 and 3B compliance.' },
-        { title: 'Audit-Ready', desc: 'Maintain detailed ledgers that stay compliant.' },
-        { title: 'Pro-active Alerts', desc: 'Get notified of unusual cashflow patterns.' }
+        { title: 'Audit-Ready', desc: 'Maintain detailed, transparent ledgers that stay compliant.' },
+        { title: 'Pro-active Alerts', desc: 'Get notified instantly of unusual cashflow patterns.' }
       ],
       visualType: 'accounting'
     },
     {
       id: 'omnichannel',
       title: 'Omnichannel',
-      benefit: 'Unified Queue',
-      headline: 'Unified <span class="text-highlight-pink">Omnichannel</span> Commerce',
-      subtext: 'Sell on Shopify, Amazon, Flipkart, your mobile app and in-store — all orders land in one unified queue. No missed orders, no inventory conflicts, no manual syncing.',
+      benefit: 'UNIFIED SYNC',
+      headline: 'Unified <span class="text-highlight-pink">Omnichannel</span> Ecosystem',
+      subtext: 'Sell everywhere. Synchronize Shopify, mobile apps, and marketplaces like Amazon and Flipkart into a single command center. Eliminate data silos and maintain 100% inventory accuracy across all digital and physical nodes.',
       features: [
-        { title: 'One order queue', desc: 'Shopify, Amazon, Flipkart & POS orders managed from a single screen.' },
-        { title: 'Live inventory sync', desc: 'Stock levels update in real-time across all channels — no overselling.' },
-        { title: 'Smart Auto-Routing', desc: 'Route online orders to the nearest store for faster, cheaper fulfilment.' }
+        { title: 'Unified Order Stream', desc: 'Shopify, Mobile App, and Marketplaces consolidated into one queue.' },
+        { title: 'Global Synergy', desc: 'Real-time stock parity across all digital and physical endpoints.' },
+        { title: 'Marketplace Sync', desc: 'Automated bi-directional syncing for pricing and availability.' },
+        { title: 'Smart Auto-Routing', desc: 'Route online orders to the nearest store for faster fulfillment.' }
       ],
       visualType: 'omnichannel'
     }

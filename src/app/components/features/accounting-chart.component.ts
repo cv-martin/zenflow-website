@@ -44,38 +44,36 @@ import { Component, AfterViewInit, ElementRef, ViewChild, ChangeDetectionStrateg
               d="M0,80 Q50,20 100,50 T200,40 T300,10" 
               fill="none" 
               stroke="var(--primary-color)" 
-              stroke-width="3"
+              stroke-width="2.2"
               stroke-linecap="round"
               filter="url(#glow)" />
               
         <!-- Interactive Dots with Tooltips -->
         <g class="chart-point" style="--delay: 1.5s">
-          <circle cx="100" cy="50" r="4" fill="white" stroke="var(--primary-color)" stroke-width="2" />
-          <!-- ForeignObject for HTML Tooltip inside SVG is tricky, better to overlay or use SVG text. 
-               Let's use a simple SVG group for the tooltip to keep it self-contained -->
-          <g class="tooltip" transform="translate(85, 25)">
-            <rect x="0" y="0" width="60" height="20" rx="4" fill="#1f2937" opacity="0.9" />
-            <text x="30" y="14" text-anchor="middle" fill="white" font-size="10" font-weight="bold">₹ 14.2k</text>
+          <circle cx="100" cy="50" r="3.5" fill="white" stroke="var(--primary-color)" stroke-width="1.8" />
+          <g class="tooltip" transform="translate(87, 28)">
+            <rect x="0" y="0" width="48" height="18" rx="4" fill="#1f2937" opacity="0.9" />
+            <text x="24" y="12" text-anchor="middle" fill="white" font-size="9" font-weight="bold">₹ 14.2k</text>
           </g>
         </g>
         
         <g class="chart-point" style="--delay: 1.8s">
-          <circle cx="200" cy="40" r="4" fill="white" stroke="var(--primary-color)" stroke-width="2" />
-          <g class="tooltip" transform="translate(185, 15)">
-            <rect x="0" y="0" width="60" height="20" rx="4" fill="#1f2937" opacity="0.9" />
-            <text x="30" y="14" text-anchor="middle" fill="white" font-size="10" font-weight="bold">₹ 28.5k</text>
+          <circle cx="200" cy="40" r="3.5" fill="white" stroke="var(--primary-color)" stroke-width="1.8" />
+          <g class="tooltip" transform="translate(187, 18)">
+            <rect x="0" y="0" width="48" height="18" rx="4" fill="#1f2937" opacity="0.9" />
+            <text x="24" y="12" text-anchor="middle" fill="white" font-size="9" font-weight="bold">₹ 28.5k</text>
           </g>
         </g>
 
         <!-- Pulsing End Point -->
         <g class="chart-point active" style="--delay: 2.1s">
-          <circle cx="300" cy="10" r="6" fill="var(--primary-color)">
-            <animate attributeName="r" values="4;6;4" dur="2s" repeatCount="indefinite" />
+          <circle cx="300" cy="10" r="5" fill="var(--primary-color)">
+            <animate attributeName="r" values="3.5;5;3.5" dur="2s" repeatCount="indefinite" />
             <animate attributeName="opacity" values="1;0.7;1" dur="2s" repeatCount="indefinite" />
           </circle>
-          <g class="tooltip" transform="translate(240, 20)">
-             <rect x="0" y="0" width="60" height="24" rx="4" fill="#6366f1" />
-             <text x="30" y="16" text-anchor="middle" fill="white" font-size="11" font-weight="bold">₹ 45.1k</text>
+          <g class="tooltip" transform="translate(245, 22)">
+             <rect x="0" y="0" width="52" height="22" rx="4" fill="#6366f1" />
+             <text x="26" y="15" text-anchor="middle" fill="white" font-size="9.5" font-weight="bold">₹ 45.1k</text>
           </g>
         </g>
         
@@ -104,15 +102,15 @@ import { Component, AfterViewInit, ElementRef, ViewChild, ChangeDetectionStrateg
       align-items: center;
       padding: 0 0.5rem;
     }
-    .chart-title { font-size: 0.9rem; font-weight: 600; color: var(--text-medium); }
+    .chart-title { font-size: 0.85rem; font-weight: 500; color: #64748b; }
     .live-badge {
       display: flex;
       align-items: center;
       gap: 6px;
-      font-size: 0.75rem;
-      font-weight: 700;
+      font-size: 0.7rem;
+      font-weight: 600;
       color: #10b981;
-      background: rgba(16, 185, 129, 0.1);
+      background: rgba(16, 185, 129, 0.08);
       padding: 4px 10px;
       border-radius: 20px;
     }

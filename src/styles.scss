@@ -59,6 +59,7 @@ html, body {
   width: 100%;
   position: relative;
   touch-action: manipulation;
+  overscroll-behavior-x: none; /* Stabilize horizontal jitter */
   scroll-behavior: smooth;
   text-rendering: optimizeLegibility;
   -webkit-text-size-adjust: 100%;
@@ -660,6 +661,14 @@ a {
   .desktop-only {
     display: none !important;
   }
+}
+
+/* Base Visibility for Desktop */
+.mobile-only {
+  display: none !important;
+}
+.desktop-only {
+  display: block;
 }
 
 @media (max-width: 480px) {

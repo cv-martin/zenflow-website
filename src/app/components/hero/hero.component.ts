@@ -9,20 +9,23 @@ import { CommonModule } from '@angular/common';
   imports: [RouterLink, CounterComponent, CommonModule],
   template: `
     <section class="hero">
-      <div class="hero-container">
-
-        <!-- LEFT: Narrative -->
+      <div class="hero-container container">
         <div class="hero-content">
-          <div class="eyebrow">The OS for Omnichannel Growth</div>
-          <h1 class="headline">
-            One platform to <span class="text-gradient">Scale</span> your entire Retail ecosystem
+          <div class="reveal-delay-1">
+            <span class="eyebrow">AI ERP for Retail & E-Commerce</span>
+          </div>
+          
+          <h1 class="headline reveal-delay-2">
+            The intelligent command center for <span class="text-highlight-pink">Retail & E-commerce</span>
           </h1>
-          <p class="subtext">
-            Eliminate compliance stress and integration gaps. Manage POS, Inventory, and Shopify in a single, 100% real-time command center.
+
+          <p class="subtext reveal-delay-3">
+            Manage billing, inventory, accounting, and multi-warehouse operations in real time — from a single intelligent command center.
           </p>
-          <div class="cta-group">
-            <a routerLink="/contact" class="btn btn-primary">Scale My Business</a>
-            <a routerLink="/inventory" class="btn btn-outline">Explore the OS</a>
+
+          <div class="cta-group reveal-delay-4">
+            <a routerLink="/contact" class="btn btn-primary">Request Demo</a>
+            <a routerLink="/billing" class="btn btn-outline">Explore Product</a>
           </div>
         </div>
 

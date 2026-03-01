@@ -47,15 +47,15 @@ import { ScrollRevealDirective } from '../../directives/scroll-reveal.directive'
       display: flex;
       align-items: center;
       gap: 4rem;
-      padding: 3rem 6rem;
-      background: rgba(255, 255, 255, 0.4);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border-radius: 100px; /* Pill shape */
-      border: 1px solid rgba(255, 255, 255, 0.5);
+      padding: 3.5rem 7rem; /* Increased breathing room */
+      background: rgba(255, 255, 255, 0.45);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-radius: 100px;
+      border: 1px solid rgba(255, 255, 255, 0.7);
       box-shadow: 
-        0 40px 100px -20px rgba(0, 0, 0, 0.04),
-        0 4px 20px rgba(0, 0, 0, 0.01);
+        0 40px 100px -20px rgba(0, 0, 0, 0.06),
+        0 4px 20px rgba(0, 0, 0, 0.02);
     }
 
     .stat-block {
@@ -73,12 +73,13 @@ import { ScrollRevealDirective } from '../../directives/scroll-reveal.directive'
     }
 
     .stat-label {
-      font-size: 0.75rem;
+      font-size: 0.8rem; /* Slightly larger */
       font-weight: 900;
-      color: #94a3b8; /* Slate gray labels */
+      color: #64748b; /* Deeper slate for better contrast */
       text-transform: uppercase;
-      letter-spacing: 0.15em;
+      letter-spacing: 0.18em; /* More premium tracking */
       white-space: nowrap;
+      opacity: 0.9;
     }
 
     .stat-divider {
