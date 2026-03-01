@@ -752,24 +752,25 @@ interface HubTab {
       
       .tab-grid {
         width: 100%;
-        max-width: 100vw;
-        overflow-x: auto;
-        justify-content: flex-start;
-        padding: 0.4rem;
-        border-radius: 100px;
+        max-width: 100%;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        padding: 0.5rem;
+        border-radius: 20px;
         margin-bottom: 2.5rem;
-        gap: 0.4rem;
-        -webkit-overflow-scrolling: touch;
-        scrollbar-width: none;
+        gap: 0.5rem;
         background: rgba(15, 23, 42, 0.05);
-        &::-webkit-scrollbar { display: none; }
+        overflow: visible;
       }
 
       .glass-tab {
-        padding: 0.75rem 1.75rem;
-        flex: 0 0 auto;
-        border-radius: 100px;
+        padding: 0.75rem 0.5rem;
+        flex: none;
+        width: 100%;
+        border-radius: 12px;
+        text-align: center;
         .tab-title { font-size: 0.85rem; font-weight: 850; }
+        .tab-benefit { font-size: 0.55rem; }
         &.active { 
           background: white; 
           box-shadow: 0 8px 16px rgba(0, 0, 0, 0.06); 
