@@ -127,6 +127,18 @@ import { ScrollRevealDirective } from '../../directives/scroll-reveal.directive'
       }
       .stat-divider { width: 40px; height: 1px; opacity: 0.1; }
     }
+
+    @media (max-width: 480px) {
+      .stats-container { padding: 2.5rem 0 4rem; }
+      .stats-row {
+        padding: 2.5rem 1.25rem;
+        border-radius: 28px;
+        max-width: 300px;
+      }
+      .stat-value { font-size: 2.4rem; }
+      .stat-label { font-size: 0.7rem; letter-spacing: 0.15em; }
+      .stat-divider { width: 36px; }
+    }
   `]
 })
 export class SocialStatsComponent { }

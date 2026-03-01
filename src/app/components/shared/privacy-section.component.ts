@@ -191,6 +191,17 @@ import { CommonModule } from '@angular/common';
       .pillars-grid { grid-template-columns: 1fr; }
       .privacy-section { padding: 6rem 0; }
     }
+
+    @media (max-width: 480px) {
+      .privacy-section { padding: 4rem 0; }
+      .trust-headline { font-size: 1.85rem; }
+      .trust-subtext { font-size: 1rem; margin-bottom: 2.5rem; }
+      .pillar-glass-card { padding: 1.75rem; border-radius: 20px; }
+      .pillar-title { font-size: 1.05rem; }
+      .pillar-desc { font-size: 0.95rem; }
+      .pillar-icon-box { width: 38px; height: 38px; border-radius: 10px; }
+      .pillar-icon-box svg { width: 18px; height: 18px; }
+    }
   `]
 })
 export class PrivacySectionComponent { }

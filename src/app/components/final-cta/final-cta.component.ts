@@ -212,6 +212,17 @@ import { ScrollRevealDirective } from '../../directives/scroll-reveal.directive'
       .pr-2 { width: 190px; height: 190px; }
       .pr-3 { width: 240px; height: 240px; }
     }
+
+    @media (max-width: 480px) {
+      .final-cta { padding: 2.5rem 0 5rem; }
+      .cta-card { padding: 2.5rem 1.25rem; border-radius: 24px; }
+      .cta-headline { font-size: 1.85rem; }
+      .cta-subtext { font-size: 1rem; margin-bottom: 2rem; }
+      .logo-circle { width: 80px; height: 80px; border-radius: 20px; }
+      .pr-1 { width: 110px; height: 110px; }
+      .pr-2 { width: 150px; height: 150px; }
+      .pr-3 { width: 190px; height: 190px; }
+    }
   `]
 })
 export class FinalCtaComponent {

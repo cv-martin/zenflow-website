@@ -245,6 +245,16 @@ import { RouterLink } from '@angular/router';
       }
       .status-indicator { width: fit-content; }
     }
+
+    @media (max-width: 480px) {
+      .footer { padding: 3rem 1.25rem 2rem; }
+      .footer-grid { gap: 2rem 1.25rem; }
+      .brand-logo { margin-bottom: 1.5rem; }
+      .col-header { font-size: 0.7rem; margin-bottom: 1rem; }
+      .link-list li { margin-bottom: 0.5rem; }
+      .link-list a { font-size: 0.9rem; }
+      .footer-bottom { padding-top: 1.5rem; }
+    }
   `]
 })
 export class FooterComponent {

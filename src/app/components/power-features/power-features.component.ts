@@ -187,6 +187,22 @@ import { ScrollRevealDirective } from '../../directives/scroll-reveal.directive'
         will-change: transform, opacity;
       }
     }
+
+    @media (max-width: 480px) {
+      .power-section { padding: 4rem 0; }
+      .section-header {
+        margin-bottom: 2.5rem;
+        h2 { font-size: 1.75rem; }
+        p { font-size: 0.95rem; }
+      }
+      .power-card {
+        padding: 1.75rem 1.5rem;
+        border-radius: 18px;
+        h3 { font-size: 1.15rem; }
+        p { font-size: 0.9rem; }
+      }
+      .icon { width: 24px; height: 24px; min-width: 24px; }
+    }
   `]
 })
 export class PowerFeaturesComponent { }

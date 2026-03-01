@@ -874,6 +874,57 @@ interface HubTab {
       .omni-hub-brand { font-size: 1.15rem; }
       .omni-status-bar { font-size: 0.75rem; padding: 0.5rem 0 1rem; }
     }
+
+    @media (max-width: 480px) {
+      .solution-hub { padding: 3rem 0 5rem; }
+      
+      .tab-grid { margin-bottom: 2rem; }
+      .glass-tab { padding: 0.6rem 1.2rem; }
+      .tab-title { font-size: 0.75rem; }
+      .tab-benefit { display: none; } /* Hide benefit text to keep tab row clean */
+
+      .glass-card-main {
+        padding: 2.5rem 1.25rem;
+        min-height: auto;
+        height: auto;
+        border-radius: 24px;
+      }
+
+      .hub-panels-wrapper { min-height: auto; }
+      
+      .text-side {
+        height: auto;
+        padding-right: 0;
+        margin-bottom: 3rem;
+        overflow-y: visible;
+        h2 { font-size: 1.85rem; letter-spacing: -0.04em; }
+      }
+
+      .hub-subheading { font-size: 1rem; margin-bottom: 2rem; }
+      .sophisticated-list { 
+        margin-bottom: 2.5rem; 
+        li { font-size: 0.95rem; margin-bottom: 1rem; }
+      }
+
+      .visual-side { margin-top: 1rem; perspective: none; }
+      .glass-surface { padding: 1rem; min-height: 280px; border-radius: 20px; }
+
+      .inventory-control-pane {
+        height: auto;
+        .network-canvas { padding: 1.25rem 1rem; }
+        .executive-sidebar { padding: 1rem; }
+      }
+      .orchestration-map { height: 140px; }
+      .node-pro { padding: 0.3rem 0.5rem; font-size: 0.65rem; }
+      .hub-inner { width: 60px; height: 60px; }
+      .hub-brand { font-size: 0.65rem; }
+      
+      .omni-source-icon { width: 36px; height: 36px; }
+      .omni-source-icon.pro { width: 40px; height: 40px; }
+      .omni-hub-core-pro { padding: 0.5rem 1rem; border-radius: 14px; }
+      .omni-hub-brand { font-size: 0.9rem; }
+      .omni-status-bar { font-size: 0.65rem; }
+    }
   `]
 })
 export class SolutionHubComponent implements OnInit, OnDestroy {

@@ -245,9 +245,23 @@ import { ScrollRevealDirective } from '../../directives/scroll-reveal.directive'
       .featured-card { grid-column: span 1; flex-direction: column; align-items: flex-start; gap: 1.25rem; }
       .headline { font-size: 2.25rem; }
       .section-header { margin-bottom: 3rem; }
-      .subtext { font-size: 1.1rem; }
-      .bento-card { padding: 2rem; }
       .featured-card h3 { font-size: 1.75rem; }
+    }
+
+    @media (max-width: 480px) {
+      .why-us-section { padding: 4rem 1.25rem; }
+      .section-header { margin-bottom: 2.5rem; }
+      .section-label { font-size: 0.75rem; margin-bottom: 1.25rem; }
+      .headline { font-size: 1.85rem; }
+      .subtext { font-size: 1rem; }
+      .bento-grid { gap: 1rem; }
+      .bento-card { padding: 1.5rem; border-radius: 20px; gap: 1rem; }
+      .featured-card h3 { font-size: 1.5rem; }
+      .featured-card p { font-size: 1rem; }
+      .icon-box { width: 42px; height: 42px; border-radius: 10px; }
+      .icon-box svg { width: 20px; height: 20px; }
+      .featured-icon { width: 48px; height: 48px; }
+      .featured-icon svg { width: 24px; height: 24px; }
     }
   `]
 })

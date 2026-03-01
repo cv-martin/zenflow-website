@@ -121,6 +121,19 @@ import { ScrollRevealDirective } from '../../directives/scroll-reveal.directive'
       line-height: 1.6;
       margin: 0;
     }
+
+    @media (max-width: 768px) {
+      .grid-3 { grid-template-columns: 1fr; }
+      .trust-section { padding: 3rem 0 0; }
+      .section-header { margin-bottom: 2rem; }
+      h2 { font-size: 1.5rem; }
+    }
+
+    @media (max-width: 480px) {
+      .trust-card { padding: 1.25rem; }
+      h4 { font-size: 1rem; }
+      p { font-size: 0.9rem; }
+    }
   `]
 })
 export class TestimonialsComponent { }

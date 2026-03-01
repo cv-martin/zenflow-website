@@ -18,6 +18,7 @@ import { FinalCtaComponent } from '../../components/final-cta/final-cta.componen
     PowerFeaturesComponent,
     SocialStatsComponent,
     WhyChooseUsComponent,
+    TestimonialsComponent,
     FinalCtaComponent
   ],
   template: `
@@ -28,6 +29,7 @@ import { FinalCtaComponent } from '../../components/final-cta/final-cta.componen
       <app-solution-hub appScrollReveal />
       <app-privacy-section appScrollReveal />
       <app-why-choose-us appScrollReveal />
+      <app-testimonials appScrollReveal />
       <app-final-cta appScrollReveal />
     </main>
   `
