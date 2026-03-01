@@ -1,4 +1,4 @@
-import { Component, ViewChild, ElementRef, ChangeDetectorRef, NgZone, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ViewChild, ElementRef, ChangeDetectorRef, NgZone, OnDestroy, ChangeDetectionStrategy, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { FinalCtaComponent } from '../../components/final-cta/final-cta.component';
@@ -475,11 +475,19 @@ export class BillingComponent implements OnDestroy {
   private revenueTimer: any;
   private typewriterTimer: any;
   
-  constructor(private cdr: ChangeDetectorRef, private ngZone: NgZone) {
+  constructor(private cdr: ChangeDetectorRef, private ngZone: NgZone, private elementRef: ElementRef) {
     this.ngZone.runOutsideAngular(() => {
       this.startLiveRevenue();
       this.startTypewriter();
     });
+  }
+
+  @HostListener('document:click', ['$event'])
+  onClickOutside(event: MouseEvent) {
+    if (!this.elementRef.nativeElement.contains(event.target) && this.isSearchFocused) {
+      this.isSearchFocused = false;
+      this.cdr.markForCheck();
+    }
   }
 
   ngOnDestroy() {
