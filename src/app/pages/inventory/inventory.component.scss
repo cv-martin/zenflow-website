@@ -1083,3 +1083,82 @@
 
   .outcome-section { padding: 8rem 0; h2 { font-size: 2.8rem; letter-spacing: -0.04em; } .outcome-statement { font-size: 1.25rem; } }
 }
+@media (max-width: 480px) {
+  .hero-section {
+    padding: 3rem 0 4rem;
+    h1 { font-size: 2.3rem; }
+    p { font-size: 1.1rem; padding: 0 1rem; }
+  }
+
+  .enterprise-network-grid {
+    padding: 0 1rem;
+    margin: 2rem 0;
+    
+    .network-canvas {
+      height: auto !important;
+      min-height: 600px !important;
+      display: flex;
+      flex-direction: column;
+      padding: 1.5rem !important;
+      border-radius: 32px;
+      gap: 1.5rem;
+    }
+
+    /* RESTORE HIDDEN NODES ON MOBILE */
+    .nodes-layer {
+      position: relative !important;
+      display: flex !important;
+      flex-direction: column !important;
+      gap: 1rem !important;
+      opacity: 1 !important;
+      visibility: visible !important;
+      
+      .network-node {
+        position: relative !important;
+        top: auto !important;
+        left: auto !important;
+        width: 100% !important;
+        display: flex !important;
+        background: rgba(255, 255, 255, 0.08) !important;
+        border: 1px solid rgba(255, 255, 255, 0.12) !important;
+        transform: none !important; /* Remove scaling for list layout */
+        padding: 1rem !important;
+        
+        .node-icon-bin { font-size: 1.5rem; }
+        .node-body .node-title { font-size: 0.85rem; }
+      }
+    }
+
+    .central-controller.engine-core { 
+      position: relative !important;
+      margin: 2rem auto !important;
+      top: auto !important;
+      left: auto !important;
+      transform: scale(0.85) !important;
+    }
+
+    .topology-canvas { display: none; }
+  }
+
+  .bento-section {
+    padding: 4rem 0;
+    .bento-header { margin-bottom: 3rem; h2 { font-size: 2rem; } }
+    .inner-bento-grid { grid-template-columns: 1fr !important; gap: 1rem; }
+    .bento-card-inner.bento-large-inner { grid-column: span 1 !important; }
+  }
+
+  .ops-walkthrough-v4 {
+    padding: 4rem 0;
+    .section-title { font-size: 2rem; }
+    .split-content-v4 { gap: 2.5rem; margin-top: 3rem; }
+  }
+
+  .dash-search-mock { padding: 0.75rem !important; font-size: 0.8rem !important; }
+  .main-stat .val { font-size: 2.2rem !important; }
+
+  .outcome-section {
+    padding: 4rem 0;
+    .outcome-container h2 { font-size: 2.2rem; }
+    .outcome-statement { font-size: 1.1rem; margin-bottom: 3rem; }
+  }
+}
