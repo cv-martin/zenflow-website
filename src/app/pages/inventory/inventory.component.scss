@@ -355,10 +355,11 @@
   margin-bottom: 1.25rem;
 }
 
-/* Central Engine Core */
+/* Central Engine Core — hub center = canvas pixel (350, 300)
+   = CSS left:35%, top:50%. */
 .central-controller.engine-core {
   position: absolute;
-  left: 50%;
+  left: 35%;
   top: 50%;
   transform: translate(-50%, -50%);
   z-index: 50;
@@ -373,6 +374,371 @@
 /* Modals */
 .redistribution-modal, .audit-modal, .forecast-modal {
   width: 100%; max-width: 500px; padding: 2.5rem; border-radius: 28px;
+}
+
+/* -------------------------------------------------------------------------- */
+/*                  V6.1: Network Canvas Inner Components                     */
+/* -------------------------------------------------------------------------- */
+
+/* Console Header Bar */
+.console-header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 1.5rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  z-index: 10;
+
+  .console-controls {
+    display: flex;
+    gap: 6px;
+    .ctrl {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.12);
+      &:nth-child(1) { background: #f43f5e; opacity: 0.6; }
+      &:nth-child(2) { background: #fbbf24; opacity: 0.5; }
+      &:nth-child(3) { background: #10b981; opacity: 0.5; }
+    }
+  }
+
+  .console-title {
+    font-size: 0.6rem;
+    font-weight: 900;
+    letter-spacing: 0.2em;
+    color: rgba(255, 255, 255, 0.25);
+    text-transform: uppercase;
+  }
+}
+
+/* Central Engine - Scan Rings */
+.scan-ring {
+  position: absolute;
+  inset: -24px;
+  border: 1.5px solid rgba(99, 102, 241, 0.2);
+  border-radius: 50%;
+  animation: scanPulse 3s ease-out infinite;
+  pointer-events: none;
+  &.r2 {
+    inset: -52px;
+    animation-delay: 1.5s;
+    opacity: 0.4;
+  }
+}
+@keyframes scanPulse {
+  0%   { transform: scale(0.9); opacity: 0.6; }
+  100% { transform: scale(1.2); opacity: 0;   }
+}
+
+/* Brand Core (inside central controller) */
+.brand-core {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 90px;
+  height: 90px;
+  background: rgba(15, 23, 42, 0.95);
+  border: 2px solid #6366f1;
+  border-radius: 50%;
+  box-shadow: 0 0 60px rgba(99, 102, 241, 0.35);
+  position: relative;
+  z-index: 5;
+
+  .brand-name {
+    font-size: 0.7rem;
+    font-weight: 950;
+    color: white;
+    letter-spacing: 0.02em;
+    text-align: center;
+    line-height: 1.2;
+    .engine-tag {
+      display: block;
+      font-size: 0.45rem;
+      color: #6366f1;
+      letter-spacing: 0.15em;
+      margin-top: 2px;
+    }
+  }
+}
+
+.controller-label {
+  font-size: 0.5rem;
+  font-weight: 900;
+  color: rgba(99, 102, 241, 0.6);
+  letter-spacing: 0.2em;
+  margin-top: 8px;
+  text-transform: uppercase;
+}
+
+/* Nodes Layer — full absolute fill of the canvas, containing all nodes */
+.nodes-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 30;
+  pointer-events: none;
+}
+
+/* Individual Network Node */
+.network-node {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(15, 23, 42, 0.88);
+  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
+  padding: 0.6rem 1rem;
+  pointer-events: auto;
+  transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+  cursor: default;
+
+  &:hover {
+    transform: translateY(-3px);
+    border-color: rgba(99, 102, 241, 0.4);
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.4);
+  }
+
+  &.warehouse {
+    border-color: rgba(99, 102, 241, 0.2);
+  }
+  &.store {
+    border-color: rgba(16, 185, 129, 0.15);
+  }
+  &.hub {
+    border-color: rgba(251, 191, 36, 0.2);
+  }
+
+  .node-icon-bin {
+    font-size: 1.4rem;
+    flex-shrink: 0;
+    line-height: 1;
+  }
+  .node-body {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .node-title {
+    font-size: 0.7rem;
+    font-weight: 800;
+    color: rgba(255, 255, 255, 0.9);
+    white-space: nowrap;
+  }
+  .node-meta {
+    font-size: 0.55rem;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.4);
+    letter-spacing: 0.04em;
+    white-space: nowrap;
+  }
+  .tag {
+    display: inline-block;
+    padding: 1px 6px;
+    border-radius: 4px;
+    background: rgba(99, 102, 241, 0.2);
+    color: #a5b4fc;
+    font-size: 0.5rem;
+    font-weight: 900;
+    letter-spacing: 0.06em;
+    &.warning {
+      background: rgba(251, 191, 36, 0.15);
+      color: #fbbf24;
+    }
+  }
+}
+
+/* Hub center = (350, 300). Radius ~200px. 270° arc around hub.
+   Nodes distributed: upper-left, top, left, lower-left, lower-right, upper-right.
+   HUD panel at x≈700, header at y=52. All nodes within safe bounds. */
+.w-blr { top: 22%; left: 9%;  } /* Upper-left  135° center≈(209,159) */
+.s-del { top: 12%; left: 26%; } /* Top         90°  center≈(354,99)  */
+.s-jai { top: 46%; left: 6%;  } /* Left        180° center≈(153,303) */
+.s-bom { top: 69%; left: 11%; } /* Lower-left  225° center≈(209,441) */
+.w-pun { top: 69%; left: 38%; } /* Lower-right 315° center≈(491,441) */
+.s-kol { top: 18%; left: 40%; } /* Upper-right  45° center≈(484,135) */
+
+/* SVG Topology Canvas */
+.topology-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 5;
+  pointer-events: none;
+
+  .lines-group {
+    .flow-path {
+      stroke: rgba(99, 102, 241, 0.5);
+      stroke-width: 2;
+      stroke-dasharray: 6 4;
+      fill: none;
+    }
+  }
+
+  .data-particle {
+    filter: drop-shadow(0 0 5px currentColor);
+  }
+}
+
+/* HUD Footer + CTA */
+.hud-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.6rem;
+  font-weight: 800;
+  color: rgba(255, 255, 255, 0.4);
+  letter-spacing: 0.06em;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  padding-top: 1rem;
+  margin-bottom: 1rem;
+
+  .alert {
+    color: #fbbf24;
+  }
+}
+
+.btn-hud-cta {
+  display: block;
+  width: 100%;
+  text-align: center;
+  padding: 0.65rem 1rem;
+  background: rgba(99, 102, 241, 0.15);
+  border: 1px solid rgba(99, 102, 241, 0.3);
+  border-radius: 10px;
+  color: #a5b4fc;
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-decoration: none;
+  transition: background 0.2s ease, border-color 0.2s ease;
+
+  &:hover {
+    background: rgba(99, 102, 241, 0.25);
+    border-color: rgba(99, 102, 241, 0.5);
+  }
+}
+
+/* HUD Metric Items */
+.metric-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+
+  .m-label {
+    font-size: 0.55rem;
+    font-weight: 900;
+    letter-spacing: 0.1em;
+    color: rgba(255, 255, 255, 0.35);
+    text-transform: uppercase;
+  }
+  .m-value {
+    font-size: 1.1rem;
+    font-weight: 950;
+    color: white;
+    letter-spacing: -0.02em;
+    &.green { color: #10b981; }
+    .wow {
+      font-size: 0.6rem;
+      color: rgba(255, 255, 255, 0.4);
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      margin-left: 4px;
+    }
+  }
+  &.full {
+    .m-label {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      .perc { color: #10b981; }
+    }
+  }
+}
+
+.health-bar-container {
+  height: 5px;
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 99px;
+  overflow: hidden;
+  margin-top: 4px;
+}
+.health-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #6366f1, #10b981);
+  border-radius: 99px;
+  transition: width 1.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* HUD live-tag dot */
+.glass-hud .live-tag .dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #10b981;
+  display: inline-block;
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.2);
+  animation: dotPulse 2s infinite;
+}
+@keyframes dotPulse {
+  0%   { box-shadow: 0 0 0 0   rgba(16, 185, 129, 0.4); }
+  70%  { box-shadow: 0 0 0 8px rgba(16, 185, 129, 0);   }
+  100% { box-shadow: 0 0 0 0   rgba(16, 185, 129, 0);   }
+}
+
+/* Mobile override for .enterprise-network-grid */
+@media (max-width: 768px) {
+  .enterprise-network-grid {
+    margin: 2rem auto;
+    .network-canvas {
+      height: 500px;
+    }
+  }
+  .glass-hud {
+    width: 200px;
+    top: 60px;
+    right: 12px;
+    padding: 1rem;
+    .summary-header { margin-bottom: 1rem; }
+  }
+  .w-blr { top: 22%; left: 8%;  }
+  .s-del { top: 12%; left: 24%; }
+  .s-jai { top: 46%; left: 4%;  }
+  .s-bom { top: 69%; left: 8%;  }
+  .w-pun { top: 69%; left: 36%; }
+  .s-kol { top: 18%; left: 38%; }
+}
+
+@media (max-width: 480px) {
+  .enterprise-network-grid .network-canvas {
+    height: 440px;
+    border-radius: 24px;
+  }
+  .glass-hud {
+    width: 160px;
+    top: 56px;
+    right: 8px;
+    padding: 0.75rem;
+    border-radius: 14px;
+    .m-value { font-size: 0.85rem; }
+  }
+  .network-node {
+    padding: 0.4rem 0.7rem;
+    gap: 6px;
+    .node-icon-bin { font-size: 1rem; }
+    .node-title { font-size: 0.6rem; }
+    .node-meta { font-size: 0.45rem; }
+  }
 }
 
 /* -------------------------------------------------------------------------- */

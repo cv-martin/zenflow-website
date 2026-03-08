@@ -121,27 +121,28 @@ import { FinalCtaComponent } from '../../components/final-cta/final-cta.componen
               </div>
             </div>
 
-            <!-- SVG TOPOLOGY CANVAS (Mapped for Central Hub) -->
+            <!-- SVG TOPOLOGY CANVAS — hub center (350,300), radius 75 -->
             <svg class="topology-canvas" viewBox="0 0 1000 600" preserveAspectRatio="none">
               <defs>
                 <filter id="glow"><feGaussianBlur stdDeviation="3" result="coloredBlur"/><feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
               </defs>
               <g class="lines-group" filter="url(#glow)">
-                <path class="flow-path" d="M100,108 Q280,200 500,300" /> <!-- BLR -->
-                <path class="flow-path" d="M180,480 Q300,450 500,300" /> <!-- PUN -->
-                <path class="flow-path" d="M140,372 Q280,350 500,300" /> <!-- BOM -->
-                <path class="flow-path" d="M460,48 Q480,180 500,300" /> <!-- DEL -->
-                <path class="flow-path" d="M520,504 Q480,420 500,300" /> <!-- KOL -->
-                <path class="flow-path" d="M40,228 Q260,260 500,300" /> <!-- JAI -->
+                <!-- Flow lines: node edge → hub outer ring edge -->
+                <path class="flow-path" d="M209,159 Q253,203 297,247" /> <!-- BLR upper-left → hub edge -->
+                <path class="flow-path" d="M354,99  Q352,162 351,225" /> <!-- DEL top → hub edge -->
+                <path class="flow-path" d="M153,303 Q214,302 275,301" /> <!-- JAI left → hub edge -->
+                <path class="flow-path" d="M209,441 Q253,397 297,353" /> <!-- BOM lower-left → hub edge -->
+                <path class="flow-path" d="M491,441 Q447,397 403,353" /> <!-- PUN lower-right → hub edge -->
+                <path class="flow-path" d="M484,135 Q441,188 397,242" /> <!-- KOL upper-right → hub edge -->
               </g>
 
-              <!-- ALL 6 DATA PARTICLES - Smooth, slow flow -->
-              <circle r="2.5" fill="#6366f1" class="data-particle"><animateMotion dur="6s" repeatCount="indefinite" calcMode="spline" keySplines="0.4 0 0.2 1" keyTimes="0;1" path="M100,108 Q280,200 500,300" /></circle>
-              <circle r="2.5" fill="#f43f5e" class="data-particle"><animateMotion dur="7s" repeatCount="indefinite" calcMode="spline" keySplines="0.4 0 0.2 1" keyTimes="0;1" path="M460,48 Q480,180 500,300" /></circle>
-              <circle r="2.5" fill="#6366f1" class="data-particle"><animateMotion dur="8s" repeatCount="indefinite" calcMode="spline" keySplines="0.4 0 0.2 1" keyTimes="0;1" path="M40,228 Q260,260 500,300" /></circle>
-              <circle r="2.5" fill="#10b981" class="data-particle"><animateMotion dur="7.5s" repeatCount="indefinite" calcMode="spline" keySplines="0.4 0 0.2 1" keyTimes="0;1" path="M140,372 Q280,350 500,300" /></circle> <!-- Mumbai Dot -->
-              <circle r="2.5" fill="#6366f1" class="data-particle"><animateMotion dur="8.5s" repeatCount="indefinite" calcMode="spline" keySplines="0.4 0 0.2 1" keyTimes="0;1" path="M180,480 Q300,450 500,300" /></circle> <!-- Pune Dot -->
-              <circle r="2.5" fill="#10b981" class="data-particle"><animateMotion dur="6.5s" repeatCount="indefinite" calcMode="spline" keySplines="0.4 0 0.2 1" keyTimes="0;1" path="M520,504 Q480,420 500,300" /></circle> <!-- Kolkata Dot -->
+              <!-- Data particles travel to hub CENTER (350,300) — disappear behind hub -->
+              <circle r="3" fill="#6366f1" class="data-particle"><animateMotion dur="5s"   repeatCount="indefinite" calcMode="spline" keySplines="0.4 0 0.2 1" keyTimes="0;1" path="M209,159 Q280,230 350,300" /></circle>
+              <circle r="3" fill="#f43f5e" class="data-particle"><animateMotion dur="6s"   repeatCount="indefinite" calcMode="spline" keySplines="0.4 0 0.2 1" keyTimes="0;1" path="M354,99  Q352,200 350,300" /></circle>
+              <circle r="3" fill="#6366f1" class="data-particle"><animateMotion dur="7s"   repeatCount="indefinite" calcMode="spline" keySplines="0.4 0 0.2 1" keyTimes="0;1" path="M153,303 Q252,302 350,300" /></circle>
+              <circle r="3" fill="#10b981" class="data-particle"><animateMotion dur="6.5s" repeatCount="indefinite" calcMode="spline" keySplines="0.4 0 0.2 1" keyTimes="0;1" path="M209,441 Q280,370 350,300" /></circle>
+              <circle r="3" fill="#6366f1" class="data-particle"><animateMotion dur="7.5s" repeatCount="indefinite" calcMode="spline" keySplines="0.4 0 0.2 1" keyTimes="0;1" path="M491,441 Q420,370 350,300" /></circle>
+              <circle r="3" fill="#10b981" class="data-particle"><animateMotion dur="5.5s" repeatCount="indefinite" calcMode="spline" keySplines="0.4 0 0.2 1" keyTimes="0;1" path="M484,135 Q417,218 350,300" /></circle>
             </svg>
 
           </div>
