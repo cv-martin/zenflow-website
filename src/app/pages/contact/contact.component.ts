@@ -12,36 +12,57 @@ import { Component } from '@angular/core';
       </section>
 
       <div class="contact-grid">
-        <!-- WhatsApp Integration Card -->
-        <div class="contact-card bento-card-inner highlight">
-          <div class="card-icon whatsapp">
-            <svg viewBox="0 0 24 24" fill="currentColor" class="icon"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-4.752 5.86h-.01a10.45 10.45 0 01-5.326-1.458l-.382-.227-3.962 1.039 1.058-3.86-.249-.395A10.398 10.398 0 013.84 9.123C3.84 3.442 8.442 1 14.125 1c2.75 0 5.336 1.07 7.28 3.02 1.944 1.95 3.01 4.538 3.01 7.288 0 5.681-4.603 10.372-10.285 10.372l-.001-.001-.001-.001L14.12 21.242 12.72 20.242z"/></svg>
+        <div class="support-channels">
+          <!-- WhatsApp Integration Card -->
+          <div class="contact-card bento-card-inner highlight">
+            <div class="card-icon whatsapp">
+              <svg viewBox="0 0 24 24" fill="currentColor" class="icon"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-4.752 5.86h-.01a10.45 10.45 0 01-5.326-1.458l-.382-.227-3.962 1.039 1.058-3.86-.249-.395A10.398 10.398 0 013.84 9.123C3.84 3.442 8.442 1 14.125 1c2.75 0 5.336 1.07 7.28 3.02 1.944 1.95 3.01 4.538 3.01 7.288 0 5.681-4.603 10.372-10.285 10.372l-.001-.001-.001-.001L14.12 21.242 12.72 20.242z"/></svg>
+            </div>
+            <h3>WhatsApp Support</h3>
+            <p>Instant support for your retail operations.</p>
+            <a href="https://wa.me/91XXXXXXXXXX?text=Hi%20Zenflow%20team,%20I'm%20interested%20in%20learning%20more%20about%20your%20retail%20OS." target="_blank" class="btn-whatsapp">
+              Chat on WhatsApp
+            </a>
           </div>
-          <h3>WhatsApp Support</h3>
-          <p>Instant support for your retail operations.</p>
-          <a href="https://wa.me/91XXXXXXXXXX?text=Hi%20Zenflow%20team,%20I'm%20interested%20in%20learning%20more%20about%20your%20retail%20OS." target="_blank" class="btn-whatsapp">
-            Chat on WhatsApp
-          </a>
-        </div>
-
-        <!-- Email Support Card -->
-        <div class="contact-card bento-card-inner">
-          <div class="card-icon email">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="icon"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><path d="M22 6l-10 7L2 6"/></svg>
+  
+          <!-- Email Support Card -->
+          <div class="contact-card bento-card-inner">
+            <div class="card-icon email">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="icon"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><path d="M22 6l-10 7L2 6"/></svg>
+            </div>
+            <h3>Email Us</h3>
+            <p>For detailed inquiries and partnership requests.</p>
+            <a href="mailto:support@Zenflow.co" class="btn-email">support@Zenflow.co</a>
           </div>
-          <h3>Email Us</h3>
-          <p>For detailed inquiries and partnership requests.</p>
-          <a href="mailto:support@Zenflow.co" class="btn-email">support@Zenflow.co</a>
         </div>
 
         <!-- Sales Inquiry Card -->
-        <div class="contact-card bento-card-inner">
+        <div class="contact-card bento-card-inner sales-form-card">
           <div class="card-icon sales">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="icon"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
           </div>
           <h3>Sales Inquiry</h3>
           <p>Book a demo or discuss enterprise pricing.</p>
-          <button class="btn-sales">Book a Demo</button>
+          
+          <div class="sales-form">
+            <div class="form-group">
+              <label>Full Name</label>
+              <input type="text" placeholder="John Doe">
+            </div>
+            <div class="form-group">
+              <label>Phone Number</label>
+              <input type="tel" placeholder="+91 98765 43210">
+            </div>
+            <div class="form-group">
+              <label>Company Name</label>
+              <input type="text" placeholder="Retail Corp">
+            </div>
+            <div class="form-group">
+              <label>Work Email</label>
+              <input type="email" placeholder="john@retailcorp.com">
+            </div>
+            <button class="btn-sales-submit">Submit Inquiry &rarr;</button>
+          </div>
         </div>
       </div>
     </div>
@@ -59,10 +80,62 @@ import { Component } from '@angular/core';
 
     .contact-grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: 1fr 1.5fr;
       gap: 2rem;
       max-width: 1000px;
       margin: 0 auto;
+    }
+
+    .support-channels {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+
+    .sales-form-card {
+      text-align: left !important;
+      align-items: flex-start !important;
+      padding: 3rem !important;
+    }
+
+    .sales-form {
+      width: 100%;
+      margin-top: 1.5rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      
+      .form-group {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        
+        label { font-size: 0.75rem; font-weight: 800; color: #64748b; text-transform: uppercase; letter-spacing: 0.05em; }
+        input {
+          padding: 0.8rem 1rem;
+          border-radius: 10px;
+          border: 1px solid rgba(0,0,0,0.1);
+          background: rgba(255,255,255,0.6);
+          font-size: 0.9rem;
+          outline: none;
+          transition: all 0.3s ease;
+          &:focus { border-color: var(--primary-color); background: white; box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1); }
+        }
+      }
+      
+      .btn-sales-submit {
+        grid-column: span 2;
+        margin-top: 1rem;
+        padding: 1rem;
+        background: #0f172a;
+        color: white;
+        border: none;
+        border-radius: 12px;
+        font-weight: 800;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        &:hover { background: var(--primary-color); transform: translateY(-2px); box-shadow: 0 10px 25px rgba(99, 102, 241, 0.25); }
+      }
     }
 
     .contact-card {

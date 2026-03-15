@@ -13,8 +13,8 @@ import { FinalCtaComponent } from '../../components/final-cta/final-cta.componen
       <!-- SECTION 1: Centered Hero (Sync Parity + Ledger Visual) -->
       <section class="hero-section reveal-active">
         <div class="eyebrow">INTELLIGENT FINANCIAL OPS</div>
-        <h1 class="gradient-text"><span class="text-highlight-pink">Retail Accounting</span><br>Without the Manual Work.</h1>
-        <p>Auto-reconcile transactions, manage GST filings, and close books faster. Real-time financial intelligence at your fingertips.</p>
+        <h1 class="gradient-text">Accounting, <span class="text-highlight-pink">Automated.</span></h1>
+        <p>Accounting & reconciliation with AI powered workflows. Get accurate insights to make better decisions. Always audit ready with 1 click share/export to CA.</p>
 
         <div class="hero-cta">
           <a routerLink="/contact" class="btn-primary">View Financial Intelligence</a>
@@ -95,8 +95,8 @@ import { FinalCtaComponent } from '../../components/final-cta/final-cta.componen
                   <path d="M22 4L12 14.01l-3-3" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
               </div>
-              <h3>Precision Auto-Reconciliation</h3>
-              <p>Zenflow matches bank statements, UPI payments, and credit card settlements against your sales data in real-time. 99.9% matching accuracy.</p>
+                <h3>Automated Reconciliation</h3>
+                <p>No more missing payments. AI matches UPI, Cards, and Cash entries in real-time across all locations.</p>
             </div>
 
             <!-- Card 2: GST Export -->
@@ -128,8 +128,8 @@ import { FinalCtaComponent } from '../../components/final-cta/final-cta.componen
                   <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/>
                 </svg>
               </div>
-              <h3>Real-time precision</h3>
-              <p>Automatically post purchase entries and vendor payments. Native integration with Tally and major ERPs.</p>
+                <h3>One Click Financial Statements</h3>
+                <p>Balance Sheet, P&L, Cashflow & GST/TDS reports with 20+ financial metrics available in real time.</p>
             </div>
 
             <!-- Card 5: Audit Logs -->
@@ -139,7 +139,7 @@ import { FinalCtaComponent } from '../../components/final-cta/final-cta.componen
                   <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0110 0v4"/>
                 </svg>
               </div>
-              <h3>Audit-Proof History</h3>
+              <h3>Audit Ready. Instantly.</h3>
               <p>Every financial change is logged with a timestamp and user ID. Maintain an immutable digital paper trail.</p>
             </div>
           </div>
@@ -173,22 +173,21 @@ import { FinalCtaComponent } from '../../components/final-cta/final-cta.componen
             <div class="dashboard-preview glass-card" [class.analyzing]="isAnalyzing">
               
               <!-- COGNITIVE SEARCH HUB (Accounting Context) -->
-              <div class="ai-search-container" (mousedown)="$event.stopPropagation()">
-                <div class="search-input-wrapper" [class.focused]="isFocused">
-                  <span class="ai-stars">✨</span>
+              <div class="dash-top">
+                <div class="dash-search-container" 
+                     [class.focused]="isFocused"
+                     (click)="aiInput.focus()">
+                  <span class="sparkle-icon">✨</span>
                   <input #aiInput 
-                         type="text" 
-                         [placeholder]="placeholderText"
-                         (focus)="isFocused = true"
-                         (blur)="isFocused = false"
-                         (keydown.enter)="triggerAnalysis(aiInput.value)">
-                </div>
-
-                <!-- Suggestions Dropdown -->
-                <div class="ai-suggestions" *ngIf="isFocused && !isAnalyzing && !showInsight">
-                  <div class="suggestion-item" *ngFor="let s of accountingSuggestions" (mousedown)="triggerAnalysis(s.query)">
-                    <span class="icon">{{ s.icon }}</span> {{ s.label }}
-                  </div>
+                    type="text" 
+                    class="dash-search-input" 
+                    [placeholder]="placeholderText"
+                    (focus)="isFocused = true"
+                    (blur)="isFocused = false"
+                    (keydown.enter)="triggerAnalysis(aiInput.value)">
+                  
+                  <!-- Dropdown Suggestions Disabled -->
+                  <!-- <div class="search-suggestions" ... </div> -->
                 </div>
               </div>
 
@@ -210,30 +209,35 @@ import { FinalCtaComponent } from '../../components/final-cta/final-cta.componen
                   <div class="live-tether" *ngIf="isAnalyzing || showInsight"></div>
                 </div>
 
-                <!-- THINKING STATE -->
-                <div class="ai-thinking-state" *ngIf="isAnalyzing">
-                  <div class="brain-loader">
-                    <div class="pulse"></div>
+                <!-- State 2: Analyzing (Loader) -->
+                <div class="ai-analyzing" *ngIf="isAnalyzing">
+                  <div class="thinking-dots">
+                    <span></span><span></span><span></span>
                   </div>
                   <p>{{ analysisMode }}</p>
                 </div>
 
-                <!-- INSIGHT CARD -->
-                <div class="ai-insight-card {{ insightTheme }}" *ngIf="showInsight && !isAnalyzing">
-                  <div class="theme-accent-visual">
-                    <div class="wave-box" *ngIf="insightTheme === 'forecast'">
-                      <div class="wave"></div><div class="wave"></div><div class="wave"></div>
-                    </div>
-                    <div class="alert-pulse" *ngIf="insightTheme === 'alert'"></div>
-                    <div class="sync-grid" *ngIf="insightTheme === 'analysis'">
-                      <span></span><span></span><span></span><span></span>
-                    </div>
-                  </div>
-                  
+                <!-- State 3: AI Insight (Result) -->
+                <div class="ai-insight-card" *ngIf="showInsight && !isAnalyzing" [class]="insightTheme">
                   <div class="insight-header">
-                    <span class="tag">AI INSIGHT</span>
-                    <button class="close-card" (click)="showInsight = false">×</button>
+                    <span class="ai-badge">Zenflow AI</span>
+                    <button class="close-btn" (click)="showInsight = false">×</button>
                   </div>
+
+                  <!-- Theme Specific Visuals -->
+                   <div class="theme-visual" [ngSwitch]="insightTheme">
+                     <div class="wave-visual" *ngSwitchCase="'forecast'">
+                        <div class="wave"></div><div class="wave"></div>
+                     </div>
+                     <div class="progress-visual" *ngSwitchCase="'alert'">
+                        <div class="prog-bar"><div class="fill" style="width: 85%"></div></div>
+                        <span class="label">Tax Provision High</span>
+                     </div>
+                     <div class="live-glow" *ngSwitchCase="'analysis'">
+                        <span class="dot"></span> LEDGER SYNC ACTIVE
+                     </div>
+                   </div>
+
                   <h3>{{ insightTitle }}</h3>
                   <p [innerHTML]="insightText"></p>
                   <button class="action-btn-pill" (click)="handleInsightAction()">
@@ -245,7 +249,7 @@ import { FinalCtaComponent } from '../../components/final-cta/final-cta.componen
 
               <div class="dash-mini-grid" *ngIf="!showInsight && !isAnalyzing">
                 <div class="mini-bar"></div>
-                <div class="mini-bar :mini-bar"></div>
+                <div class="mini-bar"></div>
                 <div class="mini-bar"></div>
               </div>
             </div>
@@ -351,38 +355,13 @@ import { FinalCtaComponent } from '../../components/final-cta/final-cta.componen
         </div>
       </div>
 
-      <!-- SECTION 4: Outcome Section (Matching Suite) -->
-      <section class="outcome-section">
-        <div class="outcome-container">
-          <h2>Your Auditor's Best Friend.</h2>
-          <p class="outcome-statement">Zenflow handles the manual data entry while you focus on scaling your enterprise.</p>
-          <div class="outcome-points">
-            <div class="outcome-item">
-              <div class="outcome-check">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
-                  <path d="M20 6L9 17L4 12" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-              </div>
-              <span>Close your monthly books 5x faster than manual accounting.</span>
-            </div>
-            <div class="outcome-item">
-              <div class="outcome-check">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
-                  <path d="M20 6L9 17L4 12" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-              </div>
-              <span>Eliminate 99% of reconciliation errors with automated bank matching.</span>
-            </div>
-          </div>
-        </div>
-      </section>
     </div>
 
     <!-- Conversion CTA -->
     <app-final-cta 
       eyebrow="READY FOR FINANCIAL CLARITY?"
       headline="Transform Your <br>Accounting Today."
-      subtext="See how Zenflow transforms billing, inventory, and accounting into one seamless retail system."
+      subtext="See how Zenflow transforms billing, inventory, order management and accounting into one seamless retail system."
       buttonText="Get Audit Ready →">
     </app-final-cta>
   `,

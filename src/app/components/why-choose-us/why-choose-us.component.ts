@@ -11,10 +11,10 @@ import { ScrollRevealDirective } from '../../directives/scroll-reveal.directive'
       <div class="container">
         <!-- Human-Centric Header -->
         <div class="section-header" appScrollReveal>
-          <div class="section-label">WHY OUR CUSTOMERS CHOOSE Zenflow</div>
-          <h2 class="headline">Designed for Those Who <br>Refuse to Outgrow Their Software.</h2>
+          <div class="section-label">WHY CUSTOMERS CHOOSE US</div>
+          <h2 class="headline">Power Without <br>Complexity.</h2>
           <p class="subtext">
-            Power without complexity — built for modern retail growth.
+            Built for modern retail and e-commerce.
           </p>
         </div>
 
@@ -59,7 +59,7 @@ import { ScrollRevealDirective } from '../../directives/scroll-reveal.directive'
               </svg>
             </div>
             <h3>Unified Commerce Control</h3>
-            <p>Manage billing, inventory, and accounting from one single, calm dashboard.</p>
+            <p>Manage billing, inventory, and accounting from one single platform.</p>
           </div>
 
           <!-- Pillar 4: Human Support -->
@@ -70,7 +70,7 @@ import { ScrollRevealDirective } from '../../directives/scroll-reveal.directive'
               </svg>
             </div>
             <h3>World-Class Support</h3>
-            <p>Direct access to a dedicated retail expert who understands your margins.</p>
+            <p>Direct access to a dedicated account manager who understands retail and e-commerce.</p>
           </div>
 
           <!-- Pillar 5: Global Sync -->

@@ -12,8 +12,8 @@ import { FinalCtaComponent } from '../../components/final-cta/final-cta.componen
       <!-- SECTION 1: Centered Hero (Fleet Visual Refined) -->
       <section class="hero-section reveal-active">
         <div class="eyebrow">SMART BILLING</div>
-        <h1 class="gradient-text"><span class="text-highlight-pink">Smart Billing</span> That Moves<br>as Fast as Your Counter.</h1>
-        <p>Process sales, apply promotions, handle GST, and sync across stores — instantly. Achieving 40% faster checkouts and 7% increase in repeat visits.</p>
+        <h1 class="gradient-text"><span class="text-highlight-pink">Retail Billing</span><br>Reimagined.</h1>
+        <p>Process sales, apply promotions, handle GST, and sync across stores — instantly. 40% faster checkouts and 15% increase in repeat visits.</p>
 
         <div class="hero-cta">
           <a routerLink="/contact" class="btn-primary">Book Demo</a>
@@ -67,7 +67,7 @@ import { FinalCtaComponent } from '../../components/final-cta/final-cta.componen
         <div class="bento-container">
           <div class="bento-header text-center">
             <span class="eyebrow">CAPABILITIES</span>
-            <h2>Stock, Sales & Sync. All in One.</h2>
+            <h2>Bill Faster. Stock Smarter. Run Retail Better.</h2>
           </div>
 
           <div class="inner-bento-grid">
@@ -100,7 +100,7 @@ import { FinalCtaComponent } from '../../components/final-cta/final-cta.componen
                   <path d="M1 1l22 22M16.72 11.06A10.94 10.94 0 0119 12.55M5 12.55a10.94 10.94 0 015.17-2.39" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
               </div>
-              <h3>Offline First</h3>
+              <h3>Offline Sync</h3>
               <p>Never stop selling. Billing works without internet and syncs automatically when you're back online.</p>
             </div>
 
@@ -122,7 +122,7 @@ import { FinalCtaComponent } from '../../components/final-cta/final-cta.componen
                   <path d="M23 4v6h-6M1 20v-6h6M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
               </div>
-              <h3>Multi-Store Sync</h3>
+              <h3>Endless aisle</h3>
               <p>Global inventory visibility from any billing counter. Sell from any warehouse.</p>
             </div>
           </div>
@@ -150,6 +150,10 @@ import { FinalCtaComponent } from '../../components/final-cta/final-cta.componen
               <h3>Custom Invoice Design</h3>
               <p>Professional, branded invoices that look great and contain all statutory details.</p>
             </div>
+            <div class="ops-card-v4">
+              <h3>Online Orders at POS</h3>
+              <p>Receive online orders directly at POS — check cross-store stock availability and fulfil from the nearest location.</p>
+            </div>
           </div>
 
           <div class="ops-visual-v4">
@@ -167,19 +171,8 @@ import { FinalCtaComponent } from '../../components/final-cta/final-cta.componen
                     (keydown.enter)="triggerAnalysis(searchInput.value)"
                     #searchInput> 
                   
-                  <!-- Dropdown Suggestions -->
-                  <div class="search-suggestions" *ngIf="isSearchFocused" (mousedown)="$event.preventDefault()">
-                    <div class="suggestion-label">Try Asking:</div>
-                    <div class="suggestion-item" (mousedown)="triggerAnalysis('Weekend Revenue Forecast')">
-                      <span class="icon">📈</span> Weekend Revenue Forecast
-                    </div>
-                    <div class="suggestion-item" (mousedown)="triggerAnalysis('Inventory Velocity Alert')">
-                      <span class="icon">⚠️</span> Inventory Velocity Alert
-                    </div>
-                    <div class="suggestion-item" (mousedown)="triggerAnalysis('Daily Revenue Analysis')">
-                      <span class="icon">🚀</span> Daily Revenue Analysis
-                    </div>
-                  </div>
+                  <!-- Dropdown Suggestions Disabled -->
+                  <!-- <div class="search-suggestions" ... </div> -->
                 </div>
               </div>
 
@@ -403,27 +396,7 @@ import { FinalCtaComponent } from '../../components/final-cta/final-cta.componen
         </div>
       </div>
 
-      <!-- SECTION 4: Outcome Section (Matching Inventory) -->
-      <section class="outcome-section">
-        <div class="outcome-container">
-          <h2>Stop Guessing Your Margins.</h2>
-          <p class="outcome-statement">Zenflow ensures every rupee is accounted for, from checkout to bank.</p>
-          <div class="outcome-points">
-            <div class="outcome-item">
-              <span>Reduce human error in reconciliation by 99%.</span>
-            </div>
-            <div class="outcome-item">
-              <span>Accept 15+ payment modes with instant verification.</span>
-            </div>
-            <div class="outcome-item">
-              <span>Endless aisle — Find unavailable sizes in other stores and ship to the customer.</span>
-            </div>
-            <div class="outcome-item">
-              <span>Receive online orders directly at POS — check cross-store stock availability and fulfil from the nearest location.</span>
-            </div>
-          </div>
-        </div>
-      </section>
+
     </div>
 
     <!-- Conversion CTA -->
@@ -449,7 +422,7 @@ export class BillingComponent implements OnDestroy {
   private placeholders = [
     "Ask AI for sales trends...",
     "Ask AI for stock alerts...",
-    "Ask AI for customer retention...",
+    "Ask AI for customer insights...",
     "Ask AI for top performing SKUs..."
   ];
   private placeholderIndex = 0;

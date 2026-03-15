@@ -17,5 +17,9 @@ export const routes: Routes = [
   { path: 'pricing', loadComponent: () => import('./pages/pricing/pricing.component').then(m => m.PricingComponent), title: 'Pricing | Zenflow', data: { breadcrumb: 'Pricing' } },
   { path: 'about', loadComponent: () => import('./pages/about/about.component').then(m => m.AboutComponent), title: 'About Us | Zenflow' },
   { path: 'contact', loadComponent: () => import('./pages/contact/contact.component').then(m => m.ContactComponent), title: 'Contact | Zenflow' },
+  { path: 'privacy-policy', loadComponent: () => import('./pages/privacy-policy.component').then(m => m.PrivacyPolicyComponent), title: 'Privacy Policy | Zenflow' },
+  { path: 'refund-policy', loadComponent: () => import('./pages/refund-policy.component').then(m => m.RefundPolicyComponent), title: 'Refund Policy | Zenflow' },
+  { path: 'terms', loadComponent: () => import('./pages/terms.component').then(m => m.TermsComponent), title: 'Terms of Service | Zenflow' },
+  { path: 'shipping-policy', loadComponent: () => import('./pages/shipping-policy.component').then(m => m.ShippingPolicyComponent), title: 'Shipping Policy | Zenflow' },
   { path: '**', redirectTo: '' }
 ];

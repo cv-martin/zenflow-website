@@ -79,8 +79,8 @@ import { FinalCtaComponent } from '../../components/final-cta/final-cta.componen
                   <path d="M23 4v6h-6M1 20v-6h6M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
               </div>
-              <h3>Live Marketplace Sync</h3>
-              <p>Sell an item in-store, and it's instantly removed from Amazon. No more overselling or marketplace penalties.</p>
+              <h3>Unified Order Management System</h3>
+              <p>Streamline multi-channel orders. Sync inventory and fulfillment from one place. No more overselling or marketplace penalties.</p>
             </div>
 
             <!-- Card 2: Shiprocket Integration -->
@@ -90,8 +90,8 @@ import { FinalCtaComponent } from '../../components/final-cta/final-cta.componen
                   <path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
               </div>
-              <h3>Shiprocket Native</h3>
-              <p>Generate labels and track shipments directly from Zenflow. 24,000+ pin codes covered.</p>
+              <h3>Integrated Logistics</h3>
+              <p>Integrates with Shiprocket.</p>
             </div>
 
             <!-- Card 3: Unified Customer 360 -->
@@ -112,8 +112,8 @@ import { FinalCtaComponent } from '../../components/final-cta/final-cta.componen
                   <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/>
                 </svg>
               </div>
-              <h3>Smart Fulfillment</h3>
-              <p>Optimized picking paths and digital packing lists for 50% faster order processing.</p>
+              <h3>B2B Orders Supported</h3>
+              <p>Optimized for B2B and wholesale operations.</p>
             </div>
 
             <!-- Card 5: Returns Management -->
@@ -148,54 +148,89 @@ import { FinalCtaComponent } from '../../components/final-cta/final-cta.componen
               <p>Set safety stock levels per channel to prevent overselling on high-risk marketplaces.</p>
             </div>
             <div class="ops-card-v4">
-              <h3>Direct-to-Customer (D2C)</h3>
-              <p>Ship directly from your stores. Convert every outlet into a mini-fulfillment center.</p>
+              <h3>Hyper-Local Delivery</h3>
+              <p>Deliver faster from the nearest store.</p>
             </div>
           </div>
 
           <div class="ops-visual-v4">
-            <div class="dashboard-preview glass-card">
+            <div class="dashboard-preview glass-card" [class.analyzing]="isAnalyzing">
+              
+              <!-- COGNITIVE SEARCH HUB (Omnichannel Context) -->
               <div class="dash-top">
-                <div class="dash-search-mock">✨ Syncing Amazon orders...</div>
-              </div>
-              <div class="dash-main-stat">
-                <label>Active Shipments</label>
-                <div class="stat-row">
-                  <span class="val">84</span>
-                  <span class="trend up">↑ 8.2%</span>
+                <div class="dash-search-container" 
+                     [class.focused]="isFocused"
+                     (click)="aiInput.focus()">
+                  <span class="sparkle-icon">✨</span>
+                  <input #aiInput 
+                    type="text" 
+                    class="dash-search-input" 
+                    [placeholder]="placeholderText"
+                    (focus)="isFocused = true"
+                    (blur)="isFocused = false"
+                    (keydown.enter)="triggerAnalysis(aiInput.value)">
+                  
+                  <!-- Dropdown Suggestions Disabled -->
+                  <!-- <div class="search-suggestions" ... </div> -->
                 </div>
               </div>
-              <div class="dash-mini-grid">
-                <div class="mini-bar"></div>
-                <div class="mini-bar"></div>
-                <div class="mini-bar"></div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
 
-      <!-- SECTION 4: Outcome Section (Matching Billing) -->
-      <section class="outcome-section">
-        <div class="outcome-container">
-          <h2>Stop Segregating Your Stock.</h2>
-          <p class="outcome-statement">Zenflow merges your offline and online worlds into a single, high-velocity engine.</p>
-          <div class="outcome-points">
-            <div class="outcome-item">
-              <div class="outcome-check">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
-                  <path d="M20 6L9 17L4 12" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
+              <div class="dash-content-area">
+                <!-- Persistent Status -->
+                <div class="dash-main-stat" [class.active-ai]="isAnalyzing || showInsight">
+                  <div class="live-indicator-wrapper" *ngIf="isAnalyzing || showInsight">
+                    <span class="live-dot"></span> LIVE SYNC
+                  </div>
+                  <label>Pending Cross-Channel Orders</label>
+                  <div class="stat-row">
+                    <span class="val">{{ pendingOrders }}</span>
+                    <span class="trend up">↑ 42 today</span>
+                  </div>
+                  <div class="live-tether" *ngIf="isAnalyzing || showInsight"></div>
+                </div>
+
+                <!-- State 2: Analyzing (Loader) -->
+                <div class="ai-analyzing" *ngIf="isAnalyzing">
+                  <div class="thinking-dots">
+                    <span></span><span></span><span></span>
+                  </div>
+                  <p>{{ analysisMode }}</p>
+                </div>
+
+                <!-- State 3: AI Insight (Result) -->
+                <div class="ai-insight-card" *ngIf="showInsight && !isAnalyzing" [class]="insightTheme">
+                  <div class="insight-header">
+                    <span class="ai-badge">Zenflow AI</span>
+                    <button class="close-btn" (click)="showInsight = false">×</button>
+                  </div>
+
+                  <!-- Theme Specific Visuals -->
+                   <div class="theme-visual" [ngSwitch]="insightTheme">
+                     <div class="wave-visual" *ngSwitchCase="'forecast'">
+                        <div class="wave"></div><div class="wave"></div>
+                     </div>
+                     <div class="progress-visual" *ngSwitchCase="'alert'">
+                        <div class="prog-bar"><div class="fill" style="width: 85%"></div></div>
+                        <span class="label">Amazon Stock Alert</span>
+                     </div>
+                     <div class="live-glow" *ngSwitchCase="'analysis'">
+                        <span class="dot"></span> CHANNEL SYNC ACTIVE
+                     </div>
+                   </div>
+
+                  <h3>{{ insightTitle }}</h3>
+                  <p [innerHTML]="insightText"></p>
+                  <button class="action-btn-pill" (click)="handleInsightAction()">
+                    {{ insightAction }}
+                  </button>
+                </div>
               </div>
-              <span>Increase online sales by 25% with unified inventory visibility.</span>
-            </div>
-            <div class="outcome-item">
-              <div class="outcome-check">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
-                  <path d="M20 6L9 17L4 12" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
+
+              <div class="dash-mini-grid" *ngIf="!showInsight && !isAnalyzing">
+                <div class="mini-bar"></div>
+                <div class="mini-bar"></div>
+                <div class="mini-bar"></div>
               </div>
-              <span>Eliminate marketplace cancellation fees due to stock errors.</span>
             </div>
           </div>
         </div>
@@ -206,10 +241,54 @@ import { FinalCtaComponent } from '../../components/final-cta/final-cta.componen
     <app-final-cta 
       eyebrow="READY TO GO OMNICHANNEL?"
       headline="Connect Your <br>Commerce Today."
-      subtext="See how Zenflow transforms billing, inventory, and accounting into one seamless retail system."
+      subtext="See how Zenflow transforms billing, inventory, order management and accounting into one seamless retail system."
       buttonText="Sync My Store →">
     </app-final-cta>
   `,
   styleUrl: './omnichannel.component.scss'
 })
-export class OmnichannelComponent { }
+export class OmnichannelComponent {
+  isAnalyzing = false;
+  showInsight = false;
+  isFocused = false;
+  analysisMode = '';
+  insightTheme = 'forecast';
+  insightTitle = '';
+  insightText = '';
+  insightAction = '';
+  placeholderText = 'Ask AI about channel performance...';
+  pendingOrders = '1,402';
+
+  triggerAnalysis(query: string) {
+    if (!query) return;
+    this.isAnalyzing = true;
+    this.showInsight = false;
+    this.analysisMode = 'ANALYZING CHANNELS...';
+
+    setTimeout(() => {
+      this.isAnalyzing = false;
+      this.showInsight = true;
+      
+      if (query.toLowerCase().includes('amazon') || query.toLowerCase().includes('stock')) {
+        this.insightTheme = 'alert';
+        this.insightTitle = 'Low Stock Alert: Amazon';
+        this.insightText = 'Stock for <strong>SKU-882 (Blue Denim)</strong> is below safety buffer (12 units) on Amazon India. Syncing stock from Mumbai Retail Hub...';
+        this.insightAction = 'Rebalance Stock';
+      } else if (query.toLowerCase().includes('forecast') || query.toLowerCase().includes('sale')) {
+        this.insightTheme = 'forecast';
+        this.insightTitle = 'Marketplace Demand Forecast';
+        this.insightText = 'Predicting a 22% surge in <strong>Ethnic Wear</strong> demand on Myntra over the next 72 hours based on regional trends.';
+        this.insightAction = 'Increase Buffer';
+      } else {
+        this.insightTheme = 'analysis';
+        this.insightTitle = 'Omnichannel Health Check';
+        this.insightText = 'Sync successful across 4 marketplaces. <strong>99.8% listing accuracy</strong>. 42 orders processed in the last 60 minutes.';
+        this.insightAction = 'View Sync Logs';
+      }
+    }, 1500);
+  }
+
+  handleInsightAction() {
+    this.showInsight = false;
+  }
+}

@@ -35,7 +35,7 @@ import { ScrollRevealDirective } from '../../directives/scroll-reveal.directive'
   `,
   styles: [`
     .stats-container {
-      padding: 10rem 0;
+      padding: 4rem 0;
       display: flex;
       justify-content: center;
       position: relative;

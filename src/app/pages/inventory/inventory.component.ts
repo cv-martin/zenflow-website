@@ -1,4 +1,4 @@
-import { Component, ChangeDetectorRef, ViewChild, ElementRef, OnDestroy } from '@angular/core';
+import { Component, ChangeDetectorRef, ViewChild, ElementRef, OnDestroy, ChangeDetectionStrategy, NgZone } from '@angular/core';
 import { CommonModule, CurrencyPipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { FinalCtaComponent } from '../../components/final-cta/final-cta.component';
@@ -8,6 +8,7 @@ import { FinalCtaComponent } from '../../components/final-cta/final-cta.componen
   standalone: true,
   imports: [CommonModule, RouterLink, FinalCtaComponent],
   providers: [CurrencyPipe],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="container page-content">
       <!-- SECTION 1: Network Intelligence Hero -->
@@ -159,17 +160,29 @@ import { FinalCtaComponent } from '../../components/final-cta/final-cta.componen
 
           <div class="inner-bento-grid">
             <div class="bento-card-inner bento-large-inner">
-              <div class="bento-icon-inner">✨</div>
-              <h3>Intelligent Network Sync</h3>
-              <p>Zenflow doesn't just track stock; it orchestrates it. When Delhi runs high on SKU-44, the AI automatically suggests a transfer to Mumbai to prevent dead stock.</p>
+              <div class="bento-icon-inner">🌐</div>
+              <h3>Multi-location Inventory</h3>
+              <p>Track store, warehouse, and online marketplace inventory in a single real-time dashboard. Eliminate information silos and gain absolute control over globally distributed stock.</p>
             </div>
             <div class="bento-card-inner">
-              <h3>Shelf-Life Triage</h3>
-              <p>Track expiry at a global level. AI prioritizes the movement of aging stock across regions.</p>
+              <div class="bento-icon-inner">📍</div>
+              <h3>Hyper-local Fulfillment</h3>
+              <p>Automatically route orders to the nearest store or warehouse with available stock for faster delivery and lower logistics costs.</p>
             </div>
             <div class="bento-card-inner">
-              <h3>Elastic Capacity</h3>
-              <p>Real-time space utilization metrics for every warehouse in your network.</p>
+              <div class="bento-icon-inner">⏳</div>
+              <h3>Batch, Expiry & Rotation</h3>
+              <p>Manage batch numbers, expiry dates, and FIFO/FEFO stock rotation to minimize waste and ensure strict compliance across all categories.</p>
+            </div>
+            <div class="bento-card-inner bento-medium-inner">
+              <div class="bento-icon-inner">📦</div>
+              <h3>Smooth Inbound/Outbound</h3>
+              <p>Manage warehouse workflows with ease — SKU scanning, automated GRNs, barcode printing, pick/pack lists, and inter-store transfers.</p>
+            </div>
+            <div class="bento-card-inner">
+              <div class="bento-icon-inner">🔍</div>
+              <h3>Smart Audits</h3>
+              <p>Run fast, accurate stock audits and cycle counts with complete visibility onto variances. Track SKUs along their complete journey.</p>
             </div>
           </div>
         </div>
@@ -198,20 +211,21 @@ import { FinalCtaComponent } from '../../components/final-cta/final-cta.componen
             <div class="dashboard-preview command-preview glass-card" [class.analyzing]="isAnalyzing">
               
               <!-- COGNITIVE SEARCH HUB (Network Context) -->
-              <div class="ai-search-container" (mousedown)="$event.stopPropagation()">
-                <div class="search-input-wrapper" [class.focused]="isFocused" (click)="focusSearch()">
-                  <span class="ai-stars">✨</span>
+              <div class="dash-top">
+                <div class="dash-search-container" 
+                     [class.focused]="isFocused"
+                     (click)="focusSearch()">
+                  <span class="sparkle-icon">✨</span>
                   <input #aiInput 
-                         type="text" 
-                         [placeholder]="placeholderText"
-                         (focus)="focusSearch()"
-                         (blur)="onSearchBlur()"
-                         (keydown.enter)="triggerAnalysis(aiInput.value)">
-                </div>
-                <div class="ai-suggestions" *ngIf="isFocused && !isAnalyzing && !showInsight">
-                  <div class="suggestion-item" *ngFor="let s of inventorySuggestions" (mousedown)="triggerAnalysis(s.query)">
-                    <span class="icon">{{ s.icon }}</span> {{ s.label }}
-                  </div>
+                    type="text" 
+                    class="dash-search-input" 
+                    [placeholder]="placeholderText"
+                    (focus)="focusSearch()"
+                    (blur)="onSearchBlur()"
+                    (keydown.enter)="triggerAnalysis(aiInput.value)">
+                  
+                  <!-- Dropdown Suggestions Disabled -->
+                  <!-- <div class="search-suggestions" ... </div> -->
                 </div>
               </div>
 
@@ -228,22 +242,38 @@ import { FinalCtaComponent } from '../../components/final-cta/final-cta.componen
                     </span>
                     <span class="trend up">↑ 12.4%</span>
                   </div>
+                  <div class="live-tether" *ngIf="isAnalyzing || showInsight"></div>
                 </div>
 
-                <!-- THINKING -->
-                <div class="ai-thinking-state" *ngIf="isAnalyzing">
-                  <div class="network-sonar">
-                    <div class="sonar-wave"></div>
+                <!-- State 2: Analyzing (Loader) -->
+                <div class="ai-analyzing" *ngIf="isAnalyzing">
+                  <div class="thinking-dots">
+                    <span></span><span></span><span></span>
                   </div>
                   <p>{{ analysisMode }}</p>
                 </div>
 
-                <!-- INSIGHT -->
-                <div class="ai-insight-card {{ insightTheme }}" *ngIf="showInsight && !isAnalyzing">
+                <!-- State 3: AI Insight (Result) -->
+                <div class="ai-insight-card" *ngIf="showInsight" [class]="insightTheme">
                   <div class="insight-header">
-                    <span class="tag">NETWORK OPTIMIZER</span>
-                    <button class="close-card" (click)="showInsight = false">×</button>
+                    <span class="ai-badge">Zenflow AI</span>
+                    <button class="close-btn" (click)="showInsight = false">×</button>
                   </div>
+
+                  <!-- Theme Specific Visuals -->
+                   <div class="theme-visual" [ngSwitch]="insightTheme">
+                     <div class="wave-visual" *ngSwitchCase="'forecast'">
+                        <div class="wave"></div><div class="wave"></div>
+                     </div>
+                     <div class="progress-visual" *ngSwitchCase="'alert'">
+                        <div class="prog-bar"><div class="fill" style="width: 85%"></div></div>
+                        <span class="label">85% Depleted</span>
+                     </div>
+                     <div class="live-glow" *ngSwitchCase="'analysis'">
+                        <span class="dot"></span> LIVE DATA SYNC
+                     </div>
+                   </div>
+
                   <h3>{{ insightTitle }}</h3>
                   <p [innerHTML]="insightText"></p>
                   <button class="action-btn-pill" (click)="handleInsightAction()">
@@ -252,6 +282,11 @@ import { FinalCtaComponent } from '../../components/final-cta/final-cta.componen
                 </div>
               </div>
 
+              <div class="dash-mini-grid" *ngIf="!showInsight && !isAnalyzing">
+                <div class="mini-bar"></div>
+                <div class="mini-bar"></div>
+                <div class="mini-bar"></div>
+              </div>
             </div>
           </div>
         </div>
@@ -419,7 +454,10 @@ export class InventoryComponent implements OnDestroy {
 
   private tickerInterval: any;
 
-  constructor(private cdr: ChangeDetectorRef) {
+  constructor(
+    private cdr: ChangeDetectorRef,
+    private ngZone: NgZone
+  ) {
     this.startLiveValuation();
   }
 
@@ -428,12 +466,18 @@ export class InventoryComponent implements OnDestroy {
   }
 
   startLiveValuation() {
-    this.tickerInterval = setInterval(() => {
-      this.lastValuation = this.valuation;
-      const change = Math.floor(Math.random() * 20000) + 10000;
-      this.valuation += Math.random() > 0.4 ? change : -change;
-      this.cdr.markForCheck();
-    }, 4000);
+    this.ngZone.runOutsideAngular(() => {
+      this.tickerInterval = setInterval(() => {
+        this.lastValuation = this.valuation;
+        const change = Math.floor(Math.random() * 20000) + 10000;
+        this.valuation += Math.random() > 0.4 ? change : -change;
+        
+        // Only trigger change detection when the value actually changes and we need to show the flash effect
+        this.ngZone.run(() => {
+          this.cdr.markForCheck();
+        });
+      }, 4000);
+    });
   }
 
   triggerAnalysis(query: string) {

@@ -2,13 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { RouterOutlet, Router, NavigationEnd } from '@angular/router';
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
-import { PrivacyConsentComponent } from './components/privacy/privacy-consent.component';
 import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, HeaderComponent, FooterComponent, PrivacyConsentComponent],
+  imports: [RouterOutlet, HeaderComponent, FooterComponent],
   template: `
     <!-- Global Living Background -->
     <div class="scanning-grid fixed-bg"></div>
@@ -22,7 +21,6 @@ import { filter } from 'rxjs/operators';
       <router-outlet />
     </main>
     <app-footer />
-    <app-privacy-consent />
   `,
   styles: [`
     :host {

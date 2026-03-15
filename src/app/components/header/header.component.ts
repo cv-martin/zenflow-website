@@ -1,4 +1,4 @@
-import { Component, HostListener, OnInit, OnDestroy } from '@angular/core';
+import { Component, HostListener, OnInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef, NgZone } from '@angular/core';
 import { RouterLink, RouterLinkActive, Router, NavigationEnd, ActivatedRoute } from '@angular/router';
 import { filter, map } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
@@ -8,6 +8,7 @@ import { CommonModule } from '@angular/common';
   selector: 'app-header',
   standalone: true,
   imports: [RouterLink, RouterLinkActive, CommonModule],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <header class="header" [class.scrolled]="isScrolled" [class.menu-open]="isMenuOpen">
       <div class="container header-content">
@@ -82,13 +83,13 @@ import { CommonModule } from '@angular/common';
       top: 1.5rem;
       width: 95%;
       max-width: 1100px;
-      height: 64px;
+      height: 68px; /* Slightly taller for better presence */
       border-radius: 999px;
-      background: rgba(255, 255, 255, 0.8);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border: 1px solid rgba(255, 255, 255, 0.4);
-      box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.1);
+      background: rgba(255, 255, 255, 0.9); /* More opaque for contrast */
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.5);
+      box-shadow: 0 20px 50px -15px rgba(0, 0, 0, 0.12);
     }
 
     .header-content {
@@ -183,7 +184,7 @@ import { CommonModule } from '@angular/common';
       background: rgba(255, 255, 255, 0.9);
     }
     .header.scrolled .logo .brand-icon { height: 26px; }
-    .header.scrolled .logo .brand-wordmark { height: 16px; }
+    .header.scrolled .logo .brand-wordmark { height: 18px; }
     .header.scrolled .logo { margin-right: 2rem; }
 
     .page-context {
@@ -236,7 +237,7 @@ import { CommonModule } from '@angular/common';
 
       a {
         font-weight: 600;
-        font-size: 0.9rem;
+        font-size: 0.95rem; /* Increased from 0.9rem */
         color: var(--text-dark);
         opacity: 0.7;
         position: relative;
@@ -420,18 +421,19 @@ import { CommonModule } from '@angular/common';
     .header.menu-open .menu-toggle .bar:nth-child(1) { transform: translateY(8px) rotate(45deg); width: 28px; }
     .header.menu-open .menu-toggle .bar:nth-child(2) { opacity: 0; transform: translateX(-10px); }
     .header.menu-open .menu-toggle .bar:nth-child(3) { transform: translateY(-8px) rotate(-45deg); width: 28px; }
-  `]
-})
+  `]})
 export class HeaderComponent implements OnInit, OnDestroy {
   isScrolled = false;
   isMenuOpen = false;
   currentPageTitle = '';
-  private scrollTicking = false;
   private routerSub?: Subscription;
+  private scrollSub?: Subscription;
 
   constructor(
     private router: Router,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private cdr: ChangeDetectorRef,
+    private ngZone: NgZone
   ) {}
 
   ngOnInit() {
@@ -448,28 +450,38 @@ export class HeaderComponent implements OnInit, OnDestroy {
       this.currentPageTitle = title;
       this.isScrolled = false;
       this.closeMenu();
+      this.cdr.markForCheck();
+    });
+
+    this.initScrollListener();
+  }
+
+  private initScrollListener() {
+    this.ngZone.runOutsideAngular(() => {
+      window.addEventListener('scroll', this.onWindowScroll.bind(this), { passive: true });
     });
   }
 
-  @HostListener('window:scroll', [])
   onWindowScroll() {
-    if (!this.scrollTicking) {
-      window.requestAnimationFrame(() => {
-        this.isScrolled = window.scrollY > 20;
-        this.scrollTicking = false;
+    const scrolled = window.scrollY > 20;
+    if (this.isScrolled !== scrolled) {
+      this.ngZone.run(() => {
+        this.isScrolled = scrolled;
+        this.cdr.markForCheck();
       });
-      this.scrollTicking = true;
     }
   }
 
   toggleMenu() {
     this.isMenuOpen = !this.isMenuOpen;
     this.updateScrollLock();
+    this.cdr.markForCheck();
   }
 
   closeMenu() {
     this.isMenuOpen = false;
     this.updateScrollLock();
+    this.cdr.markForCheck();
   }
 
   private updateScrollLock() {
@@ -487,6 +499,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.routerSub?.unsubscribe();
+    window.removeEventListener('scroll', this.onWindowScroll);
     document.body.style.overflow = '';
   }
 }

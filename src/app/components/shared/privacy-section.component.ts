@@ -20,15 +20,7 @@ import { CommonModule } from '@angular/common';
               Your financial data, customer records, and operational flows are protected 
               by a layered, auditable security architecture that scales with your growth.
             </p>
-            <div class="trust-badges">
-              <div class="badge-item">
-                <svg viewBox="0 0 24 24" fill="none" class="badge-icon">
-                  <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" fill="var(--primary-color)" fill-opacity="0.1"/>
-                  <path d="M7 13L10 16L17 9" stroke="var(--primary-color)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-                <span>Bank-Level Encryption</span>
-              </div>
-            </div>
+
           </div>
 
           <!-- Right: Pillar Grid -->
@@ -69,7 +61,7 @@ import { CommonModule } from '@angular/common';
                       <path d="M7 11V7a5 5 0 0110 0v4" stroke-width="2"/>
                     </svg>
                   </div>
-                  <h3 class="pillar-title">E2E Encryption</h3>
+                  <h3 class="pillar-title">Encrypted</h3>
                 </div>
                 <p class="pillar-desc">All financial and transactional data encrypted at rest and in transit.</p>
               </div>

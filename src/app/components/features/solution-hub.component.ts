@@ -65,7 +65,8 @@ interface HubTab {
                   </ul>
                   
                   <a [routerLink]="['/' + tab.id]" class="btn btn-primary glass-btn">
-                    Learn about {{ tab.title }} &rarr;
+                    <ng-container *ngIf="tab.id === 'accounting'; else defaultBtn">Discover Financial Insights &rarr;</ng-container>
+                    <ng-template #defaultBtn>Learn about {{ tab.title }} &rarr;</ng-template>
                   </a>
                 </div>
 
@@ -90,7 +91,7 @@ interface HubTab {
                     <div class="inventory-control-pane" *ngIf="tab.visualType === 'inventory'">
                       <div class="network-canvas">
                         <div class="canvas-header">
-                           <span class="engine-label">INFRASTRUCTURE ENGINE v4.2</span>
+                           <span class="engine-label">REAL TIME SYNC</span>
                         </div>
                         <div class="orchestration-map">
                           <div class="core-hub">
@@ -126,8 +127,8 @@ interface HubTab {
                         </div>
                         <div class="sidebar-metrics">
                           <div class="metric-item">
-                            <span class="m-label">NETWORK VELOCITY</span>
-                            <span class="m-value green">↑ 18.2%</span>
+                            <span class="m-label">SYNC STATUS</span>
+                            <span class="m-value green">ACTIVE</span>
                             <div class="m-bar"><div class="m-fill"></div></div>
                           </div>
                           <div class="metric-item">
@@ -209,7 +210,7 @@ interface HubTab {
                             <div class="ring-pro r2"></div>
                           </div>
                           <span class="omni-hub-brand">Zenflow</span>
-                          <span class="omni-hub-sub">AUTO-ALLOCATION</span>
+                          <span class="omni-hub-sub">CONNECTORS</span>
                         </div>
                         <div class="hub-label-bottom">SMART ROUTING →</div>
                       </div>
@@ -317,7 +318,7 @@ interface HubTab {
     .glass-tab.active .tab-title { color: var(--primary-color); }
 
     .glass-card-main { 
-      min-height: 580px; height: 580px; padding: 4rem; position: relative;
+      min-height: 580px; padding: 4rem; position: relative;
       background: rgba(255, 255, 255, 0.65); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
       border-radius: 28px; border: 1px solid rgba(255, 255, 255, 0.5);
       box-shadow: 0 40px 80px -20px rgba(15, 23, 42, 0.08);
@@ -345,7 +346,7 @@ interface HubTab {
     .hub-panels-wrapper {
       position: relative;
       z-index: 1;
-      min-height: 480px;
+      height: 100%;
     }
 
     .hub-panel {
@@ -355,6 +356,7 @@ interface HubTab {
       pointer-events: none;
       transform: translateY(8px);
       transition: opacity 0.28s ease-out, transform 0.28s ease-out;
+      height: 100%;
     }
 
     .hub-panel.active {
@@ -362,12 +364,13 @@ interface HubTab {
       opacity: 1;
       pointer-events: auto;
       transform: translateY(0);
+      height: 100%;
     }
 
     .hub-content { 
       display: grid; 
       grid-template-columns: 1fr 1.15fr; 
-      gap: 4rem; 
+      gap: 3rem; 
       align-items: center; 
       position: relative; 
       z-index: 1;
@@ -375,32 +378,15 @@ interface HubTab {
       min-width: 0;
     }
  
-    .text-side h2 { font-size: 2.75rem; font-weight: 900; margin-bottom: 1.5rem; letter-spacing: -0.03em; line-height: 1.1; color: #1e293b; }
+    .text-side h2 { font-size: 2.6rem; font-weight: 900; margin-bottom: 1.25rem; letter-spacing: -0.03em; line-height: 1.1; color: #1e293b; }
     .text-side { 
-      height: 480px; /* Locked height to prevent shift */
       display: flex; 
       flex-direction: column;
-      justify-content: flex-start;
-      overflow-y: auto; /* Internal scrolling for long content */
-      padding-right: 1.5rem; /* Space for scrollbar */
+      justify-content: center;
+      padding-right: 1.5rem;
     }
 
-    /* Premium Custom Scrollbar for Text Side */
-    .text-side::-webkit-scrollbar {
-      width: 4px;
-    }
-    .text-side::-webkit-scrollbar-track {
-      background: rgba(0, 0, 0, 0.02);
-      border-radius: 4px;
-    }
-    .text-side::-webkit-scrollbar-thumb {
-      background: rgba(99, 102, 241, 0.2);
-      border-radius: 4px;
-      transition: background 0.3s ease;
-    }
-    .text-side::-webkit-scrollbar-thumb:hover {
-      background: rgba(99, 102, 241, 0.4);
-    }
+    /* Premium Custom Scrollbar removed since it's hidden */
     .text-gradient-premium { color: #1e293b; }
     .text-gradient { 
       background: linear-gradient(135deg, #7C3AED 0%, #DB2777 100%);
@@ -411,21 +397,22 @@ interface HubTab {
     }
  
     .hub-subheading { 
-      font-size: 1.15rem; color: #475569; line-height: 1.6; margin-bottom: 2rem; font-weight: 500; max-width: 90%;
+      font-size: 1.15rem; color: #475569; line-height: 1.6; margin-bottom: 1.5rem; font-weight: 500; max-width: 90%;
       display: -webkit-box; -webkit-line-clamp: unset; -webkit-box-orient: vertical; overflow: visible;
     }
     
-    .sophisticated-list { list-style: none; padding: 0; margin-bottom: 2rem; }
+    .sophisticated-list { list-style: none; padding: 0; margin-bottom: 1.75rem; }
     .sophisticated-list li { 
-      margin-bottom: 0.85rem; 
+      margin-bottom: 0.75rem; 
       display: flex; 
       align-items: baseline; 
       gap: 0.85rem; 
-      font-size: 1.05rem;
+      font-size: 1rem;
       position: relative;
     }
     .sophisticated-list li div {
       display: -webkit-box; -webkit-line-clamp: unset; -webkit-box-orient: vertical; overflow: visible;
+      line-height: 1.5;
     }
     .sophisticated-list li::before {
       content: '';
@@ -938,9 +925,8 @@ export class SolutionHubComponent implements OnInit, OnDestroy {
       subtext: 'The core of your retail operations, optimized for speed and accuracy. Handle peaks with ease and never keep a customer waiting.',
       features: [
         { title: 'Scan & Go', desc: 'Process items instantly with barcode integration.' },
-        { title: 'Endless aisle', desc: 'Check availability across stores and ship from another location.' },
         { title: 'Online orders', desc: 'Receive online orders directly into the checkout workflow.' },
-        { title: 'Direct Delivery', desc: 'Receive online orders direct on delivery per unavailable stock (check from different store for availability).' }
+        { title: 'Customize offers and discounts', desc: 'Choose from 10+ templates, personalize with loyalty rewards.' }
       ],
       visualType: 'pos'
     },
@@ -948,26 +934,27 @@ export class SolutionHubComponent implements OnInit, OnDestroy {
       id: 'inventory',
       title: 'Inventory',
       benefit: 'Multi Locations',
-      headline: 'Lightning-fast <span class="text-highlight-pink">Inventory</span> intelligence',
-      subtext: 'Perfectly balanced stock. Eliminate overstocking and stock-outs with AI-driven insights that optimize your entire network. Orchestrate inventory across multiple warehouses and stores with real-time digital precision.',
+      headline: 'Real Time <span class="text-highlight-pink">Stock</span> Visibility',
+      subtext: 'Track store, warehouse, and online marketplace inventory in a single real-time dashboard.',
       features: [
-        { title: 'Endless aisle', desc: 'Check availability across stores and ship from another location.' },
-        { title: 'Stock-Aging', desc: 'Identify slow-moving stock before it becomes overhead.' },
-        { title: 'Smart Transfers', desc: 'Optimize stock across your entire store network.' },
-        { title: 'Predictive Restock', desc: 'Automated procurement based on sales velocity and trends.' }
+        { title: 'Multi-location Sync', desc: 'Unified visibility across stores and marketplaces.' },
+        { title: 'Hyper-local Fulfillment', desc: 'Route orders to nearest stock for faster delivery.' },
+        { title: 'Batch & Expiry', desc: 'FIFO/FEFO rotation to minimize waste and risk.' },
+        { title: 'Inbound/Outbound', desc: 'Smooth warehouse workflows and automated printing.' },
+        { title: 'Smart Audits', desc: 'Cycle counts with 100% visibility onto variances.' }
       ],
       visualType: 'inventory'
     },
     {
       id: 'accounting',
-      title: 'Financial',
-      benefit: 'Real-time precision',
-      headline: 'Automated <span class="text-highlight-pink">Financial</span> Control',
+      title: 'Accounting',
+      benefit: 'Real-time insights',
+      headline: 'Real Time <span class="text-highlight-pink">Insights</span>',
       subtext: 'Instant, Accurate & integrated - Accounting & reconciliation with AI powered workflows. Get accurate insights to make better decisions. Always audit ready with 1 click share/export to CA.',
       features: [
         { title: 'Auto-Reconciliation', desc: 'Match bank statements with sales automatically.' },
-        { title: 'One-Click GST', desc: 'Auto-generate reports for GST R1 and 3B compliance.' },
-        { title: 'Audit-Ready', desc: 'Maintain detailed, transparent ledgers that stay compliant.' },
+        { title: 'One Click Financial Statements', desc: 'Balance Sheet, P&L, Cashflow & GST/TDS reports with 20+ financial metrics available in real time dashboard.' },
+        { title: 'Audit-Ready', desc: 'Maintain detailed, transparent ledgers that stay compliant. Instantly share with CA.' },
         { title: 'Pro-active Alerts', desc: 'Get notified instantly of unusual cashflow patterns.' }
       ],
       visualType: 'accounting'
@@ -977,7 +964,7 @@ export class SolutionHubComponent implements OnInit, OnDestroy {
       title: 'Omnichannel',
       benefit: 'UNIFIED SYNC',
       headline: 'Unified <span class="text-highlight-pink">Omnichannel</span> Ecosystem',
-      subtext: 'Sell everywhere. Synchronize Shopify, mobile apps, and marketplaces like Amazon and Flipkart into a single command center. Eliminate data silos and maintain 100% inventory accuracy across all digital and physical nodes.',
+      subtext: 'Sell everywhere. Synchronize Shopify, mobile apps, and marketplaces like Amazon and Flipkart into a single command center.',
       features: [
         { title: 'Unified Order Stream', desc: 'Shopify, Mobile App, and Marketplaces consolidated into one queue.' },
         { title: 'Global Synergy', desc: 'Real-time stock parity across all digital and physical endpoints.' },

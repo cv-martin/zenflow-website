@@ -227,7 +227,7 @@ import { ScrollRevealDirective } from '../../directives/scroll-reveal.directive'
 })
 export class FinalCtaComponent {
   @Input() eyebrow: string = '';
-  @Input() headline: string = 'Ready to Simplify <br>Retail Operations for Good?';
-  @Input() subtext: string = 'See how Zenflow transforms billing, inventory, and accounting into one seamless retail system.';
+  @Input() headline: string = 'Ready to Scale <br>Your Operations?';
+  @Input() subtext: string = 'See how Zenflow transforms billing, inventory, order management and accounting into one seamless system.';
   @Input() buttonText: string = 'Get Started Now';
 }

@@ -9,7 +9,7 @@
 /* -------------------------------------------------------------------------- */
 .hero-section {
   text-align: center;
-  padding: 2rem 0 10rem;
+  padding: 2rem 0 6rem;
   background-image: radial-gradient(rgba(255, 255, 255, 0.04) 0.5px, transparent 0.5px);
   background-size: 80px 80px;
   background-position: center;
@@ -163,7 +163,7 @@
 /*                          2. Bento Grid                                     */
 /* -------------------------------------------------------------------------- */
 .bento-section {
-  padding: 10rem 0;
+  padding: 6rem 0;
   background: white;
 
   .bento-header {
@@ -173,7 +173,7 @@
 
   .inner-bento-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(6, 1fr);
     gap: 1.5rem;
     max-width: 1200px;
     margin: 0 auto;
@@ -188,6 +188,7 @@
     display: flex;
     flex-direction: column;
     height: 100%;
+    grid-column: span 2;
 
     @media (hover: hover) {
       &:hover {
@@ -197,11 +198,8 @@
     }
 
     .bento-icon-inner {
-      width: 48px;
-      height: 48px;
-      color: var(--primary-color);
+      font-size: 2.5rem;
       margin-bottom: 1.5rem;
-      svg { width: 100%; height: 100%; }
     }
 
     h3 { 
@@ -218,10 +216,14 @@
     }
 
     &.bento-large-inner {
-      grid-column: span 2;
+      grid-column: span 4;
       background: white;
       border: 1px solid rgba(99, 102, 241, 0.1);
       box-shadow: 0 20px 40px rgba(99, 102, 241, 0.03);
+    }
+
+    &.bento-medium-inner {
+      grid-column: span 4;
     }
   }
 }
@@ -230,7 +232,7 @@
 /*                          3. Refined Operations Split                       */
 /* -------------------------------------------------------------------------- */
 .ops-walkthrough-v4 {
-  padding: 10rem 0;
+  padding: 6rem 0;
   background: #fcfcfc;
 
   .section-title { font-size: 3.5rem; font-weight: 950; letter-spacing: -0.04em; }
@@ -259,22 +261,156 @@
     min-width: 0;
     width: 100%;
     .dashboard-preview {
-      background: white; border-radius: 24px; padding: 3rem;
+      background: white; border-radius: 24px; padding: 2rem;
       box-shadow: 0 60px 100px -20px rgba(15, 23, 42, 0.08);
       border: 1px solid rgba(0, 0, 0, 0.02);
       width: 100%;
       box-sizing: border-box;
-      .dash-search-mock { background: #f1f5f9; border-radius: 12px; padding: 1rem; color: #94a3b8; font-weight: 600; font-size: 0.9rem; margin-bottom: 3rem; }
-      .main-stat .val { font-size: 4rem; font-weight: 950; color: #1e293b; }
     }
   }
 }
 
 /* -------------------------------------------------------------------------- */
+/*                         V6.2: Standardized AI Section                      */
+/* -------------------------------------------------------------------------- */
+
+.dash-top {
+  position: relative;
+  z-index: 500;
+}
+
+.dash-search-container {
+  display: flex;
+  align-items: center;
+  background: #f1f5f9;
+  border-radius: 12px;
+  padding: 0.75rem 1rem;
+  margin-bottom: 2rem;
+  position: relative;
+  border: 1px solid transparent;
+  transition: all 0.3s ease;
+  width: 100%;
+  box-sizing: border-box;
+  cursor: pointer;
+
+  &.focused {
+    background: white;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
+    z-index: 1000;
+    .sparkle-icon { transform: scale(1.2) rotate(15deg); }
+  }
+
+  .sparkle-icon { font-size: 1.2rem; margin-right: 0.75rem; transition: transform 0.3s ease; }
+  .dash-search-input {
+    border: none; background: transparent; width: 100%; font-size: 0.95rem; font-weight: 500;
+    color: var(--text-dark); outline: none; font-family: inherit; margin: 0; 
+    position: relative; z-index: 10; cursor: text;
+    &::placeholder { color: #94a3b8; opacity: 1; }
+  }
+}
+
+.dash-content-area {
+  position: relative;
+  min-height: 180px;
+}
+
+.dash-main-stat {
+  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  margin-bottom: 2rem; position: relative;
+  label { font-size: 0.75rem; font-weight: 800; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.08em; display: block; margin-bottom: 0.25rem; }
+  .stat-row { 
+    display: flex; align-items: baseline; gap: 0.75rem; 
+    .val { font-size: 3.5rem; font-weight: 950; color: #0f172a; transition: all 0.4s ease; letter-spacing: -0.04em;
+      &.flash-green { animation: activeValueBloom 0.8s cubic-bezier(0.16, 1, 0.3, 1); color: #059669; }
+    }
+  }
+
+  &.active-ai {
+    background: #f8fafc; padding: 1rem 1.25rem; border-radius: 16px; margin-bottom: 1.5rem; display: flex; align-items: center; justify-content: space-between; border: 1px solid #f1f5f9;
+    label { margin: 0; font-size: 0.65rem; color: #94a3b8; }
+    .stat-row { gap: 0.5rem; .val { font-size: 1.15rem; } }
+    .live-indicator-wrapper { display: flex; align-items: center; gap: 6px; font-size: 0.6rem; font-weight: 950; color: #059669; .live-dot { width: 6px; height: 6px; background: #059669; border-radius: 50%; animation: livePulse 1s infinite; } }
+  }
+}
+
+.ai-analyzing {
+  height: 120px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1rem;
+  p { font-size: 0.9rem; color: var(--text-light); font-weight: 600; animation: pulseFade 1.5s infinite; margin: 0; }
+  .thinking-dots {
+    display: flex; gap: 6px;
+    span {
+      width: 8px; height: 8px; background: var(--primary-color); border-radius: 50%;
+      animation: bounce 1.4s infinite ease-in-out both;
+      &:nth-child(1) { animation-delay: -0.32s; }
+      &:nth-child(2) { animation-delay: -0.16s; }
+    }
+  }
+}
+
+.ai-insight-card {
+  background: white; background: linear-gradient(135deg, #fff 0%, #f8fafc 100%);
+  border-radius: 16px; padding: 1.5rem; border: 1px solid rgba(99, 102, 241, 0.2);
+  box-shadow: 0 10px 30px rgba(99, 102, 241, 0.1);
+  animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
+  margin-bottom: 1rem; text-align: left;
+  
+  .insight-header {
+    display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;
+    .ai-badge { background: linear-gradient(135deg, #6366f1, #a855f7); color: white; font-size: 0.7rem; padding: 4px 10px; border-radius: 20px; font-weight: 700; }
+    .close-btn { background: none; border: none; font-size: 1.5rem; color: #94a3b8; cursor: pointer; line-height: 0.5; padding: 0.5rem; }
+  }
+
+  h3 { font-size: 1.1rem; margin-bottom: 0.75rem; color: #1e293b; font-weight: 800; }
+  p { font-size: 0.95rem; margin-bottom: 1.25rem; color: var(--text-medium); line-height: 1.5; }
+  
+  .action-btn-pill {
+    width: 100%; padding: 0.8rem; background: var(--text-dark); color: white; border-radius: 8px;
+    font-weight: 600; cursor: pointer; transition: all 0.2s ease;
+    &:hover { background: var(--primary-color); transform: translateY(-2px); }
+  }
+
+  &.forecast {
+    background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%); border-color: rgba(255,255,255,0.2);
+    h3, p { color: white; }
+    .ai-badge { -webkit-backdrop-filter: blur(5px); backdrop-filter: blur(5px); background: rgba(255,255,255,0.2); }
+    .close-btn { color: rgba(255,255,255,0.6); }
+    .action-btn-pill { background: white; color: #4f46e5; }
+  }
+
+  &.alert {
+    border: 2px solid #f59e0b;
+    .ai-badge { background: #f59e0b; }
+    .action-btn-pill { background: #f59e0b; }
+  }
+
+  &.analysis {
+    border-left: 5px solid #10b981;
+    .ai-badge { background: #10b981; }
+    .action-btn-pill { background: #059669; }
+  }
+}
+
+.dash-mini-grid {
+  display: flex;
+  gap: 10px;
+  margin-top: 2rem;
+  .mini-bar {
+    height: 4px; border-radius: 2px; background: #f1f5f9; flex: 1;
+  }
+}
+
+@keyframes livePulse { 0% { opacity: 1; } 50% { opacity: 0.4; } 100% { opacity: 1; } }
+@keyframes bounce { 0%, 80%, 100% { transform: scale(0); } 40% { transform: scale(1); } }
+@keyframes pulseFade { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+@keyframes activeValueBloom { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
+@keyframes popIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
+
+/* -------------------------------------------------------------------------- */
 /*                          4. Outcome                                        */
 /* -------------------------------------------------------------------------- */
 .outcome-section {
-    padding: 12rem 0; background: white; text-align: center;
+    padding: 6rem 0; background: white; text-align: center;
     .outcome-container {
         max-width: 800px; margin: 0 auto;
         h2 { font-size: 4rem; font-weight: 950; color: #0f172a; margin-bottom: 2rem; }

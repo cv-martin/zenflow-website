@@ -1,4 +1,4 @@
-﻿/* Hero Background â€” transparent for Global Living Background */
+/* Hero Background â€” transparent for Global Living Background */
 :host {
   display: block;
   width: 100%;
@@ -8,10 +8,9 @@
 /* --- Main Layout: Left Text + Right Cards --- */
 .hero {
   position: relative;
-  min-height: 100vh;
   display: flex;
   align-items: center;
-  padding: 8rem 0 6rem;
+  padding: 8rem 0 2rem;
   background: transparent;
   overflow: visible;
 }
@@ -104,9 +103,9 @@
 }
 
 .subtext {
-  font-size: 1.3rem;
+  font-size: 1.4rem; /* Increased from 1.3rem */
   color: var(--text-medium);
-  max-width: 540px;
+  max-width: 580px; /* Slightly wider */
   margin: 0;
   line-height: 1.65;
 }
@@ -123,7 +122,7 @@
   font-weight: 700;
   text-decoration: none;
   transition: all 0.3s;
-  font-size: 1.1rem;
+  font-size: 1.15rem; /* Increased from 1.1rem */
 }
 
 .btn-primary {
@@ -524,7 +523,6 @@
 @media (max-width: 640px) {
   .hero { 
     padding: 7rem 0 0; /* Tightened for premium impact */
-    min-height: auto;
     overflow: hidden;
   }
   
