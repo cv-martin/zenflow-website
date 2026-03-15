@@ -27,7 +27,7 @@ import { ScrollRevealDirective } from '../../directives/scroll-reveal.directive'
               <svg class="icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
               Automation
             </h3>
-            <p>Auto generate POs, Indents, Store wise pick lists and store transfers automatically.</p>
+            <p>Automatically generate POs, indents, store-wise pick lists, and store transfers.</p>
           </div>
           
           <div class="power-card stagger-3" appScrollReveal>
@@ -35,7 +35,7 @@ import { ScrollRevealDirective } from '../../directives/scroll-reveal.directive'
               <svg class="icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
               Access Control
             </h3>
-            <p>Ensure users access only to the info and tools needed and absolutely nothing else.</p>
+            <p>Ensure users only have access to the info and tools needed, and absolutely nothing else.</p>
           </div>
           
           <div class="power-card stagger-4" appScrollReveal>

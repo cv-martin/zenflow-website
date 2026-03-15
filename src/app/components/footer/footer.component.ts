@@ -21,14 +21,14 @@ import { RouterLink } from '@angular/router';
             <p class="brand-subtext">The operating system for modern retail.</p>
             <div class="brand-socials">
               <!-- Placeholder Social Icons -->
-              <a href="#" class="social-link" aria-label="Twitter">
-                <svg viewBox="0 0 24 24" fill="none" class="icon"><path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-12.7 15.8-2.6-1.2-4.8-4-4.8-4s6.4-.3 8-3c0 0-3.6.3-5.2-1.6 0 0 1.2.3 2 0C6 13 4 8 4 8s1 1 2.5 1c0 0-3-2-1-5 0 0 4 5 10.5 5 0 0-1-6 5.5-5z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <a href="#" class="social-link" aria-label="Instagram">
+                <svg viewBox="0 0 24 24" fill="none" class="icon"><rect x="2" y="2" width="20" height="20" rx="5" ry="5" stroke="currentColor" stroke-width="2"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z" stroke="currentColor" stroke-width="2"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+              </a>
+              <a href="#" class="social-link" aria-label="X (Twitter)">
+                <svg viewBox="0 0 24 24" fill="none" class="icon"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z" fill="currentColor"/></svg>
               </a>
               <a href="#" class="social-link" aria-label="LinkedIn">
                 <svg viewBox="0 0 24 24" fill="none" class="icon"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><rect x="2" y="9" width="4" height="12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="4" cy="4" r="2" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              </a>
-              <a href="#" class="social-link" aria-label="Instagram">
-                <svg viewBox="0 0 24 24" fill="none" class="icon"><rect x="2" y="2" width="20" height="20" rx="5" ry="5" stroke="currentColor" stroke-width="2"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z" stroke="currentColor" stroke-width="2"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
               </a>
             </div>
           </div>

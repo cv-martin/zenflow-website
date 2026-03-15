@@ -950,12 +950,12 @@ export class SolutionHubComponent implements OnInit, OnDestroy {
       title: 'Accounting',
       benefit: 'Real-time insights',
       headline: 'Real Time <span class="text-highlight-pink">Insights</span>',
-      subtext: 'Instant, Accurate & integrated - Accounting & reconciliation with AI powered workflows. Get accurate insights to make better decisions. Always audit ready with 1 click share/export to CA.',
+      subtext: 'Instant, accurate, and integrated—accounting & reconciliation with AI-powered workflows. Get precise insights to make better decisions. Always audit-ready with a 1-click share/export to your CA.',
       features: [
         { title: 'Auto-Reconciliation', desc: 'Match bank statements with sales automatically.' },
-        { title: 'One Click Financial Statements', desc: 'Balance Sheet, P&L, Cashflow & GST/TDS reports with 20+ financial metrics available in real time dashboard.' },
-        { title: 'Audit-Ready', desc: 'Maintain detailed, transparent ledgers that stay compliant. Instantly share with CA.' },
-        { title: 'Pro-active Alerts', desc: 'Get notified instantly of unusual cashflow patterns.' }
+        { title: 'One-Click Financial Statements', desc: 'Balance Sheet, P&L, Cash flow, and GST/TDS reports with 20+ financial metrics available in a real-time dashboard.' },
+        { title: 'Audit-Ready', desc: 'Maintain detailed, transparent ledgers that stay compliant. Instantly share with your CA.' },
+        { title: 'Proactive Alerts', desc: 'Get notified instantly of unusual cash flow patterns.' }
       ],
       visualType: 'accounting'
     },

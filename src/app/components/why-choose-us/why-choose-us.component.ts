@@ -59,7 +59,7 @@ import { ScrollRevealDirective } from '../../directives/scroll-reveal.directive'
               </svg>
             </div>
             <h3>Unified Commerce Control</h3>
-            <p>Manage billing, inventory, and accounting from one single platform.</p>
+            <p>Manage billing, inventory, and accounting from a single platform.</p>
           </div>
 
           <!-- Pillar 4: Human Support -->
