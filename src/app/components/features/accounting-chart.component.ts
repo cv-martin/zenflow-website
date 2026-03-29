@@ -68,12 +68,12 @@ import { Component, AfterViewInit, ElementRef, ViewChild, ChangeDetectionStrateg
         <!-- Pulsing End Point -->
         <g class="chart-point active" style="--delay: 2.1s">
           <circle cx="300" cy="10" r="5" fill="var(--primary-color)">
-            <animate attributeName="r" values="3.5;5;3.5" dur="2s" repeatCount="indefinite" />
-            <animate attributeName="opacity" values="1;0.7;1" dur="2s" repeatCount="indefinite" />
+            <animate attributeName="r" values="3.5;4.5;3.5" dur="3s" repeatCount="indefinite" />
+            <animate attributeName="opacity" values="1;0.8;1" dur="3s" repeatCount="indefinite" />
           </circle>
           <g class="tooltip" transform="translate(245, 22)">
-             <rect x="0" y="0" width="52" height="22" rx="4" fill="#6366f1" />
-             <text x="26" y="15" text-anchor="middle" fill="white" font-size="9.5" font-weight="bold">₹ 45.1k</text>
+             <rect x="0" y="0" width="52" height="22" rx="4" fill="var(--primary-color)" />
+             <text x="26" y="15" text-anchor="middle" fill="white" font-size="9.5" font-weight="700">₹ 45.1k</text>
           </g>
         </g>
         

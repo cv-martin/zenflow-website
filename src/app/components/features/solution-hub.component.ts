@@ -451,39 +451,40 @@ interface HubTab {
     
     .hub-rings { display: none; } /* Fix 4: avoid glowing effects */
 
-    /* Executive Control-Pane Architecture Styles */
+    /* Executive Control-Pane Architecture Styles - Light SaaS Theme */
     .inventory-control-pane { 
       width: 100%; height: 360px; display: flex; overflow: hidden; border-radius: 24px;
-      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
-      border: 1px solid rgba(255,255,255,0.08);
-      box-shadow: 0 20px 40px -10px rgba(15, 23, 42, 0.08);
+      background: var(--bg-light);
+      border: 1px solid var(--border-subtle);
+      box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.04);
     }
-    .network-canvas { flex: 0 0 71%; position: relative; padding: 1.5rem 2rem; border-right: 1px solid rgba(255,255,255,0.06); }
+    .network-canvas { flex: 0 0 71%; position: relative; padding: 1.5rem 2rem; border-right: 1px solid var(--border-subtle); }
     .canvas-header { margin-bottom: 1.5rem; }
-    .engine-label { font-size: 0.75rem; font-weight: 950; color: #6366f1; letter-spacing: 0.2em; filter: drop-shadow(0 0 8px rgba(99,102,241,0.4)); }
+    .engine-label { font-size: 0.75rem; font-weight: 800; color: var(--primary-color); letter-spacing: 0.15em; text-transform: uppercase; }
 
     .orchestration-map { position: relative; height: 180px; display: flex; align-items: center; justify-content: center; width: 100%; }
     .core-hub { position: relative; z-index: 5; }
     .hub-inner {
-      width: 78px; height: 78px; background: #0f172a; border: 2.5px solid #6366f1; border-radius: 50%;
+      width: 78px; height: 78px; background: white; border: 2px solid var(--primary-color); border-radius: 50%;
       display: flex; flex-direction: column; align-items: center; justify-content: center;
-      box-shadow: 0 0 50px rgba(99,102,241,0.4);
+      box-shadow: 0 8px 24px rgba(99, 102, 241, 0.12);
     }
-    .hub-brand { font-size: 0.75rem; font-weight: 950; color: white; line-height: 1; }
-    .hub-label { font-size: 0.45rem; font-weight: 800; color: #6366f1; margin-top: 2px; letter-spacing: 0.15em; }
+    .hub-brand { font-size: 0.75rem; font-weight: 700; color: var(--text-dark); line-height: 1; }
+    .hub-label { font-size: 0.45rem; font-weight: 700; color: var(--primary-color); margin-top: 2px; letter-spacing: 0.1em; text-transform: uppercase; }
     
     .hub-rings { position: absolute; inset: 0; pointer-events: none; }
     .ring-pulse { position: absolute; inset: -20px; border: 1.5px solid rgba(99,102,241,0.15); border-radius: 50%; animation: engineRing 3s linear infinite; }
     .r2 { inset: -45px; animation-delay: 1.5s; opacity: 0.3; }
 
     .node-pro { 
-      position: absolute; background: rgba(30,41,59,0.9); backdrop-filter: blur(8px);
-      padding: 0.6rem 1rem; border-radius: 12px; border: 1px solid rgba(255,255,255,0.08);
+      position: absolute; background: white; 
+      padding: 0.6rem 1rem; border-radius: 12px; border: 1px solid var(--border-subtle);
       font-size: 0.9rem; display: flex; align-items: center; gap: 8px; z-index: 10;
-      box-shadow: 0 10px 20px rgba(0,0,0,0.2); transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.04); transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
       will-change: transform;
-      .n-l { font-size: 0.65rem; font-weight: 800; color: #94a3b8; }
-      &:hover { border-color: #6366f1; transform: translateY(-3px); }
+      font-weight: 600; color: var(--text-dark);
+      .n-l { font-size: 0.65rem; font-weight: 700; color: var(--text-light); }
+      &:hover { border-color: var(--primary-color); transform: translateY(-3px); }
     }
     .s1 { top: 0%; left: 0%; }
     .s2 { bottom: 0%; left: 0%; }
@@ -494,18 +495,18 @@ interface HubTab {
     .f-p { stroke: rgba(255,255,255,0.04); stroke-width: 1.5; stroke-dasharray: 6 6; }
     .p-d { filter: drop-shadow(0 0 6px currentColor); }
 
-    /* Right: Executive Sidebar HUD (25%) */
+    /* Right: Executive Sidebar HUD (25%) - Light Standard */
     .executive-sidebar { 
       flex: 1; padding: 1.5rem 1rem; display: flex; flex-direction: column; gap: 1.5rem;
-      background: rgba(15,23,42,0.6); backdrop-filter: blur(10px);
+      background: rgba(255,255,255,0.4); border-left: 1px solid var(--border-subtle);
     }
-    .sidebar-header { font-size: 0.65rem; font-weight: 950; color: #10b981; letter-spacing: 0.15em; display: flex; align-items: center; gap: 8px; border-bottom: 1px solid rgba(255,255,255,0.06); padding-bottom: 1rem; }
+    .sidebar-header { font-size: 0.65rem; font-weight: 800; color: #16a34a; letter-spacing: 0.1em; display: flex; align-items: center; gap: 8px; border-bottom: 1px solid var(--border-subtle); padding-bottom: 1rem; text-transform: uppercase; }
     .pulse-dot { width: 7px; height: 7px; background: #10b981; border-radius: 50%; animation: dotPulse 2s infinite; }
     
     .sidebar-metrics { display: flex; flex-direction: column; gap: 1.75rem; }
     .metric-item { display: flex; flex-direction: column; gap: 6px; }
-    .m-label { font-size: 0.55rem; font-weight: 950; color: #64748b; letter-spacing: 0.1em; }
-    .m-value { font-size: 1.15rem; font-weight: 950; color: white; &.green { color: #10b981; } }
+    .m-label { font-size: 0.55rem; font-weight: 700; color: var(--text-light); letter-spacing: 0.1em; text-transform: uppercase; }
+    .m-value { font-size: 1.15rem; font-weight: 700; color: var(--text-dark); &.green { color: #16a34a; } }
     
     .m-bar { height: 6px; background: rgba(255,255,255,0.04); border-radius: 6px; position: relative; overflow: hidden; }
     .m-fill { width: 100%; height: 100%; background: linear-gradient(90deg, #6366f1, #10b981); border-radius: 6px; transform: scaleX(0.84); transform-origin: left; animation: barGrow 1.5s cubic-bezier(0.16, 1, 0.3, 1) forwards; will-change: transform; }
@@ -576,18 +577,16 @@ interface HubTab {
     .hub-label-bottom { font-size: 0.5rem; font-weight: 900; color: #94a3b8; letter-spacing: 0.05em; font-style: italic; }
 
     .omni-hub-core-pro { 
-      background: white; border: 2px solid #6366f1; 
+      background: white; border: 1.5px solid var(--primary-color); 
       border-radius: 16px; padding: 0.6rem 1.6rem;
-      box-shadow: 0 10px 30px rgba(99,102,241,0.2);
+      box-shadow: 0 4px 12px rgba(99, 102, 241, 0.1);
       display: flex; flex-direction: column; align-items: center; gap: 1px; position: relative;
-      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
-      will-change: transform;
-      &:hover { transform: scale(1.05); box-shadow: 0 15px 40px rgba(99,102,241,0.3); }
+      transition: transform 0.3s ease;
     }
-    .omni-hub-brand { font-size: 0.95rem; font-weight: 950; color: #1e293b; }
-    .omni-hub-sub { font-size: 0.55rem; font-weight: 900; color: #6366f1; letter-spacing: 0.1em; text-transform: uppercase; }
+    .omni-hub-brand { font-size: 0.95rem; font-weight: 700; color: var(--text-dark); }
+    .omni-hub-sub { font-size: 0.55rem; font-weight: 700; color: var(--primary-color); letter-spacing: 0.1em; text-transform: uppercase; }
     
-    .hub-rings-pro { position: absolute; inset: 0; pointer-events: none; }
+    .hub-rings-pro { display: none; } /* Removed loud pulse rings */
     .ring-pro { position: absolute; inset: -15px; border: 2px solid rgba(99, 102, 241, 0.15); border-radius: 24px; animation: pulseRing 3s ease-out infinite; }
     .r2 { inset: -35px; animation-delay: 1.5s; opacity: 0.5; }
     @keyframes pulseRing { 0% { transform: scale(0.95); opacity: 0.5; } 100% { transform: scale(1.1); opacity: 0; } }
@@ -658,9 +657,8 @@ interface HubTab {
     .success-badge { margin-top: 1.5rem; background: #f0fdf4; color: #16a34a; border: 1px solid rgba(22, 163, 74, 0.2); padding: 0.5rem 1rem; border-radius: 8px; text-align: center; font-weight: 600; font-size: 0.82rem; }
 
     /* Inventory Visuals */
-    .inventory-tracker { width: 100%; }
     /* Fix 3: Labels simplified */
-    .inventory-header { display: flex; justify-content: space-between; margin-bottom: 2rem; color: #94a3b8; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; border-bottom: 1px solid rgba(0,0,0,0.06); padding-bottom: 0.75rem; }
+    .inventory-header { display: flex; justify-content: space-between; margin-bottom: 2rem; color: var(--text-light); font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; border-bottom: 1px solid var(--border-subtle); padding-bottom: 0.75rem; }
     .stock-item { margin-bottom: 1.75rem; }
     /* Fix 3: Label/Value hierarchy */
     .stock-info { display: flex; justify-content: space-between; margin-bottom: 0.75rem; font-weight: 500; color: var(--text-medium); font-size: 0.95rem; }
