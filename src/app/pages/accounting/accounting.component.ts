@@ -13,7 +13,7 @@ import { FinalCtaComponent } from '../../components/final-cta/final-cta.componen
       <!-- SECTION 1: Centered Hero (Sync Parity + Ledger Visual) -->
       <section class="hero-section reveal-active">
         <div class="eyebrow">INTELLIGENT FINANCIAL OPS</div>
-        <h1 class="gradient-text">Accounting, <span class="text-highlight-pink">Automated.</span></h1>
+        <h1>Accounting, <span class="text-highlight-pink">Automated.</span></h1>
         <p>Accounting & reconciliation with AI powered workflows. Get accurate insights to make better decisions. Always audit ready with 1 click share/export to CA.</p>
 
         <div class="hero-cta">

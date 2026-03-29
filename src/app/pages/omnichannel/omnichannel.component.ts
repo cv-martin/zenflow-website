@@ -12,7 +12,7 @@ import { FinalCtaComponent } from '../../components/final-cta/final-cta.componen
       <!-- SECTION 1: Centered Hero (Sync Parity + Marketplace Visual) -->
       <section class="hero-section reveal-active">
         <div class="eyebrow">UNIFIED COMMERCE</div>
-        <h1 class="gradient-text"><span class="text-highlight-pink">Omnichannel Commerce.</span><br>Sell Everywhere, Manage in One Place.</h1>
+        <h1><span class="text-highlight-pink">Omnichannel Commerce.</span><br>Sell Everywhere, Manage in One Place.</h1>
         <p>Sync your physical store inventory with Amazon, Myntra, and Ajio in real-time. Turn your warehouse into a high-speed fulfillment hub.</p>
 
         <div class="hero-cta">

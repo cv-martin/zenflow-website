@@ -1,4 +1,4 @@
-/* Hero Background â€” transparent for Global Living Background */
+/* Hero Background – transparent for Global Living Background */
 :host {
   display: block;
   width: 100%;
@@ -36,20 +36,6 @@
   position: relative;
 }
 
-/* Technique 3: Soft radial glow behind text â€” adds visual mass */
-.hero-content::before {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 140%;
-  height: 140%;
-  background: radial-gradient(ellipse at center, rgba(99, 102, 241, 0.07) 0%, rgba(168, 85, 247, 0.03) 40%, transparent 70%);
-  pointer-events: none;
-  z-index: -1;
-}
-
 .eyebrow {
   font-size: 0.8rem;
   font-weight: 700;
@@ -64,24 +50,18 @@
 }
 
 .headline {
-  font-size: clamp(3rem, 4.8vw, 4.8rem);
-  line-height: 1.1;
-  font-weight: 900;
-  letter-spacing: -0.04em;
+  font-size: clamp(2.5rem, 4vw, 4.2rem);
+  line-height: 1.08;
+  font-weight: 400;
+  font-family: var(--font-heading);
+  letter-spacing: -0.01em;
   color: #0F172A;
   margin: 0;
-  position: relative;
 }
 
-/* Accent line under headline for visual weight */
-.headline::after {
-  content: '';
-  display: block;
-  width: 80px;
-  height: 5px;
-  background: linear-gradient(90deg, var(--primary-color), #a855f7);
-  border-radius: 3px;
-  margin-top: 1.2rem;
+/* Prevent the gradient span from breaking mid-word */
+.text-highlight-pink {
+  white-space: nowrap;
 }
 
 .text-gradient {
@@ -97,17 +77,45 @@
 }
 
 .text-highlight-pink {
-  color: #DB2777;
+  background: linear-gradient(135deg, #7C3AED 0%, #DB2777 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
   display: inline;
   font-weight: inherit;
 }
 
 .subtext {
-  font-size: 1.4rem; /* Increased from 1.3rem */
+  font-size: 1.4rem;
   color: var(--text-medium);
-  max-width: 580px; /* Slightly wider */
+  max-width: 580px;
   margin: 0;
   line-height: 1.65;
+}
+
+.btn-primary-hero {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.9rem 2rem;
+  background: var(--primary-color);       /* Fix 5: purple, not black */
+  color: #ffffff;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 1rem;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 2px 8px rgba(99, 102, 241, 0.25);
+
+  @media (hover: hover) {
+    &:hover {
+      background: var(--primary-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(99, 102, 241, 0.35);
+    }
+  }
 }
 
 .cta-group {
@@ -122,15 +130,15 @@
   font-weight: 700;
   text-decoration: none;
   transition: all 0.3s;
-  font-size: 1.15rem; /* Increased from 1.1rem */
+  font-size: 1.15rem;
 }
 
 .btn-primary {
-  background: var(--text-dark);
+  background: var(--primary-color);
   color: white;
-  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.2);
+  box-shadow: 0 4px 14px rgba(99, 102, 241, 0.25);
   @media (hover: hover) {
-    &:hover { transform: translateY(-4px); box-shadow: 0 15px 40px rgba(15, 23, 42, 0.3); }
+    &:hover { background: var(--primary-dark); transform: translateY(-3px); box-shadow: 0 8px 24px rgba(99, 102, 241, 0.35); }
   }
 }
 
@@ -150,7 +158,7 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 1.25rem;
-  /* Technique 1: Perspective tilt â€” cards recede into background depth */
+  /* Technique 1: Perspective tilt – cards recede into background depth */
   transform: perspective(1200px) rotateY(-8deg);
   transform-style: preserve-3d;
   transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
@@ -162,49 +170,36 @@
 
 /* --- Metric Card Base --- */
 .metric-card {
-  background: rgba(255, 255, 255, 0.85);
+  background: rgba(255, 255, 255, 0.95);
   -webkit-backdrop-filter: blur(12px);
   backdrop-filter: blur(12px);
-  border-radius: 24px;
+  border-radius: 20px;
   padding: 1.5rem;
-  border: 1px solid rgba(255, 255, 255, 0.6);
-  box-shadow: 
-    0 10px 40px -10px rgba(99, 102, 241, 0.1),
-    0 4px 12px -2px rgba(0, 0, 0, 0.05);
-  transition: opacity 0.4s ease, filter 0.4s ease, box-shadow 0.4s ease, background 0.4s ease;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  box-shadow: var(--card-shadow);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
   position: relative;
   cursor: default;
-  /* Technique 2: Subdued default â€” cards are quiet background elements */
-  opacity: 0.7;
-  filter: saturate(0.85);
+
   @media (hover: hover) {
     &:hover {
       background: #ffffff;
-      box-shadow: 
-        0 20px 40px -10px rgba(99, 102, 241, 0.15),
-        0 0 0 1px rgba(99, 102, 241, 0.15);
-      /* Technique 2: Hover activation â€” snap to full prominence */
-      opacity: 1;
-      filter: saturate(1);
+      box-shadow: var(--card-shadow-hover);
+      transform: translateY(-3px);
     }
   }
 }
 
-/* Subtle border glow on hover (static, no animation) */
+/* Subtle inner border effect on hover only */
 .metric-card::after {
   content: '';
   position: absolute;
   inset: -1px;
-  background: linear-gradient(135deg, rgba(99, 102, 241, 0.2), rgba(168, 85, 247, 0.2));
+  border: 1.5px solid rgba(99, 102, 241, 0.15);
   z-index: -1;
-  border-radius: 25px;
+  border-radius: 21px;
   opacity: 0;
-  transition: opacity 0.4s ease;
-  @media (hover: hover) {
-    &:hover::after {
-      opacity: 1;
-    }
-  }
+  transition: opacity 0.3s ease;
 }
 
 /* --- HUD Corners --- */
@@ -223,7 +218,7 @@
 
 /* --- Tags & Labels --- */
 .sys-tag {
-  font-family: 'JetBrains Mono', 'Fira Code', monospace;
+  font-family: var(--font-body);
   font-size: 0.65rem;
   font-weight: 800;
   color: var(--primary-color);
@@ -340,7 +335,7 @@
   justify-content: space-between;
   font-size: 0.6rem;
   color: var(--text-light);
-  font-family: 'JetBrains Mono', monospace;
+  font-family: var(--font-body);
   opacity: 0.6;
 }
 
@@ -427,7 +422,7 @@
   font-size: 0.8rem;
   font-weight: 900;
   color: #a855f7;
-  font-family: 'JetBrains Mono', monospace;
+  font-family: var(--font-body);
 }
 
 .metric-horizontal {
@@ -437,9 +432,7 @@
   gap: 1.5rem;
 }
 
-/* --- Playful Floating Animations --- */
-
-/* Entry animations */
+/* --- Entry animations --- */
 .reveal-card {
   opacity: 0;
   transform: translateY(30px);
@@ -522,7 +515,7 @@
 
 @media (max-width: 640px) {
   .hero { 
-    padding: 7rem 0 0; /* Tightened for premium impact */
+    padding: 7rem 0 0;
     overflow: hidden;
   }
   
@@ -531,24 +524,12 @@
     gap: 2.5rem;
   }
 
-  /* International Editorial Typography */
   .headline { 
-    font-size: clamp(2.4rem, 10vw, 2.8rem); 
-    letter-spacing: -0.05em; 
-    line-height: 1.0; 
-    font-weight: 950; /* Ultra-heavy for exclusivity */
+    font-size: clamp(2.2rem, 9vw, 2.6rem); 
+    letter-spacing: -0.02em; 
+    line-height: 1.08; 
     text-align: center;
     color: #0f172a;
-  }
-  
-  .headline span.text-highlight-pink {
-    display: inline;
-  }
-
-  .headline::after {
-    width: 60px;
-    height: 4px;
-    margin: 1.8rem auto 0;
   }
 
   .subtext { 
@@ -570,7 +551,6 @@
       padding: 1.25rem; 
       border-radius: 16px;
       font-size: 1.1rem;
-      font-weight: 850;
     }
     .btn-primary {
       background: #0f172a;
@@ -578,10 +558,9 @@
     }
   }
 
-  /* --- Super-Premium Vertical Glass Stacking --- */
   .hero-visual {
     grid-template-columns: 1fr;
-    gap: -2rem; /* Intentional overlap for stacking depth */
+    gap: -2rem;
     padding: 2rem 0.5rem 6rem;
     margin-top: 2rem;
     transform: none !important;
@@ -595,7 +574,7 @@
     width: 100%;
     max-width: 360px;
     padding: 1.75rem; 
-    margin-bottom: -1.5rem; /* The "Stacked Glass" Technique */
+    margin-bottom: -1.5rem;
     grid-column: span 1 !important;
     opacity: 1 !important;
     filter: none !important;
@@ -603,7 +582,7 @@
     -webkit-backdrop-filter: blur(40px);
     backdrop-filter: blur(40px);
     border: 1px solid white;
-    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.08); /* Deep soft shadow */
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.08);
     animation: cardRevealStack 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards !important;
     transform-origin: top center;
     
@@ -630,7 +609,6 @@
   .label { font-size: 0.75rem; letter-spacing: 0.1em; margin-bottom: 0.8rem; }
 }
 
-/* Ultra-Small Mobile (iPhone SE / 375px) */
 @media (max-width: 480px) {
   .hero {
     padding: 5.5rem 0 0;
@@ -649,7 +627,7 @@
 
   .headline {
     font-size: clamp(2rem, 9vw, 2.4rem);
-    letter-spacing: -0.05em;
+    letter-spacing: -0.02em;
   }
 
   .headline::after {

@@ -9,12 +9,9 @@ import { filter } from 'rxjs/operators';
   standalone: true,
   imports: [RouterOutlet, HeaderComponent, FooterComponent],
   template: `
-    <!-- Global Living Background -->
-    <div class="scanning-grid fixed-bg"></div>
-    <div class="hero-glow fixed-bg"></div>
-    <div class="brand-watermark fixed-bg" [class.page-mode]="currentWatermark !== 'Zenflow'">
-      {{ currentWatermark }}
-    </div>
+    <!-- Subtle page background -->
+    <div class="scanning-grid"></div>
+    <div class="hero-glow"></div>
     
     <app-header />
     <main>
@@ -35,12 +32,34 @@ import { filter } from 'rxjs/operators';
       position: relative;
       z-index: 2;
     }
-    .brand-watermark {
-      transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-      &.page-mode {
-        opacity: 0.015;
-        letter-spacing: 0.05em;
-      }
+    /* Classy scanning grid: barely-there lines, no pulse */
+    .scanning-grid {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      background:
+        linear-gradient(90deg, rgba(99, 102, 241, 0.04) 1px, transparent 1px),
+        linear-gradient(rgba(99, 102, 241, 0.04) 1px, transparent 1px);
+      background-size: 80px 80px;
+      z-index: 0;
+      pointer-events: none;
+      transform: translate3d(0, 0, 0);
+      /* Softer fade at edges so it doesn't feel like a grid sticker */
+      -webkit-mask-image: radial-gradient(ellipse 80% 70% at 50% 40%, black 40%, transparent 100%);
+      mask-image: radial-gradient(ellipse 80% 70% at 50% 40%, black 40%, transparent 100%);
+    }
+    /* Subtle top-right glow — adds warmth without screaming purple */
+    .hero-glow {
+      position: fixed;
+      top: -15%;
+      right: -5%;
+      width: 60vw;
+      height: 60vh;
+      background: radial-gradient(circle, rgba(99, 102, 241, 0.10) 0%, transparent 70%);
+      filter: blur(90px);
+      z-index: 0;
+      pointer-events: none;
+      transform: translate3d(0,0,0);
     }
   `]
 })

@@ -7,7 +7,7 @@ import { Component } from '@angular/core';
     <div class="container page-content">
       <section class="contact-hero reveal-active">
         <div class="eyebrow">CONTACT US</div>
-        <h1 class="gradient-text">Let's Build the <span class="text-highlight-pink">Future</span><br>of Your Retail Business.</h1>
+        <h1>Let's Build the <span class="text-highlight-pink">Future</span><br>of Your Retail Business.</h1>
         <p>Expert support, quick responses, and a team that understands retail scale.</p>
       </section>
 

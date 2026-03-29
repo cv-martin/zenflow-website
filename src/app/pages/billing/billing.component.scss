@@ -32,55 +32,80 @@
   position: absolute;
   width: 440px;
   background: #ffffff;
-  border-radius: 20px;
+  border-radius: 16px;
   padding: 2.5rem;
-  box-shadow: 0 50px 120px -20px rgba(15, 23, 42, 0.1);
-  border: 1px solid rgba(0, 0, 0, 0.04);
+  /* Fix 4: proper elevation — soft shadow, no glow, clean border */
+  box-shadow:
+    0 1px 3px rgba(0, 0, 0, 0.06),
+    0 12px 40px rgba(0, 0, 0, 0.08);
+  border: 1px solid rgba(0, 0, 0, 0.08);
   text-align: left;
   transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.8s ease;
   will-change: transform, opacity;
 
+  /* Fix 1: simplified terminal header — small, muted, no decorative weight */
   .terminal-header {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 2rem;
-    font-size: 0.75rem;
-    font-weight: 800;
+    margin-bottom: 1.75rem;
+    font-size: 0.7rem;
+    font-weight: 600;
     color: #94a3b8;
     text-transform: uppercase;
-    letter-spacing: 0.05em;
+    letter-spacing: 0.08em;
     border-bottom: 1px solid #f1f5f9;
-    padding-bottom: 1rem;
+    padding-bottom: 0.75rem;
   }
 
+  /* Fix 2+3: item rows — clear label/value hierarchy */
   .t-row {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 1rem;
-    font-weight: 600;
-    color: #1e293b;
-    font-size: 1.1rem;
+    align-items: baseline;
+    margin-bottom: 0.9rem;
+    /* Left: item label — medium weight, dark */
+    font-weight: 500;
+    color: var(--text-medium);
+    font-size: 1rem;
+
+    span:last-child {
+      /* Right: value — slightly darker */
+      color: var(--text-dark);
+      font-weight: 600;
+    }
 
     &.mini {
-      font-size: 1rem;
-      color: #94a3b8;
+      font-size: 0.9rem;
+      color: var(--text-muted);
     }
   }
 
+  /* Fix 2+3: TOTAL is the most dominant element */
   .t-total-row {
     margin-top: 1.5rem;
-    padding-top: 1.5rem;
-    border-top: 2px dashed #f1f5f9;
+    padding-top: 1.25rem;
+    border-top: 1px solid #e2e8f0; /* solid, not dashed */
     display: flex;
     justify-content: space-between;
-    font-size: 2.2rem;
-    font-weight: 950;
-    color: var(--primary-color);
+    align-items: baseline;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--text-dark); /* label: dark */
+
+    span:last-child {
+      /* value: primary purple, larger */
+      font-family: var(--font-heading);
+      font-size: 2rem;
+      font-weight: 400;
+      color: var(--primary-color);
+      letter-spacing: -0.01em;
+    }
   }
 
-  .status-live { color: #10b981; }
-  .status-sync { color: #6366f1; }
-  .status-idle { color: #cbd5e1; }
+  /* Fix 2: status colors — purposeful, not decorative */
+  .status-live  { color: #16a34a; font-weight: 600; }  /* green: live status only */
+  .status-sync  { color: var(--primary-color); }        /* purple: sync = brand */
+  .status-idle  { color: #cbd5e1; }                     /* gray: idle = background */
 }
 
 .terminal-main { z-index: 10; transform: translateZ(50px) translateY(0); }
@@ -117,7 +142,7 @@
   padding: 4rem 0;
   background: #fcfcfc;
 
-  .section-title { font-size: 3.5rem; font-weight: 950; letter-spacing: -0.04em; }
+  .section-title { font-family: var(--font-heading); font-size: 3.5rem; font-weight: 400; letter-spacing: -0.01em; }
 
   .split-content-v4 {
     display: grid;
@@ -132,7 +157,7 @@
   .ops-list-v4 { display: flex; flex-direction: column; gap: 3rem; }
 
   .ops-card-v4 {
-    h3 { font-size: 1.6rem; font-weight: 900; margin-bottom: 1rem; color: #1e293b; }
+    h3 { font-family: var(--font-heading); font-size: 1.6rem; font-weight: 400; margin-bottom: 1rem; color: #1e293b; }
     p { font-size: 1.1rem; color: #64748b; font-weight: 500; line-height: 1.6; }
     opacity: 0.5;
     transition: opacity 0.3s ease, transform 0.3s ease;
@@ -250,14 +275,14 @@
     .close-btn { background: none; border: none; font-size: 1.5rem; color: #94a3b8; cursor: pointer; line-height: 0.5; padding: 0.5rem; }
   }
 
-  h3 { font-size: 1.1rem !important; margin-bottom: 0.75rem !important; color: #1e293b; font-weight: 800; }
+  h3 { font-family: var(--font-heading); font-size: 1.1rem !important; margin-bottom: 0.75rem !important; color: #1e293b; font-weight: 400; }
   p { font-size: 0.95rem !important; margin-bottom: 1.25rem !important; color: var(--text-medium); line-height: 1.5; }
   
   .action-btn-pill {
-    width: 100%; padding: 0.8rem; background: var(--text-dark); color: white; border-radius: 8px;
-    font-weight: 600; cursor: pointer; transition: transform 0.2s ease, background-color 0.2s ease;
+    width: 100%; padding: 0.8rem; background: var(--primary-color); color: white; border-radius: 8px;
+    font-weight: 600; cursor: pointer; border: none; transition: background-color 0.2s ease, transform 0.2s ease;
     will-change: transform;
-    &:hover { background: var(--primary-color); transform: translateY(-2px); }
+    &:hover { background: var(--primary-dark); transform: translateY(-2px); }
   }
 
   &.forecast {
@@ -287,7 +312,7 @@
   label { font-size: 0.75rem; font-weight: 800; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.08em; display: block; margin-bottom: 0.25rem; }
   .stat-row { 
     display: flex; align-items: baseline; gap: 0.75rem; 
-    .val { font-size: 3.5rem; font-weight: 950; color: #0f172a; transition: all 0.4s ease; letter-spacing: -0.04em;
+    .val { font-family: var(--font-heading); font-size: 3.5rem; font-weight: 400; color: #0f172a; transition: all 0.4s ease; letter-spacing: -0.01em;
       &.flash-green { animation: activeValueBloom 0.8s cubic-bezier(0.16, 1, 0.3, 1); color: #059669; }
     }
   }

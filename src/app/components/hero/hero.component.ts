@@ -12,11 +12,11 @@ import { CommonModule } from '@angular/common';
       <div class="hero-container container">
         <div class="hero-content">
           <div class="reveal-delay-1">
-            <span class="eyebrow">AI ERP for Retail & E-Commerce</span>
+            <span class="eyebrow">AI ERP for Retail &amp; E-Commerce</span>
           </div>
           
           <h1 class="headline reveal-delay-2">
-            The intelligent command center for <span class="text-highlight-pink">Retail & E-commerce</span>
+            The intelligent command center for <span class="text-highlight-pink">Retail &amp; E-commerce</span>
           </h1>
 
           <p class="subtext reveal-delay-3">
@@ -53,7 +53,7 @@ import { CommonModule } from '@angular/common';
               </svg>
               <div class="data-point-hud" style="left: 80%; top: 5px;"></div>
             </div>
-            <span class="caption">Real-time P&L</span>
+            <span class="caption">Real-time P&amp;L</span>
           </div>
 
           <!-- Row 2: Sales + CAC -->
@@ -62,7 +62,7 @@ import { CommonModule } from '@angular/common';
             <div class="hud-corner bottom-right"></div>
             <span class="label">Live Sales <span class="sys-tag">SYS: POS-OK</span></span>
             <div class="value">
-              <app-counter [target]="284500" prefix="₹"></app-counter>
+              <app-counter [target]="284500" prefix="&#8377;"></app-counter>
             </div>
           </div>
 
@@ -70,8 +70,8 @@ import { CommonModule } from '@angular/common';
             <div class="hud-corner bottom-left"></div>
             <span class="label">CAC (Global) <span class="sys-tag">REF: ALPHA</span></span>
             <div class="value small-label">
-              <span class="currency">₹</span><app-counter [target]="240"></app-counter>
-              <span class="detail-tag">TARGET: ₹300</span>
+              <span class="currency">&#8377;</span><app-counter [target]="240"></app-counter>
+              <span class="detail-tag">TARGET: &#8377;300</span>
             </div>
           </div>
 
@@ -100,7 +100,7 @@ import { CommonModule } from '@angular/common';
             <div class="metric-horizontal">
               <span class="label">Avg Order Value</span>
               <div class="value small">
-                <app-counter [target]="2450" prefix="₹"></app-counter>
+                <app-counter [target]="2450" prefix="&#8377;"></app-counter>
               </div>
             </div>
           </div>

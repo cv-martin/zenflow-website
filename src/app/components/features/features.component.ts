@@ -18,7 +18,7 @@ import { ScrollRevealDirective } from '../../directives/scroll-reveal.directive'
         <div class="container grid-2-col">
           <div class="step-indicator">01</div>
           <div class="text-content">
-            <h2><span class="text-highlight-pink">Billing</span> (POS)</h2>
+            <h2><span style="color: var(--primary-color);">Billing</span> (POS)</h2>
             <h3>Lightning fast billing for In-Store and Online orders.</h3>
             <ul class="sophisticated-list">
               <li>Faster Billing, multi-GST support</li>
@@ -49,7 +49,7 @@ import { ScrollRevealDirective } from '../../directives/scroll-reveal.directive'
         <div class="container grid-2-col swap-desktop">
           <div class="step-indicator right-side">02</div>
           <div class="text-content">
-            <h2>Real-time <span class="text-highlight-pink">Inventory</span></h2>
+            <h2>Real-time <span style="color: var(--primary-color);">Inventory</span></h2>
             <h3>Real-time visibility across your entire network.</h3>
             <ul class="sophisticated-list">
               <li>Track expiry, batch, and multidimensional SKUs</li>
@@ -79,7 +79,7 @@ import { ScrollRevealDirective } from '../../directives/scroll-reveal.directive'
         <div class="container grid-2-col">
           <div class="step-indicator">03</div>
           <div class="text-content">
-            <h2>Financial <span class="text-highlight-pink">Accounting</span></h2>
+            <h2>Financial <span style="color: var(--primary-color);">Accounting</span></h2>
             <h3>Auto-Post journal entries. Save 10+ hours/week.</h3>
             <ul class="sophisticated-list">
               <li>Fully reconciled Daily Sales Reports</li>
@@ -104,7 +104,7 @@ import { ScrollRevealDirective } from '../../directives/scroll-reveal.directive'
       position: absolute;
       top: 0; bottom: 0; left: 50%;
       width: 1px;
-      background: linear-gradient(to bottom, transparent, rgba(99, 102, 241, 0.2), transparent);
+      background: linear-gradient(to bottom, transparent, rgba(99, 102, 241, 0.12), transparent);
       transform: translateX(-50%);
     }
 
@@ -125,9 +125,9 @@ import { ScrollRevealDirective } from '../../directives/scroll-reveal.directive'
     }
 
     .sophisticated-list li {
-      margin-bottom: 1rem; font-weight: 600; color: var(--text-dark);
+      margin-bottom: 1rem; font-weight: 500; color: var(--text-medium);
       display: flex; align-items: center; gap: 0.8rem;
-      &::before { content: '→'; color: var(--primary-color); font-weight: 900; }
+      &::before { content: ''; display: inline-block; width: 7px; height: 7px; background: var(--primary-color); border-radius: 2px; transform: rotate(45deg); flex-shrink: 0; opacity: 0.8; }
     }
 
     .glass-mockup {
@@ -141,7 +141,7 @@ import { ScrollRevealDirective } from '../../directives/scroll-reveal.directive'
     }
 
     /* Terminal/POS Styles */
-    .pos-terminal { font-family: monospace; font-size: 0.9rem; will-change: transform; transition: transform 0.3s ease; }
+    .pos-terminal { font-family: var(--font-body); font-size: 0.9rem; will-change: transform; transition: transform 0.3s ease; }
     .pos-header, .pos-total { display: flex; justify-content: space-between; padding: 0.5rem 0; }
     .pos-header { border-bottom: 1px solid rgba(0,0,0,0.05); margin-bottom: 1rem; color: var(--text-light); }
     .pos-total { border-top: 1px solid rgba(0,0,0,0.05); margin-top: 1rem; font-weight: 900; font-size: 1.1rem; }

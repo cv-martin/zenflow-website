@@ -14,7 +14,7 @@ import { FinalCtaComponent } from '../../components/final-cta/final-cta.componen
       <!-- SECTION 1: Network Intelligence Hero -->
       <section class="hero-section reveal-active">
         <div class="eyebrow">GLOBAL WAREHOUSE ORCHESTRATION</div>
-        <h1 class="text-gradient-premium">Lightning-fast <span class="text-highlight-pink">Inventory</span> intelligence.</h1>
+        <h1>Lightning-fast <span class="text-highlight-pink">Inventory</span> intelligence.</h1>
         <p>Perfectly balanced stock. No overstocking or losing a sale due to out of stock.</p>
 
         <div class="hero-subline">Orchestrating distributed retail operations with unified AI intelligence.</div>

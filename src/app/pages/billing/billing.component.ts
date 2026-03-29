@@ -12,7 +12,7 @@ import { FinalCtaComponent } from '../../components/final-cta/final-cta.componen
       <!-- SECTION 1: Centered Hero (Fleet Visual Refined) -->
       <section class="hero-section reveal-active">
         <div class="eyebrow">SMART BILLING</div>
-        <h1 class="gradient-text"><span class="text-highlight-pink">Retail Billing</span><br>Reimagined.</h1>
+        <h1><span class="text-highlight-pink">Retail Billing</span><br>Reimagined.</h1>
         <p>Process sales, apply promotions, handle GST, and sync across stores — instantly. 40% faster checkouts and 15% increase in repeat visits.</p>
 
         <div class="hero-cta">
